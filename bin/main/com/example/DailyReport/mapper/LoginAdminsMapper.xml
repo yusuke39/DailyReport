@@ -4,8 +4,8 @@
 
 <mapper namespace="com.example.DailyReport.mapper.LoginAdminsMapper">
 
-    <select id="findAdmin" resultType="List">
-        select * from admins where email = #{email} and password = #{password};
+    <select id="findAdmin" resultType="com.example.DailyReport.domain.Admin">
+        select email,password from admins where email = #{email} and password = #{password};
     </select>
 
 </mapper>

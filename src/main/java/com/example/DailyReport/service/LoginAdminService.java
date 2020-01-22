@@ -30,7 +30,6 @@ public class LoginAdminService {
 
         //もし、リストの中身が０ならぬっlを返す
         if(adminList.size() == 0){
-            System.out.println("0だよ");
             return null;
         }
 
@@ -40,7 +39,6 @@ public class LoginAdminService {
         String password = adminList.get(0).getPassword();
 
         if(!email.equals(loginAdmin.getEmail()) && !password.equals(loginAdmin.getPassword())){
-            System.out.println("合わないよ");
             return null;
         }
 
