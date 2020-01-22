@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="ja">
+<html lang="ja" xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -34,7 +34,7 @@
 					id="bs-example-navbar-collapse-1">
 					<ul class="nav navbar-nav">
 						<li class="active"><a href="admin_training_list.html">研修コース</a></li>
-						<li><a href="facility_manager_list.html">運営管理者</a></li>
+						<li><a th:href="@{/operationManager}">運営管理者</a></li>
 						<li><a href="company_list.html">企業(企業担当者)</a></li>
 						<li><a href="instructor_list.html">講師</a></li>
 					</ul>
