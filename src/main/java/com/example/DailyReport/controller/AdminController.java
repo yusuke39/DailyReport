@@ -34,7 +34,7 @@ public class AdminController {
        List<Admin> admin =  loginAdminService.loginCheckAdmin(loginAdmin);
 
        if(admin == null){
-           model.addAttribute("メールアドレスかパスワードが正しくありません");
+           model.addAttribute("loginError","メールアドレスかパスワードが正しくありません");
            return "admin/admin_login";
       }
 

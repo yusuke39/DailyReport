@@ -26,6 +26,7 @@
 					<form method="post" th:action="@{checkAdmin}">
 						<fieldset>
 							<legend>運営管理者ログイン </legend>
+							<spna th:text="${loginError}" style="color: red"></spna>
 							<div class="form-group">
 								<label for="inputEmail">Email:</label> <label
 									class="control-label" style="color: red" for="inputError">メールアドレスを入力してください</label>
