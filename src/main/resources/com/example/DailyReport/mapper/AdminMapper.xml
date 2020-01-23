@@ -4,8 +4,24 @@
 
 <mapper namespace="com.example.DailyReport.mapper.AdminMapper">
 
+    <!--adminテーブルから１件検索する-->
     <select id="findAdmin" resultType="com.example.DailyReport.domain.Admin">
+        select id,name,kana,email,password from admins where email = #{email} and password = #{password};
+    </select>
+
+    <!--adminテーブルのレコードを全件検索する-->
+    <select id="findAll" resultType="com.example.DailyReport.domain.Admin">
         select email,password from admins where email = #{email} and password = #{password};
     </select>
+
+    <!--admins,companies,admins_companiesのテーブルを結合して、紐づいている企業と、管理者を抽出する-->
+    <select id="findAllAdminsAndCompanies" resultType="com.example.DailyReport.domain.AdminsCompanies">
+        select * from admins a
+        left outer join admins_companies ac on ac.admins_id = a.id
+        left outer join companies c on ac.companies_id = c.id
+        where ac.admins_id = #{a.id} and ac.companies_id = #{c.id};
+    </select>
+
+
 
 </mapper>
