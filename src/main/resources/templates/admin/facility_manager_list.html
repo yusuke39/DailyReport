@@ -73,7 +73,14 @@
 						<tr th:each="admin : ${adminList}">
 							<td th:text="${admin.name}">管理者一郎</td>
 							<td th:text="${admin.email}">ichiro@gmail.com</td>
-							<td th:text="${admin.name}">すべて</td>
+							<td th:unless="${admin.canShowAllCompany}">
+								<span th:each="company : ${admin.companyList}">
+									<p th:text="${company.name}"><br></p>
+								</span>
+							</td>
+							<td th:if="${admin.canShowAllCompany}">
+								すべて
+							</td>
 							<td><form action="facility_manager_detail.html" method="post"><button type="submit">編集</button></form></td>
 						</tr>
 					</tbody>
