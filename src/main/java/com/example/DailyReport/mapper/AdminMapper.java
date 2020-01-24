@@ -1,6 +1,8 @@
 package com.example.DailyReport.mapper;
 
 import com.example.DailyReport.domain.Admin;
+import com.example.DailyReport.domain.AdminsAndCompanies;
+import com.example.DailyReport.domain.Companies;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
@@ -19,5 +21,11 @@ public interface AdminMapper {
     List<Admin> findAdmin(@Param("email")String email, @Param("password")String password);
 
 
+
+    /**
+     * Admin,Company,Admins_companiesを結合して、検索する.
+     * @return
+     */
+    List<Admin> findAllAdminsAndCompanies();
 
 }

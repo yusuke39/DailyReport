@@ -2,8 +2,10 @@ package com.example.DailyReport.domain;
 
 import java.util.List;
 
+
 public class Admin {
 
+    private Integer id;
     /*氏名*/
     private String name;
     /*かな*/
@@ -15,10 +17,11 @@ public class Admin {
     /*全ての企業を閲覧できる権限があるか（true:見れる、false:見れない）*/
     private boolean canShowAllCompany;
     /*企業リスト*/
-    private List<String> companyList;
+    private List<Companies> companyList;
 
 
-    public Admin(String name, String kana, String email, String password, boolean canShowAllCompany, List<String> companyList) {
+    public Admin(Integer id, String name, String kana, String email, String password, boolean canShowAllCompany, List<Companies> companyList) {
+        this.id = id;
         this.name = name;
         this.kana = kana;
         this.email = email;
@@ -28,19 +31,27 @@ public class Admin {
     }
 
     public Admin() {
-
     }
 
     @Override
     public String toString() {
         return "Admin{" +
-                "name='" + name + '\'' +
+                "id=" + id +
+                ", name='" + name + '\'' +
                 ", kana='" + kana + '\'' +
                 ", email='" + email + '\'' +
                 ", password='" + password + '\'' +
                 ", canShowAllCompany=" + canShowAllCompany +
                 ", companyList=" + companyList +
                 '}';
+    }
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
     }
 
     public String getName() {
@@ -83,11 +94,11 @@ public class Admin {
         this.canShowAllCompany = canShowAllCompany;
     }
 
-    public List<String> getCompanyList() {
+    public List<Companies> getCompanyList() {
         return companyList;
     }
 
-    public void setCompanyList(List<String> companyList) {
+    public void setCompanyList(List<Companies> companyList) {
         this.companyList = companyList;
     }
 }

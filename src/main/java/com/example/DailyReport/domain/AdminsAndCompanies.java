@@ -1,5 +1,7 @@
 package com.example.DailyReport.domain;
 
+import java.util.List;
+
 public class AdminsAndCompanies {
 
     /*管理者ID*/
@@ -26,6 +28,8 @@ public class AdminsAndCompanies {
     private String c_kana;
     /*備考（企業）*/
     private String c_remarks;
+
+    private List<AdminsAndCompanies> adminsAndCompaniesList;
 
     public AdminsAndCompanies(Integer a_id, String a_name, String a_kana, String a_email, String a_password, boolean a_canShowAllCompanies,
                               Integer ac_adminsId, Integer ac_companiesId, Integer c_id, String c_name, String c_kana, String c_remarks) {

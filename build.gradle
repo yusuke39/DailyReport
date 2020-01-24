@@ -25,6 +25,7 @@ dependencies {
 		compile("org.mybatis.spring.boot:mybatis-spring-boot-starter:2.1.1")
 	}
 	testImplementation 'org.springframework.security:spring-security-test'
+//	implementation 'android.arch.work:work-runtime:1.0.1'
 }
 
 test {

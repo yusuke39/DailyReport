@@ -9,20 +9,31 @@
         select id,name,kana,email,password from admins where email = #{email} and password = #{password};
     </select>
 
-    <!--adminテーブルのレコードを全件検索する-->
-    <select id="findAll" resultType="com.example.DailyReport.domain.Admin">
-        select email,password from admins where email = #{email} and password = #{password};
-    </select>
 
-    <!--admins,companies,admins_companiesのテーブルを結合して、紐づいている企業と、管理者を抽出する-->
-    <select id="findAllAdminsAndCompanies" resultType="com.example.DailyReport.domain.AdminsCompanies">
+
+    <!-- admins,companies,admins_companiesのテーブルを結合して、紐づいている企業と、管理者を抽出する-->
+    <select id="findAllAdminsAndCompanies" resultMap="AdminResult">
         select a.id a_id ,a.name a_name ,a.kana a_kana, a.email a_email, a.password a_password ,a.can_show_all_company a_canShowAllCompanies,
         ac.admins_id ac_adminsId ,ac.companies_id ac_companiesId ,c.id c_id ,c.name c_name ,c.kana c_kana ,c.remarks c_remarks
         from admins a
         left outer join admins_companies ac on ac.admins_id = a.id
-        left outer join companies c on ac.companies_id = c.id
-        where ac.admins_id = #{a.id} and ac.companies_id = #{c.id};
+        left outer join companies c on ac.companies_id = c.id;
     </select>
+
+    <resultMap id="AdminResult" type="com.example.DailyReport.domain.Admin">
+        <id property="id" column="a_id"/>
+        <result column="a_name" property="name"/>
+        <result column="a_kana" property="kana"/>
+        <result column="a_email" property="email"/>
+        <result column="a_password" property="password"/>
+        <result column="a_canShowAllCompanies" property="canShowAllCompany"/>
+        <collection property="companyList" ofType="com.example.DailyReport.domain.Companies" >
+            <result column="c_id" property="id"/>
+            <result column="c_name" property="name"/>
+            <result column="c_kana" property="kana"/>
+            <result column="c_remarks" property="remarks"/>
+        </collection>
+    </resultMap>
 
 
 

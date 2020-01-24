@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="ja">
+<html lang="ja" xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -70,28 +70,10 @@
 						</tr>
 					</thead>
 					<tbody>
-						<tr>
-							<td>管理者一郎</td>
-							<td>ichiro@gmail.com</td>
-							<td>すべて</td>
-							<td><form action="facility_manager_detail.html" method="post"><button type="submit">編集</button></form></td>
-						</tr>
-						<tr>
-							<td>管理者次郎</td>
-							<td>ichiro@gmail.com</td>
-							<td>株式会社１１１<br/>株式会社２２２</td>
-							<td><form action="facility_manager_detail.html" method="post"><button type="submit">編集</button></form></td>
-						</tr>
-						<tr>
-							<td>管理者三郎</td>
-							<td>ichiro@gmail.com</td>
-							<td>株式会社１１１<br/>株式会社２２２</td>
-							<td><form action="facility_manager_detail.html" method="post"><button type="submit">編集</button></form></td>
-						</tr>
-						<tr>
-							<td>管理者四朗</td>
-							<td>ichiro@gmail.com</td>
-							<td>株式会社１１１<br/>株式会社２２２<br/>株式会社３３３</td>
+						<tr th:each="admin : ${adminList}">
+							<td th:text="${admin.name}">管理者一郎</td>
+							<td th:text="${admin.email}">ichiro@gmail.com</td>
+							<td th:text="${admin.name}">すべて</td>
 							<td><form action="facility_manager_detail.html" method="post"><button type="submit">編集</button></form></td>
 						</tr>
 					</tbody>
