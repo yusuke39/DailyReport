@@ -2,22 +2,21 @@ package com.example.DailyReport.domain;
 
 public class Companies {
 
+    /*企業ID*/
     private Integer id;
-
+    /*企業名*/
     private String name;
-
+    /*企業名（かな）*/
     private String kana;
-
+    /*備考*/
     private String remarks;
 
-    private Integer adminsId;
 
-    public Companies(Integer id, String name, String kana, String remarks, Integer adminsId) {
+    public Companies(Integer id, String name, String kana, String remarks) {
         this.id = id;
         this.name = name;
         this.kana = kana;
         this.remarks = remarks;
-        this.adminsId = adminsId;
     }
 
     public Companies() {
@@ -30,7 +29,6 @@ public class Companies {
                 ", name='" + name + '\'' +
                 ", kana='" + kana + '\'' +
                 ", remarks='" + remarks + '\'' +
-                ", adminsId=" + adminsId +
                 '}';
     }
 
@@ -64,13 +62,5 @@ public class Companies {
 
     public void setRemarks(String remarks) {
         this.remarks = remarks;
-    }
-
-    public Integer getAdminsId() {
-        return adminsId;
-    }
-
-    public void setAdminsId(Integer adminsId) {
-        this.adminsId = adminsId;
     }
 }

@@ -1,8 +1,9 @@
 package com.example.DailyReport.controller;
 
 import com.example.DailyReport.domain.Admin;
-import com.example.DailyReport.domain.AdminsAndCompanies;
+import com.example.DailyReport.domain.Companies;
 import com.example.DailyReport.form.LoginAdmin;
+import com.example.DailyReport.form.RegisterAdminForm;
 import com.example.DailyReport.service.AdminService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -66,4 +67,32 @@ public class AdminController {
         return "admin/facility_manager_list";
     }
 
+
+    /**
+     * 運営管理者登録画面を表示する.
+     * @return
+     */
+    @RequestMapping("/registerAdmin")
+    public String registerAdmin(Model model){
+
+        List<Companies> companyList = adminService.findAllCompanies();
+
+        model.addAttribute("companyList", companyList);
+
+        return "admin/facility_manager_detail";
+    }
+
+
+    /**
+     * 管理者情報を登録する.
+     * @param registerAdminForm
+     * @return
+     */
+    @RequestMapping("/registerAdminDetail")
+    public String registerAdminDetail(RegisterAdminForm registerAdminForm){
+
+        adminService.registerAdminAndRelationCompanies(registerAdminForm);
+
+        return "redirect:/operationManager";
+    }
 }

@@ -9,6 +9,10 @@
         select id,name,kana,email,password from admins where email = #{email} and password = #{password};
     </select>
 
+<!--    企業情報をすべて取得-->
+    <select id="findAllCompanies" resultType="com.example.DailyReport.domain.Companies">
+        select id,name,kana,remarks from companies;
+    </select>
 
 
     <!-- admins,companies,admins_companiesのテーブルを結合して、紐づいている企業と、管理者を抽出する-->
@@ -35,6 +39,19 @@
         </collection>
     </resultMap>
 
+
+
+    <!-- 管理者情報を登録する-->
+    <insert id="insertAdmin" parameterType="com.example.DailyReport.domain.Admin" useGeneratedKeys="true" keyProperty="id">
+        insert into admins (name,kana,email,password,can_show_all_company)
+        values (#{name},#{kana},#{email},#{password},#{canShowAllCompany});
+    </insert>
+
+
+    <insert id="insertAdminsIdAndCompaniesId">
+        insert into admins_companies (admins_id,companies_id)
+        values (#{admins_id},#{companies_id});
+    </insert>
 
 
 </mapper>

@@ -1,17 +1,15 @@
 package com.example.DailyReport.service;
 
 import com.example.DailyReport.domain.Admin;
-import com.example.DailyReport.domain.AdminsAndCompanies;
+import com.example.DailyReport.domain.AdminsCompanies;
 import com.example.DailyReport.domain.Companies;
 import com.example.DailyReport.form.LoginAdmin;
+import com.example.DailyReport.form.RegisterAdminForm;
 import com.example.DailyReport.mapper.AdminMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.lang.reflect.Array;
-import java.util.LinkedHashSet;
 import java.util.List;
-import java.util.Set;
 
 
 @Service
@@ -49,20 +47,61 @@ public class AdminService {
 
 
     /**
+     * 企業を全権取得する.
+     * @return
+     */
+    public List<Companies> findAllCompanies(){
+        return adminMapper.findAllCompanies();
+    }
+
+
+    /**
      * 管理者と管理者に紐づいた企業のリストをAdminドメインに詰めて、リストとして返す.
      * @return adminList
      *
      */
     public List<Admin> findAllAdminsAndCompanies(){
 
-    List<Admin> adminList = adminMapper.findAllAdminsAndCompanies();
-
-
-    System.out.println(adminList);
-
-
-
-        return adminList;
+        return adminMapper.findAllAdminsAndCompanies();
     }
 
+
+
+    public void registerAdminAndRelationCompanies(RegisterAdminForm registerAdminForm){
+
+        //adminの情報をAdminドメインに詰める
+        Admin admin = new Admin();
+        admin.setName(registerAdminForm.getName());
+        admin.setKana(registerAdminForm.getKana());
+        admin.setEmail(registerAdminForm.getEmail());
+        admin.setPassword(registerAdminForm.getPassword());
+        admin.setCanShowAllCompany(registerAdminForm.isResponsibleCompany());
+
+        //Adminドメインに詰めた物をadminにインサートする＆インサート時に生成されたidを取得する
+       // int adminID =  adminMapper.insertAdminReturnId(admin.getName(),admin.getKana(),admin.getEmail(),admin.getPassword(),admin.isCan_show_all_company());
+
+        //int adminID = adminMapper.insertAdmin(admin.getName(),admin.getKana(),admin.getEmail(),admin.getPassword(),admin.isCan_show_all_company());
+
+
+         adminMapper.insertAdmin(admin);
+
+        //カンパニーリストを受け取る
+        List<String> companiesId = registerAdminForm.getCompany();
+
+        //カンパニーリストがnullだったらadmins_companiseにinsertmする必要がないので処理終了とする
+        if(companiesId == null){
+            return;
+        }
+
+        //カンパニーリストに値があれば、AdminsCompaniesドメインに
+        AdminsCompanies adminsCompanies = new AdminsCompanies();
+        adminsCompanies.setAdmins_id(admin.getId());
+
+        //カンパニーリストの中の数字を数値に変換して、ドメインに詰める
+        for(int i = 0; companiesId.size() > i; i ++){
+            int companyId = Integer.parseInt(companiesId.get(i));
+            adminsCompanies.setCompanies_id(companyId);
+            adminMapper.insertAdminsIdAndCompaniesId(adminsCompanies);
+        }
+    }
 }
