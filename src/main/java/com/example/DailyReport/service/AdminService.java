@@ -7,6 +7,7 @@ import com.example.DailyReport.form.LoginAdmin;
 import com.example.DailyReport.form.RegisterAdminForm;
 import com.example.DailyReport.mapper.AdminMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -19,6 +20,7 @@ public class AdminService {
     private AdminMapper adminMapper;
 
 
+
     /**
      * 管理者のログイン情報を渡す.
      *
@@ -27,8 +29,10 @@ public class AdminService {
      */
     public List<Admin> findAdmin(LoginAdmin loginAdmin){
 
+        BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
+
         //帰ってきたドメインをリストに入れる
-        List<Admin> adminList = adminMapper.findAdmin(loginAdmin.getEmail(),loginAdmin.getPassword());
+        List<Admin> adminList = adminMapper.findAdmin(loginAdmin.getEmail());
         //もし、リストの中身が０ならぬっlを返す
         if(adminList.size() == 0){
             return null;
@@ -37,8 +41,8 @@ public class AdminService {
         String email = adminList.get(0).getEmail();
         //リストからpasswordを抽出
         String password = adminList.get(0).getPassword();
-        //入力されたメールアドレスとパスワードDBに入っていて、検索して取ってきたメールアドレスとパスワードと違ったらはじく
-        if(!email.equals(loginAdmin.getEmail()) && !password.equals(loginAdmin.getPassword())){
+        //入力されたメールアドレスとパスワードDBに入っていて、検索して取ってきたメールアドレスとパスワードと違ったらはじく(パスワードはハッシュ化）
+        if(!bCryptPasswordEncoder.matches(loginAdmin.getPassword(),password)){
             return null;
         }
 
@@ -66,6 +70,11 @@ public class AdminService {
     }
 
 
+    /**
+     * 管理者IDを使って、管理者と企業を検索して返ってきた結果を返す.
+     * @param adminId
+     * @return
+     */
     public Admin findAdminAndCompanyByAdminId(String adminId){
 
         //Stringで受け取った管理者IDを数値に直す
@@ -91,12 +100,16 @@ public class AdminService {
      */
     public void registerAdminAndRelationCompanies(RegisterAdminForm registerAdminForm){
 
+        //パスワードをハッシュ化する
+        BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
+        String hashPassword = bCryptPasswordEncoder.encode(registerAdminForm.getPassword());
+
         //adminの情報をAdminドメインに詰める
         Admin admin = new Admin();
         admin.setName(registerAdminForm.getName());
         admin.setKana(registerAdminForm.getKana());
         admin.setEmail(registerAdminForm.getEmail());
-        admin.setPassword(registerAdminForm.getPassword());
+        admin.setPassword(hashPassword);
         admin.setCanShowAllCompany(registerAdminForm.isResponsibleCompany());
         adminMapper.insertAdmin(admin);
 

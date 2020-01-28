@@ -20,7 +20,7 @@ public interface AdminMapper {
      * @param email,password
      * @return 管理者を１件検索して返す.
      */
-    List<Admin> findAdmin(@Param("email")String email, @Param("password")String password);
+    List<Admin> findAdmin(String email);
 
 
     /**

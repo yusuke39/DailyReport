@@ -12,7 +12,7 @@
 
     <!--adminテーブルから１件検索する-->
     <select id="findAdmin" resultType="com.example.DailyReport.domain.Admin">
-        select id,name,kana,email,password from admins where email = #{email} and password = #{password};
+        select id,name,kana,email,password from admins where email = #{email};
     </select>
 
     <!-- 企業情報をすべて取得-->

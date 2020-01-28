@@ -7,7 +7,6 @@ import com.example.DailyReport.form.RegisterAdminForm;
 import com.example.DailyReport.mapper.AdminMapper;
 import com.example.DailyReport.service.AdminService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -29,12 +28,13 @@ public class AdminController {
     @Autowired
     private HttpServletRequest httpServletRequest;
 
+
     /**
      * ログイン画面表示.
      *
      * @return
      */
-    @RequestMapping("/login")
+    @RequestMapping("/admin/login")
     public String login() {
 
         return "admin/admin_login";
@@ -48,7 +48,7 @@ public class AdminController {
      * @param model
      * @return
      */
-    @RequestMapping("/checkAdmin")
+    @RequestMapping("/admin/checkAdmin")
     public String checkAdmin(LoginAdmin loginAdmin, Model model) {
         List<Admin> admin = adminService.findAdmin(loginAdmin);
 
@@ -69,7 +69,7 @@ public class AdminController {
      *
      * @return
      */
-    @RequestMapping("/operationManager")
+    @RequestMapping("/admin/operationManager")
     public String operationManager(Model model) {
 
         List<Admin> adminList = adminService.findAllAdminsAndCompanies();
@@ -84,7 +84,7 @@ public class AdminController {
      * 運営管理者登録画面を表示する.
      * @return
      */
-    @RequestMapping("/registerAdmin")
+    @RequestMapping("/admin/registerAdmin")
     public String registerAdmin(Model model){
 
         List<Companies> companyList = adminService.findAllCompanies();
@@ -100,18 +100,12 @@ public class AdminController {
      * @param registerAdminForm
      * @return
      */
-    @RequestMapping("/registerAdminDetail")
+    @RequestMapping("/admin/registerAdminDetail")
     public String registerAdminDetail(RegisterAdminForm registerAdminForm){
-
-        BCryptPasswordEncoder bcrypt = new BCryptPasswordEncoder();
-
-        
-
-        System.out.println(registerAdminForm);
 
         adminService.registerAdminAndRelationCompanies(registerAdminForm);
 
-        return "redirect:/operationManager";
+        return "redirect:/admin/operationManager";
     }
 
 
@@ -120,7 +114,7 @@ public class AdminController {
      * @param model
      * @return
      */
-    @RequestMapping("/editAdmin")
+    @RequestMapping("/admin/editAdmin")
     public String editAdmin(Model model){
 
         //リクエストパラメーターの値を受け取る
