@@ -2,6 +2,7 @@ package com.example.DailyReport.controller;
 
 import com.example.DailyReport.domain.Admin;
 import com.example.DailyReport.domain.Companies;
+import com.example.DailyReport.form.AdminEditForm;
 import com.example.DailyReport.form.LoginAdmin;
 import com.example.DailyReport.form.RegisterAdminForm;
 import com.example.DailyReport.mapper.AdminMapper;
@@ -101,7 +102,12 @@ public class AdminController {
      * @return
      */
     @RequestMapping("/admin/registerAdminDetail")
-    public String registerAdminDetail(RegisterAdminForm registerAdminForm){
+    public String registerAdminDetail(RegisterAdminForm registerAdminForm, Model model){
+
+//        if(!(registerAdminForm.getPassword() == registerAdminForm.getConfirmPassword())){
+//            model.addAttribute("passwordMismatch","パスワードと確認用パスワードが一致しません");
+//            return "admin/facility_manager_detail";
+//        }
 
         adminService.registerAdminAndRelationCompanies(registerAdminForm);
 
@@ -123,8 +129,28 @@ public class AdminController {
         //管理者と企業を１件探す
         Admin admin = adminService.findAdminAndCompanyByAdminId(adminId);
 
+        //企業情報を全権取得する
+        List<Companies> companiesList = adminMapper.findAllCompanies();
+
+        model.addAttribute("companiesList", companiesList);
+
         model.addAttribute("admin", admin);
 
         return "admin/admin_manager_detail_edit";
     }
+
+
+    /**
+     * 管理者情報を編集する.
+     * @param adminEditForm
+     * @return
+     */
+    @RequestMapping("/admin/editAdminDetail")
+    public String editAdminDetail(AdminEditForm adminEditForm){
+
+        adminService.editAdminAndRelationCompanies(adminEditForm);
+
+        return "redirect:/admin/operationManager";
+    }
+
 }

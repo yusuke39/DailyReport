@@ -15,6 +15,23 @@
         select id,name,kana,email,password from admins where email = #{email};
     </select>
 
+
+    <!-- admins_companiesから１件検索する-->
+    <select id="findAdminsCompaniesById" resultType="com.example.DailyReport.domain.AdminsCompanies">
+        select admins_id,companies_id from admins_companies where admins_id=#{adminId};
+    </select>
+
+
+    <!-- admins_companiesから１件削除する-->
+    <delete id="deleteAdminCompaniesByAdminsId" parameterType="int">
+        delete from admins_companies where admins_id=#{adminId};
+    </delete>
+
+    <delete id="deleteAdminCompaniesByCompaniesId">
+        delete from admins_companies where companies_id _id=#{companiesId};
+    </delete>
+
+
     <!-- 企業情報をすべて取得-->
     <select id="findAllCompanies" resultType="com.example.DailyReport.domain.Companies">
         select id,name,kana,remarks from companies;
@@ -70,6 +87,10 @@
         insert into admins_companies (admins_id,companies_id)
         values (#{admins_id},#{companies_id});
     </insert>
+
+    <update id="updateAdmin">
+        update admins set name=#{name},kana=#{kana},email=#{email},can_show_all_company=#{canShowAllCompany} where id=#{id};
+    </update>
 
 
 </mapper>

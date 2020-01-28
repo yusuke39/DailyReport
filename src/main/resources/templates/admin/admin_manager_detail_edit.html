@@ -88,7 +88,8 @@
         <div
                 class="col-lg-offset-3 col-lg-6 col-md-offset-2 col-md-8 col-sm-10 col-xs-12">
             <div class="well">
-                <form method="post" th:action="@{/admin/registerAdminDetail}" name="adminEditForm">
+                <form method="post" th:action="@{/admin/editAdminDetail}" name="adminEditForm">
+                    <input type="hidden" name="adminId" th:value="${admin.id}">
                     <fieldset>
                         <legend>運営管理者編集画面</legend>
                         <div class="form-group">
@@ -112,7 +113,7 @@
                         <div class="form-group">
                             <div class="row">
                                 <div class="col-sm-12">
-                                    <label for="inputEmail">メール</label> <label
+                                    <label for="inputEmail">メール:</label> <label
                                         class="control-label" style="color: red" for="inputEmail">メールを入力してください</label>
                                     <input type="text" th:value="${admin.email}" id="inputEmail" class="form-control" name="email">
                                 </div>
@@ -121,41 +122,17 @@
                         <div class="form-group">
                             <div class="row">
                                 <div class="col-sm-12">
-                                    <label for="inputPassword">パスワード</label> <label
-                                        class="control-label" style="color: red" for="inputPassword">パスワードを入力してください</label>
-                                    <input type="password" th:value="${admin.password}" id="inputPassword" class="form-control" name="password">
+                                    <label for="inputResponsibleCompany">担当企業:</label>
                                 </div>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <div class="row">
+                                 <div class="col-sm-12">
+                                     <label for="inputConfirmationPassword">現在登録されている担当企業</label>
+                                     <label class="control-label" style="color: red" for="inputConfirmationPassword">※必ずご確認ください</label>
+                                     <span th:each="companies : ${admin.companyList}">
+                                         <p th:text="'●' + ${companies.name}"></p>
+                                     </span>
+                                 </div>
                                 <div class="col-sm-12">
-                                    <label for="inputConfirmationPassword">確認用パスワード</label> <label
-                                        class="control-label" style="color: red"
-                                        for="inputConfirmationPassword">確認用パスワードを入力してください</label>
-                                    <input type="password" id="inputConfirmationPassword" class="form-control" name="confirmPassword">
-                                </div>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <div class="row">
-                                <div class="col-sm-12">
-                                    <label for="inputResponsibleCompany">担当企業</label>
-                                </div>
-                                <div class="form-group">
-                                    <div class="row">
-                                        <div class="col-sm-12">
-                                            <label for="inputConfirmationPassword">現在登録されている担当企業</label>
-                                            <label
-                                                class="control-label" style="color: red"
-                                                for="inputConfirmationPassword">※必ずご確認ください</label>
-                                           <span th:each="companies : ${admin.companyList}">
-                                              <p th:text="${companies.name}"></p>
-                                           </span>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-sm-12">
+                                    <label for="inputConfirmationPassword">担当企業を変更する場合は下記から選択して下さい</label><br>
                                     <label class="radio-inline">
                                         <input type="radio" name="responsibleCompany" checked="checked" onclick="responsibleCompanies();" value="true">全ての企業
                                     </label>
@@ -169,7 +146,7 @@
                                     <label class="control-label" style="color: red" for="inputError">
                                         企業を選択してください</label>
                                     <select class="form-control" id="selectCompany" onchange="addCompany();">
-											<span th:each="company : ${companyList}">
+											<span th:each="company : ${companiesList}">
 												<option th:value="${company.id}" th:text="${company.name}">株式会社AAA</option>
 											</span>
                                     </select><br/>

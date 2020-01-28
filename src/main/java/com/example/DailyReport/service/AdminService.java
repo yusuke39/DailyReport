@@ -3,6 +3,7 @@ package com.example.DailyReport.service;
 import com.example.DailyReport.domain.Admin;
 import com.example.DailyReport.domain.AdminsCompanies;
 import com.example.DailyReport.domain.Companies;
+import com.example.DailyReport.form.AdminEditForm;
 import com.example.DailyReport.form.LoginAdmin;
 import com.example.DailyReport.form.RegisterAdminForm;
 import com.example.DailyReport.mapper.AdminMapper;
@@ -100,6 +101,7 @@ public class AdminService {
      */
     public void registerAdminAndRelationCompanies(RegisterAdminForm registerAdminForm){
 
+
         //パスワードをハッシュ化する
         BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
         String hashPassword = bCryptPasswordEncoder.encode(registerAdminForm.getPassword());
@@ -133,4 +135,74 @@ public class AdminService {
             adminMapper.insertAdminsIdAndCompaniesId(adminsCompanies);
         }
     }
+
+
+    /**
+     * 管理者情報を編集の時に使う
+     * 現在の管理者情報、紐づいているadmins_companiesテーブルに値があるなしで処理が変わる.
+     * @param adminEditForm
+     */
+    public void editAdminAndRelationCompanies(AdminEditForm adminEditForm){
+            System.out.println(adminEditForm);
+
+            //管理者ドメインに詰めてアップデートする
+            Admin admin = new Admin();
+            admin.setId(adminEditForm.getAdminId());
+            admin.setName(adminEditForm.getName());
+            admin.setKana(adminEditForm.getKana());
+            admin.setEmail(adminEditForm.getEmail());
+            admin.setCanShowAllCompany(adminEditForm.isResponsibleCompany());
+            adminMapper.updateAdmin(admin);
+
+
+            //カンパニーリストを変数に入れる.
+            List<String> companiesList = adminEditForm.getCompany();
+            //admins_companiesのテーブルを管理者のIDにて検索をする
+            List<AdminsCompanies> adminsCompaniesList = adminMapper.findAdminsCompaniesById(adminEditForm.getAdminId());
+
+
+            //もし、responsibleCompany=trueでadmins_companiesのテーブルのadmins_idがあるのであれば、そのadmins_idを全権削除する.
+            //(responsibleCompany=trueということはすべての企業の閲覧権限があるので、admins_companiesのテーブルには値は入れなくてOK)
+            if(adminsCompaniesList != null && adminEditForm.isResponsibleCompany()){
+                adminMapper.deleteAdminCompaniesByAdminsId(adminEditForm.getAdminId());
+                return;
+            }
+
+
+            //もしカンパニーリストがnullならここで処理終了
+            if(companiesList == null){
+                return;
+            }
+
+
+            System.out.println(adminEditForm.isResponsibleCompany());
+
+            //もし、admins_companiesの中にすでにadmins_idがあるのであれば、
+            // それをデリートして新しいcompanies_idとadmins_idをインサートする。
+            AdminsCompanies adminAndCompanies = new AdminsCompanies();
+            if(adminsCompaniesList != null){
+                adminMapper.deleteAdminCompaniesByAdminsId(adminEditForm.getAdminId());
+                adminAndCompanies.setAdmins_id(admin.getId());
+
+                //企業のリストをドメインに詰める
+                for(int i = 0; companiesList.size() > i; i ++) {
+                    int companyId = Integer.parseInt(companiesList.get(i));
+                    adminAndCompanies.setCompanies_id(companyId);
+                    adminMapper.insertAdminsIdAndCompaniesId(adminAndCompanies);
+                }
+                return;
+            }
+
+            //もし、admins_companiesの中にadmins_idが無ければ、そのままcompanies_idをadmins_id両方ともインサートする
+            if(adminsCompaniesList.size() >= 1) {
+                adminAndCompanies.setAdmins_id(admin.getId());
+
+                //カンパニーリストの中の数字を数値に変換して、ドメインに詰める、リストに入っている会社の数だけインサート文を実行する.
+                for (int i = 0; companiesList.size() > i; i++) {
+                    int companyId = Integer.parseInt(companiesList.get(i));
+                    adminAndCompanies.setCompanies_id(companyId);
+                    adminMapper.insertAdminsIdAndCompaniesId(adminAndCompanies);
+                }
+            }
+        }
 }

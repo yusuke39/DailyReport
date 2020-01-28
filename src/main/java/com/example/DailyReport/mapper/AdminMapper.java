@@ -12,6 +12,11 @@ import java.util.List;
 public interface AdminMapper {
 
 
+    /**
+     * 管理者を１件検索する.
+     * @param id
+     * @return
+     */
     Admin findAdminById(int id);
 
     /**
@@ -21,6 +26,22 @@ public interface AdminMapper {
      * @return 管理者を１件検索して返す.
      */
     List<Admin> findAdmin(String email);
+
+
+    /**
+     * admins_companiesテーブルから管理者IDを使って1件検索する.
+     * @param adminsId
+     * @return
+     */
+    List<AdminsCompanies> findAdminsCompaniesById(int adminsId);
+
+
+    /**
+     * 管理者IDを使って、admins_companiesテーブルから削除する.
+     * @param adminsId
+     * @return
+     */
+    void deleteAdminCompaniesByAdminsId(int adminsId);
 
 
     /**
@@ -56,5 +77,12 @@ public interface AdminMapper {
      * @param adminsCompanies
      */
     void insertAdminsIdAndCompaniesId(AdminsCompanies adminsCompanies);
+
+
+    /**
+     * 管理者情報をアップデートする.
+     * @param admin
+     */
+    void updateAdmin(Admin admin);
 
 }
