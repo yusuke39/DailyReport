@@ -143,7 +143,6 @@ public class AdminService {
      * @param adminEditForm
      */
     public void editAdminAndRelationCompanies(AdminEditForm adminEditForm){
-            System.out.println(adminEditForm);
 
             //管理者ドメインに詰めてアップデートする
             Admin admin = new Admin();
@@ -174,8 +173,6 @@ public class AdminService {
                 return;
             }
 
-
-            System.out.println(adminEditForm.isResponsibleCompany());
 
             //もし、admins_companiesの中にすでにadmins_idがあるのであれば、
             // それをデリートして新しいcompanies_idとadmins_idをインサートする。
