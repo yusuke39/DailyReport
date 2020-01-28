@@ -4,12 +4,18 @@
 
 <mapper namespace="com.example.DailyReport.mapper.AdminMapper">
 
+    <!--adminテーブルから１件IDを使って検索する-->
+    <select id="findAdminById" resultType="com.example.DailyReport.domain.Admin">
+        select id,name,kana,email,password from admins where id = #{id};
+    </select>
+
+
     <!--adminテーブルから１件検索する-->
     <select id="findAdmin" resultType="com.example.DailyReport.domain.Admin">
         select id,name,kana,email,password from admins where email = #{email} and password = #{password};
     </select>
 
-<!--    企業情報をすべて取得-->
+    <!-- 企業情報をすべて取得-->
     <select id="findAllCompanies" resultType="com.example.DailyReport.domain.Companies">
         select id,name,kana,remarks from companies;
     </select>
@@ -21,7 +27,18 @@
         ac.admins_id ac_adminsId ,ac.companies_id ac_companiesId ,c.id c_id ,c.name c_name ,c.kana c_kana ,c.remarks c_remarks
         from admins a
         left outer join admins_companies ac on ac.admins_id = a.id
-        left outer join companies c on ac.companies_id = c.id;
+        left outer join companies c on ac.companies_id = c.id
+        order by a.id;
+    </select>
+
+    <select id="findAdminsAndCompaniesByAdminId" resultMap="AdminResult">
+        select a.id a_id ,a.name a_name ,a.kana a_kana, a.email a_email, a.password a_password ,a.can_show_all_company a_canShowAllCompanies,
+        ac.admins_id ac_adminsId ,ac.companies_id ac_companiesId ,c.id c_id ,c.name c_name ,c.kana c_kana ,c.remarks c_remarks
+        from admins a
+        left outer join admins_companies ac on ac.admins_id = a.id
+        left outer join companies c on ac.companies_id = c.id
+        where ac.admins_id=#{adminId}
+        order by a.id;
     </select>
 
     <resultMap id="AdminResult" type="com.example.DailyReport.domain.Admin">
@@ -48,6 +65,7 @@
     </insert>
 
 
+    <!-- 管理者IDと企業IDをインサートする-->
     <insert id="insertAdminsIdAndCompaniesId">
         insert into admins_companies (admins_id,companies_id)
         values (#{admins_id},#{companies_id});

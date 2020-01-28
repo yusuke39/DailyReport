@@ -25,7 +25,7 @@ public class AdminService {
      * @param loginAdmin
      * @return 検索した１件の管理者情報.
      */
-    public List<Admin> loginCheckAdmin(LoginAdmin loginAdmin){
+    public List<Admin> findAdmin(LoginAdmin loginAdmin){
 
         //帰ってきたドメインをリストに入れる
         List<Admin> adminList = adminMapper.findAdmin(loginAdmin.getEmail(),loginAdmin.getPassword());
@@ -66,7 +66,29 @@ public class AdminService {
     }
 
 
+    public Admin findAdminAndCompanyByAdminId(String adminId){
 
+        //Stringで受け取った管理者IDを数値に直す
+        int id = Integer.parseInt(adminId);
+
+        //管理者IDを元に管理者と企業テーブルを結合して、検索をかける
+        Admin admins = adminMapper.findAdminsAndCompaniesByAdminId(id);
+
+        //もし、企業が紐づいておらず、nullが返ってきたら管理者のみ検索して返す
+        //(企業が紐づいていない＝すべての企業を閲覧する権限がある）
+        if(admins == null){
+           Admin admin =  adminMapper.findAdminById(id);
+            return admin;
+        }
+
+        return admins;
+    }
+
+
+    /**
+     * 管理者登録画面に入力された値をドメインに詰め、インサートに渡す.
+     * @param registerAdminForm
+     */
     public void registerAdminAndRelationCompanies(RegisterAdminForm registerAdminForm){
 
         //adminの情報をAdminドメインに詰める
@@ -76,14 +98,7 @@ public class AdminService {
         admin.setEmail(registerAdminForm.getEmail());
         admin.setPassword(registerAdminForm.getPassword());
         admin.setCanShowAllCompany(registerAdminForm.isResponsibleCompany());
-
-        //Adminドメインに詰めた物をadminにインサートする＆インサート時に生成されたidを取得する
-       // int adminID =  adminMapper.insertAdminReturnId(admin.getName(),admin.getKana(),admin.getEmail(),admin.getPassword(),admin.isCan_show_all_company());
-
-        //int adminID = adminMapper.insertAdmin(admin.getName(),admin.getKana(),admin.getEmail(),admin.getPassword(),admin.isCan_show_all_company());
-
-
-         adminMapper.insertAdmin(admin);
+        adminMapper.insertAdmin(admin);
 
         //カンパニーリストを受け取る
         List<String> companiesId = registerAdminForm.getCompany();
@@ -97,7 +112,8 @@ public class AdminService {
         AdminsCompanies adminsCompanies = new AdminsCompanies();
         adminsCompanies.setAdmins_id(admin.getId());
 
-        //カンパニーリストの中の数字を数値に変換して、ドメインに詰める
+
+        //カンパニーリストの中の数字を数値に変換して、ドメインに詰める、リストに入っている会社の数だけインサート文を実行する.
         for(int i = 0; companiesId.size() > i; i ++){
             int companyId = Integer.parseInt(companiesId.get(i));
             adminsCompanies.setCompanies_id(companyId);

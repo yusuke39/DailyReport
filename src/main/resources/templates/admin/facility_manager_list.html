@@ -81,7 +81,11 @@
 							<td th:if="${admin.canShowAllCompany}">
 								すべて
 							</td>
-							<td><form action="facility_manager_detail.html" method="post"><button type="submit">編集</button></form></td>
+							<td>
+								<form th:action="@{editAdmin} + '?' + 'adminId' + '=' + ${admin.id}" method="post">
+									<button type="submit">編集</button>
+								</form>
+							</td>
 						</tr>
 					</tbody>
 				</table>
