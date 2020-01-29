@@ -2,6 +2,8 @@ package com.example.DailyReport.service;
 
 import com.example.DailyReport.domain.Company;
 import com.example.DailyReport.domain.CompanyMember;
+import com.example.DailyReport.form.CompanyMemberRegisterForm;
+import com.example.DailyReport.form.CompanyRegisterForm;
 import com.example.DailyReport.mapper.CompanyMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -65,19 +67,35 @@ public class CompanyService {
 
     /**
      * 企業情報を登録する.
-     * @param companies
+     * @param companyRegisterForm
      */
-    public void insertCompany(Company companies){
+    public void insertCompany(CompanyRegisterForm companyRegisterForm){
+        Company companies = new Company();
+        companies.setName(companyRegisterForm.getCompanyName());
+        companies.setKana(companyRegisterForm.getCompanyKana());
+        companies.setRemarks(companyRegisterForm.getRemarks());
 
         companyMapper.insertCompany(companies);
 
     }
 
 
-    public void insertCompanyMember(CompanyMember companyMember){
+    public void insertCompanyMember(CompanyMemberRegisterForm companyRegisterForm){
 
 
-        //insertすると時に、紐づいている企業のIDも一緒にinsertする。
+        //CompanyMemberにインサートする
+        CompanyMember companyMember = new CompanyMember();
+        companyMember.setName(companyRegisterForm.getCompanyMemberName());
+        companyMember.setKana(companyRegisterForm.getCompanyMemberKana());
+        companyMember.setEmail(companyRegisterForm.getCompanyMemberEmail());
+        companyMember.setPassword(companyRegisterForm.getCompanyMemberPassword());
+        companyMapper.insertCompanyMember(companyMember);
+
+        //companies_company_membersにインサートする
+        int companyId = companyRegisterForm.getCompanyId();
+        int companyMemberId = companyMember.getId();
+        companyMapper.insertCompaniesCompanyMembers(companyId,companyMemberId);
+
     }
 
 }

@@ -1,6 +1,8 @@
 package com.example.DailyReport.controller;
 
 import com.example.DailyReport.domain.Company;
+import com.example.DailyReport.domain.CompanyMember;
+import com.example.DailyReport.form.CompanyMemberRegisterForm;
 import com.example.DailyReport.form.CompanyRegisterForm;
 import com.example.DailyReport.service.CompanyService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -55,12 +57,7 @@ public class CompanyController {
     @RequestMapping("/company/companyRegister")
     public String companyRegister(CompanyRegisterForm companyRegisterForm){
 
-        Company companies = new Company();
-        companies.setName(companyRegisterForm.getCompanyName());
-        companies.setKana(companyRegisterForm.getCompanyKana());
-        companies.setRemarks(companyRegisterForm.getRemarks());
-
-        companyService.insertCompany(companies);
+        companyService.insertCompany(companyRegisterForm);
 
         return "redirect:/company/companyList";
     }
@@ -94,9 +91,11 @@ public class CompanyController {
 
 
     @RequestMapping("company/companyMemberRegister")
-    public String companyMemberRegister(){
+    public String companyMemberRegister(CompanyMemberRegisterForm companyRegisterForm){
 
-        return "redirect:/company/companyRegister";
+        companyService.insertCompanyMember(companyRegisterForm);
+
+        return "redirect:/company/companyList";
     }
 
 

@@ -2,6 +2,7 @@ package com.example.DailyReport.mapper;
 
 import com.example.DailyReport.domain.Company;
 import com.example.DailyReport.domain.CompanyMember;
+import com.example.DailyReport.form.CompanyMemberRegisterForm;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;
@@ -39,18 +40,24 @@ public interface CompanyMapper {
 
 
     /**
-     * 企業情報を登録する.
+     * 企業情報をinsertする.
      * @param companies
      * @return
      */
     void insertCompany(Company companies);
 
-
     /**
-     * 企業担当者情報を登録する.
+     * 企業担当をinsertする.
      * @param companyMember
      */
-    void insertCompanyMember(CompanyMember companyMember);
+    int insertCompanyMember(CompanyMember companyMember);
+
+    /**
+     * 企業IDと担当者IDをinsertする.
+     * @param companiesId
+     * @param companyMembersId
+     */
+    void insertCompaniesCompanyMembers(int companiesId, int companyMembersId);
 
 
 }

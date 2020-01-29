@@ -1,7 +1,9 @@
 package com.example.DailyReport.form;
 
-public class CompanyMemberForm {
+public class CompanyMemberRegisterForm {
 
+    /*企業ID*/
+    private Integer companyId;
     /* 企業担当名*/
     private String companyMemberName;
     /* 企業担当名（かな）*/
@@ -11,25 +13,36 @@ public class CompanyMemberForm {
     /* 企業担当パスワード*/
     private String companyMemberPassword;
 
-    public CompanyMemberForm(String companyMemberName, String companyMemberKana, String companyMemberEmail, String companyMemberPassword) {
+
+    public CompanyMemberRegisterForm(Integer companyId, String companyMemberName,
+                                     String companyMemberKana, String companyMemberEmail, String companyMemberPassword) {
+        this.companyId = companyId;
         this.companyMemberName = companyMemberName;
         this.companyMemberKana = companyMemberKana;
         this.companyMemberEmail = companyMemberEmail;
         this.companyMemberPassword = companyMemberPassword;
     }
 
-    public CompanyMemberForm(String companyMemberName) {
-        this.companyMemberName = companyMemberName;
+    public CompanyMemberRegisterForm() {
     }
 
     @Override
     public String toString() {
-        return "CompanyMemberForm{" +
-                "companyMemberName='" + companyMemberName + '\'' +
+        return "CompanyMemberRegisterForm{" +
+                "companyId=" + companyId +
+                ", companyMemberName='" + companyMemberName + '\'' +
                 ", companyMemberKana='" + companyMemberKana + '\'' +
                 ", companyMemberEmail='" + companyMemberEmail + '\'' +
                 ", companyMemberPassword='" + companyMemberPassword + '\'' +
                 '}';
+    }
+
+    public Integer getCompanyId() {
+        return companyId;
+    }
+
+    public void setCompanyId(Integer companyId) {
+        this.companyId = companyId;
     }
 
     public String getCompanyMemberName() {

@@ -61,12 +61,13 @@
     </insert>
 
     <!-- 企業担当者をinsertする-->
-    <insert id="insertCompanyMember">
-        insert into companies (name, kana, email, password) values (#{name}, #{kana}, #{email}, #{password});
+    <insert id="insertCompanyMember"  parameterType="com.example.DailyReport.domain.CompanyMember" useGeneratedKeys="true" keyProperty="id">
+        insert into company_members (name, kana, email, password) values (#{name}, #{kana}, #{email}, #{password});
     </insert>
 
+
     <insert id="insertCompaniesCompanyMembers">
-        insert into companies (companies_id, company_members_id) values (#{companies_id}, #{company_members_id});
+        insert into companies_company_members (companies_id, company_members_id) values (#{companiesId}, #{companyMembersId});
     </insert>
 
 </mapper>
