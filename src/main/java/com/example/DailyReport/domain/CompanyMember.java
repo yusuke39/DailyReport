@@ -1,6 +1,6 @@
 package com.example.DailyReport.domain;
 
-public class CompanyMembers {
+public class CompanyMember {
 
     /* 企業担当者ID*/
     private Integer id;
@@ -13,7 +13,7 @@ public class CompanyMembers {
     /* パスワード*/
     private String password;
 
-    public CompanyMembers(Integer id, String name, String kana, String email, String password) {
+    public CompanyMember(Integer id, String name, String kana, String email, String password) {
         this.id = id;
         this.name = name;
         this.kana = kana;
@@ -21,7 +21,7 @@ public class CompanyMembers {
         this.password = password;
     }
 
-    public CompanyMembers() {
+    public CompanyMember() {
     }
 
     @Override

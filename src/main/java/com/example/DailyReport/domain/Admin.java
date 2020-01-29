@@ -17,10 +17,10 @@ public class Admin {
     /*全ての企業を閲覧できる権限があるか（true:見れる、false:見れない）*/
     private boolean canShowAllCompany;
     /*企業リスト*/
-    private List<Companies> companyList;
+    private List<Company> companyList;
 
 
-    public Admin(Integer id, String name, String kana, String email, String password, boolean canShowAllCompany, List<Companies> companyList) {
+    public Admin(Integer id, String name, String kana, String email, String password, boolean canShowAllCompany, List<Company> companyList) {
         this.id = id;
         this.name = name;
         this.kana = kana;
@@ -94,11 +94,11 @@ public class Admin {
         this.canShowAllCompany = canShowAllCompany;
     }
 
-    public List<Companies> getCompanyList() {
+    public List<Company> getCompanyList() {
         return companyList;
     }
 
-    public void setCompanyList(List<Companies> companyList) {
+    public void setCompanyList(List<Company> companyList) {
         this.companyList = companyList;
     }
 }

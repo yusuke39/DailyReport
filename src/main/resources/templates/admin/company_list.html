@@ -75,7 +75,7 @@
 
 							</td>
 							<td><form action="company_detail.html" method="post"><button type="submit">編集</button></form></td>
-							<td><form action="company_register_charge.html" method="post"><button type="submit">担当者登録</button></form></td>
+							<td><form th:action="@{/company/companyMemberDetailRegister} + '?' + 'companyId' + '=' + ${company.id}" method="post"><button type="submit">担当者登録</button></form></td>
 						</tr>
 					</tbody>
 				</table>

@@ -1,7 +1,7 @@
 package com.example.DailyReport.controller;
 
 import com.example.DailyReport.domain.Admin;
-import com.example.DailyReport.domain.Companies;
+import com.example.DailyReport.domain.Company;
 import com.example.DailyReport.form.AdminEditForm;
 import com.example.DailyReport.form.LoginAdmin;
 import com.example.DailyReport.form.RegisterAdminForm;
@@ -90,7 +90,7 @@ public class AdminController {
     @RequestMapping("/admin/registerAdmin")
     public String registerAdmin(Model model) {
 
-        List<Companies> companyList = adminService.findAllCompanies();
+        List<Company> companyList = adminService.findAllCompanies();
 
         model.addAttribute("companyList", companyList);
 
@@ -134,7 +134,7 @@ public class AdminController {
         Admin admin = adminService.findAdminAndCompanyByAdminId(adminId);
 
         //企業情報を全権取得する
-        List<Companies> companiesList = adminMapper.findAllCompanies();
+        List<Company> companiesList = adminMapper.findAllCompanies();
 
         model.addAttribute("companiesList", companiesList);
 

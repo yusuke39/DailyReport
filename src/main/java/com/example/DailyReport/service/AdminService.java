@@ -2,7 +2,7 @@ package com.example.DailyReport.service;
 
 import com.example.DailyReport.domain.Admin;
 import com.example.DailyReport.domain.AdminsCompanies;
-import com.example.DailyReport.domain.Companies;
+import com.example.DailyReport.domain.Company;
 import com.example.DailyReport.form.AdminEditForm;
 import com.example.DailyReport.form.LoginAdmin;
 import com.example.DailyReport.form.RegisterAdminForm;
@@ -55,7 +55,7 @@ public class AdminService {
      * 企業を全権取得する.
      * @return
      */
-    public List<Companies> findAllCompanies(){
+    public List<Company> findAllCompanies(){
         return adminMapper.findAllCompanies();
     }
 

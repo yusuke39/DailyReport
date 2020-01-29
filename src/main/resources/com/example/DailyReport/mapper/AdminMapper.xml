@@ -33,7 +33,7 @@
 
 
     <!-- 企業情報をすべて取得-->
-    <select id="findAllCompanies" resultType="com.example.DailyReport.domain.Companies">
+    <select id="findAllCompanies" resultType="com.example.DailyReport.domain.Company">
         select id,name,kana,remarks from companies;
     </select>
 
@@ -65,7 +65,7 @@
         <result column="a_email" property="email"/>
         <result column="a_password" property="password"/>
         <result column="a_canShowAllCompanies" property="canShowAllCompany"/>
-        <collection property="companyList" ofType="com.example.DailyReport.domain.Companies" >
+        <collection property="companyList" ofType="com.example.DailyReport.domain.Company" >
             <result column="c_id" property="id"/>
             <result column="c_name" property="name"/>
             <result column="c_kana" property="kana"/>

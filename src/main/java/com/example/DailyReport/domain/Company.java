@@ -2,7 +2,7 @@ package com.example.DailyReport.domain;
 
 import java.util.List;
 
-public class Companies {
+public class Company {
 
     /*企業ID*/
     private Integer id;
@@ -13,9 +13,9 @@ public class Companies {
     /*備考*/
     private String remarks;
     /*企業担当者リスト*/
-    private List<CompanyMembers> companyMembersList;
+    private List<CompanyMember> companyMembersList;
 
-    public Companies(Integer id, String name, String kana, String remarks, List<CompanyMembers> companyMembersList) {
+    public Company(Integer id, String name, String kana, String remarks, List<CompanyMember> companyMembersList) {
         this.id = id;
         this.name = name;
         this.kana = kana;
@@ -23,7 +23,7 @@ public class Companies {
         this.companyMembersList = companyMembersList;
     }
 
-    public Companies() {
+    public Company() {
     }
 
     @Override
@@ -69,11 +69,11 @@ public class Companies {
         this.remarks = remarks;
     }
 
-    public List<CompanyMembers> getCompanyMembersList() {
+    public List<CompanyMember> getCompanyMembersList() {
         return companyMembersList;
     }
 
-    public void setCompanyMembersList(List<CompanyMembers> companyMembersList) {
+    public void setCompanyMembersList(List<CompanyMember> companyMembersList) {
         this.companyMembersList = companyMembersList;
     }
 }

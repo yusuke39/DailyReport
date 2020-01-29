@@ -2,9 +2,8 @@ package com.example.DailyReport.mapper;
 
 import com.example.DailyReport.domain.Admin;
 import com.example.DailyReport.domain.AdminsCompanies;
-import com.example.DailyReport.domain.Companies;
+import com.example.DailyReport.domain.Company;
 import org.apache.ibatis.annotations.Mapper;
-import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
@@ -56,7 +55,7 @@ public interface AdminMapper {
      * 企業を全権取得する.
      * @return
      */
-    List<Companies> findAllCompanies();
+    List<Company> findAllCompanies();
 
     /**
      * Admin,Company,Admins_companiesを結合して、検索する.

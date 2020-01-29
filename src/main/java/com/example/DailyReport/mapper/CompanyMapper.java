@@ -1,6 +1,7 @@
 package com.example.DailyReport.mapper;
 
-import com.example.DailyReport.domain.Companies;
+import com.example.DailyReport.domain.Company;
+import com.example.DailyReport.domain.CompanyMember;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;
@@ -12,7 +13,29 @@ public interface CompanyMapper {
      * 企業、企業担当者、companies_company_membersを結合して、全件取得する.
      * @return
      */
-    List<Companies> findAllCompanyMemberAndCompanies();
+    List<Company> findAllCompanyMemberAndCompanies();
+
+
+    /**
+     * 企業担当IDで企業担当と紐づいている企業を１件検索する.
+     * @return
+     */
+    Company findCompanyMemberAndCompanyByMemberId(int companyMemberId);
+
+
+    /**
+     * 企業IDで検索して紐づいている担当者を検索する.
+     * @param companyId
+     * @return
+     */
+    List<Company> findCompanyMemberAndCompanyByCompanyId(int companyId);
+
+    /**
+     * 企業を１件検索する.
+     * @param companyId
+     * @return
+     */
+    public Company findCompanyByCompanyId(int companyId);
 
 
     /**
@@ -20,7 +43,14 @@ public interface CompanyMapper {
      * @param companies
      * @return
      */
-    void insertCompany(Companies companies);
+    void insertCompany(Company companies);
+
+
+    /**
+     * 企業担当者情報を登録する.
+     * @param companyMember
+     */
+    void insertCompanyMember(CompanyMember companyMember);
 
 
 }
