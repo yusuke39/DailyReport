@@ -7,14 +7,12 @@ import com.example.DailyReport.form.LoginAdmin;
 import com.example.DailyReport.form.RegisterAdminForm;
 import com.example.DailyReport.mapper.AdminMapper;
 import com.example.DailyReport.service.AdminService;
-import com.example.DailyReport.service.CompanyService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.xml.crypto.dsig.CanonicalizationMethod;
 import java.util.List;
 
 
@@ -24,9 +22,6 @@ public class AdminController {
 
     @Autowired
     private AdminService adminService;
-
-    @Autowired
-    private CompanyService companyService;
 
     @Autowired
     private AdminMapper adminMapper;
@@ -164,18 +159,4 @@ public class AdminController {
     }
 
 
-    /**
-     * 企業と関連する企業担当者を全件表示する.
-     * @return
-     */
-    @RequestMapping("/admin/companyList")
-    public String companyList(Model model) {
-
-        List<Companies> companiesAndCompanyMemberList = companyService.findCompanyAndCompanyMember();
-
-
-        model.addAttribute("companiesAndCompanyMemberList" ,companiesAndCompanyMemberList);
-
-        return "admin/company_list";
-    }
 }

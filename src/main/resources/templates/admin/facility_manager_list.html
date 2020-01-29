@@ -42,7 +42,7 @@
 							<td th:text="${admin.email}">ichiro@gmail.com</td>
 							<td th:unless="${admin.canShowAllCompany}">
 								<span th:each="company : ${admin.companyList}">
-									<p th:text="${company.name}"><br></p>
+									<div th:text="${company.name}"><br></div>
 								</span>
 							</td>
 							<td th:if="${admin.canShowAllCompany}">

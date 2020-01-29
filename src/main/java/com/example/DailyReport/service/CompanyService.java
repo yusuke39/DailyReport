@@ -25,4 +25,15 @@ public class CompanyService {
         return companiesAndCompanyMemberList;
     }
 
+
+    /**
+     * 企業情報を登録する.
+     * @param companies
+     */
+    public void insertCompany(Companies companies){
+
+        companyMapper.insertCompany(companies);
+
+    }
+
 }

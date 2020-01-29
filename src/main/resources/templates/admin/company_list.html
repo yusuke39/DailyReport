@@ -45,7 +45,7 @@
 		<div class="row">
 			<div
 				class="table-responsive col-lg-offset-1 col-lg-10 col-md-offset-1 col-md-10 col-sm-10 col-xs-12">
-				<form method="post" action="company_detail.html">
+				<form method="post" th:action="@{/company/companyDetailRegister}">
 				<button type="submit" class="btn btn-primary">新規登録</button>
 				</form>
 			</div>
@@ -68,7 +68,7 @@
 							<td th:text="${company.name}">株式会社AAA</td>
 							<td th:if="${company.companyMembersList.size() >= 1}">
 								<span th:each="companyMember : ${company.companyMembersList}">
-									<p th:text="${companyMember.name}"><br></p>
+									<div th:text="${companyMember.name} + '(' + ${companyMember.email} + ')'"><br></div>
 								</span>
 							</td>
 							<td th:if="${company.companyMembersList.size() == 0}">

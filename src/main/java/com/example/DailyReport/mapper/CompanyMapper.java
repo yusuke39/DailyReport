@@ -15,5 +15,12 @@ public interface CompanyMapper {
     List<Companies> findAllCompanyMemberAndCompanies();
 
 
+    /**
+     * 企業情報を登録する.
+     * @param companies
+     * @return
+     */
+    void insertCompany(Companies companies);
+
 
 }

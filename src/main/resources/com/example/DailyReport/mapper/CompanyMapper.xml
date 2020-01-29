@@ -27,4 +27,9 @@
         </collection>
     </resultMap>
 
+
+    <insert id="insertCompany">
+        insert into companies (name, kana, remarks) values (#{name}, #{kana}, #{remarks});
+    </insert>
+
 </mapper>
