@@ -7,12 +7,14 @@ import com.example.DailyReport.form.LoginAdmin;
 import com.example.DailyReport.form.RegisterAdminForm;
 import com.example.DailyReport.mapper.AdminMapper;
 import com.example.DailyReport.service.AdminService;
+import com.example.DailyReport.service.CompanyService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.xml.crypto.dsig.CanonicalizationMethod;
 import java.util.List;
 
 
@@ -24,10 +26,14 @@ public class AdminController {
     private AdminService adminService;
 
     @Autowired
+    private CompanyService companyService;
+
+    @Autowired
     private AdminMapper adminMapper;
 
     @Autowired
     private HttpServletRequest httpServletRequest;
+
 
 
     /**
@@ -83,10 +89,11 @@ public class AdminController {
 
     /**
      * 運営管理者登録画面を表示する.
+     *
      * @return
      */
     @RequestMapping("/admin/registerAdmin")
-    public String registerAdmin(Model model){
+    public String registerAdmin(Model model) {
 
         List<Companies> companyList = adminService.findAllCompanies();
 
@@ -98,11 +105,12 @@ public class AdminController {
 
     /**
      * 管理者情報を登録する.
+     *
      * @param registerAdminForm
      * @return
      */
     @RequestMapping("/admin/registerAdminDetail")
-    public String registerAdminDetail(RegisterAdminForm registerAdminForm, Model model){
+    public String registerAdminDetail(RegisterAdminForm registerAdminForm, Model model) {
 
 //        if(!(registerAdminForm.getPassword() == registerAdminForm.getConfirmPassword())){
 //            model.addAttribute("passwordMismatch","パスワードと確認用パスワードが一致しません");
@@ -117,14 +125,15 @@ public class AdminController {
 
     /**
      * 管理者編集画面に遷移する.
+     *
      * @param model
      * @return
      */
     @RequestMapping("/admin/editAdmin")
-    public String editAdmin(Model model){
+    public String editAdmin(Model model) {
 
         //リクエストパラメーターの値を受け取る
-        String adminId =httpServletRequest.getParameter("adminId");
+        String adminId = httpServletRequest.getParameter("adminId");
 
         //管理者と企業を１件探す
         Admin admin = adminService.findAdminAndCompanyByAdminId(adminId);
@@ -142,15 +151,31 @@ public class AdminController {
 
     /**
      * 管理者情報を編集する.
+     *
      * @param adminEditForm
      * @return
      */
     @RequestMapping("/admin/editAdminDetail")
-    public String editAdminDetail(AdminEditForm adminEditForm){
+    public String editAdminDetail(AdminEditForm adminEditForm) {
 
         adminService.editAdminAndRelationCompanies(adminEditForm);
 
         return "redirect:/admin/operationManager";
     }
 
+
+    /**
+     * 企業と関連する企業担当者を全件表示する.
+     * @return
+     */
+    @RequestMapping("/admin/companyList")
+    public String companyList(Model model) {
+
+        List<Companies> companiesAndCompanyMemberList = companyService.findCompanyAndCompanyMember();
+
+
+        model.addAttribute("companiesAndCompanyMemberList" ,companiesAndCompanyMemberList);
+
+        return "admin/company_list";
+    }
 }

@@ -1,5 +1,7 @@
 package com.example.DailyReport.domain;
 
+import java.util.List;
+
 public class Companies {
 
     /*企業ID*/
@@ -10,13 +12,15 @@ public class Companies {
     private String kana;
     /*備考*/
     private String remarks;
+    /*企業担当者リスト*/
+    private List<CompanyMembers> companyMembersList;
 
-
-    public Companies(Integer id, String name, String kana, String remarks) {
+    public Companies(Integer id, String name, String kana, String remarks, List<CompanyMembers> companyMembersList) {
         this.id = id;
         this.name = name;
         this.kana = kana;
         this.remarks = remarks;
+        this.companyMembersList = companyMembersList;
     }
 
     public Companies() {
@@ -29,6 +33,7 @@ public class Companies {
                 ", name='" + name + '\'' +
                 ", kana='" + kana + '\'' +
                 ", remarks='" + remarks + '\'' +
+                ", companyMembersList=" + companyMembersList +
                 '}';
     }
 
@@ -62,5 +67,13 @@ public class Companies {
 
     public void setRemarks(String remarks) {
         this.remarks = remarks;
+    }
+
+    public List<CompanyMembers> getCompanyMembersList() {
+        return companyMembersList;
+    }
+
+    public void setCompanyMembersList(List<CompanyMembers> companyMembersList) {
+        this.companyMembersList = companyMembersList;
     }
 }
