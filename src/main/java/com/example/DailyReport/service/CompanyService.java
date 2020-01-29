@@ -6,6 +6,7 @@ import com.example.DailyReport.form.CompanyMemberRegisterForm;
 import com.example.DailyReport.form.CompanyRegisterForm;
 import com.example.DailyReport.mapper.CompanyMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -80,20 +81,26 @@ public class CompanyService {
     }
 
 
+    /**
+     * 企業担当と企業担当IDと企業IDを中間テーブルにinsert
+     * @param companyRegisterForm
+     */
     public void insertCompanyMember(CompanyMemberRegisterForm companyRegisterForm){
 
+        BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
+        String password =  bCryptPasswordEncoder.encode(companyRegisterForm.getCompanyMemberPassword());
 
         //CompanyMemberにインサートする
         CompanyMember companyMember = new CompanyMember();
         companyMember.setName(companyRegisterForm.getCompanyMemberName());
         companyMember.setKana(companyRegisterForm.getCompanyMemberKana());
         companyMember.setEmail(companyRegisterForm.getCompanyMemberEmail());
-        companyMember.setPassword(companyRegisterForm.getCompanyMemberPassword());
+        companyMember.setPassword(password);
         companyMapper.insertCompanyMember(companyMember);
 
         //companies_company_membersにインサートする
         int companyId = companyRegisterForm.getCompanyId();
-        int companyMemberId = companyMember.getId();
+        int companyMemberId = companyMember.getId();//自動裁判で取ってくる
         companyMapper.insertCompaniesCompanyMembers(companyId,companyMemberId);
 
     }

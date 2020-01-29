@@ -1,7 +1,6 @@
 package com.example.DailyReport.controller;
 
 import com.example.DailyReport.domain.Company;
-import com.example.DailyReport.domain.CompanyMember;
 import com.example.DailyReport.form.CompanyMemberRegisterForm;
 import com.example.DailyReport.form.CompanyRegisterForm;
 import com.example.DailyReport.service.CompanyService;
@@ -89,7 +88,11 @@ public class CompanyController {
     }
 
 
-
+    /**
+     * 企業担当者登録機能.
+     * @param companyRegisterForm
+     * @return
+     */
     @RequestMapping("company/companyMemberRegister")
     public String companyMemberRegister(CompanyMemberRegisterForm companyRegisterForm){
 
