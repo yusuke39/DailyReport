@@ -1,49 +1,53 @@
 package com.example.DailyReport.domain;
 
-import sun.util.resources.LocaleData;
 
 import java.util.List;
 
-public class Instructor {
+public class Student {
 
-    /* 講師ID*/
+    /* 受講生ID*/
     private Integer id;
-    /* 講師名*/
+    /* 受講生名*/
     private String name;
-    /* 講師名（かな）*/
+    /* 受講生名（かな）*/
     private String kana;
-    /* 講師メールアドレス*/
+    /* 受講生メールアドレス*/
     private String email;
-    /* 講師パスワード*/
+    /* 受講生パスワード*/
     private String password;
-    /* 所属*/
-    private String affiliation;
-    /* 備考*/
-    private String remarks;
+    /* 会社ID*/
+    private Integer companyId;
+    /* 研修リスト*/
+    private List<Training> trainingList;
+    /* 企業*/
+    private Company company;
 
-    public Instructor(Integer id, String name, String kana, String email, String password, String affiliation, String remarks) {
+
+    public Student(Integer id, String name, String kana, String email, String password, Integer companyId, List<Training> trainingList, Company company) {
         this.id = id;
         this.name = name;
         this.kana = kana;
         this.email = email;
         this.password = password;
-        this.affiliation = affiliation;
-        this.remarks = remarks;
+        this.companyId = companyId;
+        this.trainingList = trainingList;
+        this.company = company;
     }
 
-    public Instructor() {
+    public Student() {
     }
 
     @Override
     public String toString() {
-        return "Instructor{" +
+        return "Student{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
                 ", kana='" + kana + '\'' +
                 ", email='" + email + '\'' +
                 ", password='" + password + '\'' +
-                ", affiliation='" + affiliation + '\'' +
-                ", remarks='" + remarks + '\'' +
+                ", companyId=" + companyId +
+                ", trainingList=" + trainingList +
+                ", company=" + company +
                 '}';
     }
 
@@ -87,19 +91,27 @@ public class Instructor {
         this.password = password;
     }
 
-    public String getAffiliation() {
-        return affiliation;
+    public Integer getCompanyId() {
+        return companyId;
     }
 
-    public void setAffiliation(String affiliation) {
-        this.affiliation = affiliation;
+    public void setCompanyId(Integer companyId) {
+        this.companyId = companyId;
     }
 
-    public String getRemarks() {
-        return remarks;
+    public List<Training> getTrainingList() {
+        return trainingList;
     }
 
-    public void setRemarks(String remarks) {
-        this.remarks = remarks;
+    public void setTrainingList(List<Training> trainingList) {
+        this.trainingList = trainingList;
+    }
+
+    public Company getCompany() {
+        return company;
+    }
+
+    public void setCompany(Company company) {
+        this.company = company;
     }
 }
