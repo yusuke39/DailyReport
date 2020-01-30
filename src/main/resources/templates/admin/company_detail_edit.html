@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="ja" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>学習サポートシステム</title>
+    <link href="../css/bootstrap.css" rel="stylesheet">
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+    <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+</head>
+<body>
+<!--テンプレートヘッダー-->
+<div th:replace="mainHeader::header"></div>
+<!-- register form -->
+<div class="row">
+    <div class="col-lg-offset-3 col-lg-6 col-md-offset-2 col-md-8 col-sm-10 col-xs-12">
+        <!-- 背景をグレーに、埋め込んだようなコンポーネント -->
+        <div class="well">
+            <form method="post" th:action="@{/company/companyEditEnd}">
+                <input type="hidden" name="id" th:value="${company.id}">
+                <fieldset>
+                    <legend>企業(企業担当者)編集画面</legend>
+                    <div class="form-group">
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <label for="inputCompanyName">企業名:</label>
+                                <label class="control-label" style="color: red" for="inputCompanyName">企業名を入力してください</label>
+                                <input type="text" id="inputCompanyName" class="form-control" name="companyName" th:value="${company.name}">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <label for="inputCompanyName">企業名（カナ）:</label>
+                                <label class="control-label" style="color: red" for="inputCompanyName">企業名（カナ）を入力してください</label>
+                                <input type="text" id="inputCompanyKana" class="form-control" name="companyKana" th:value="${company.kana}">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <label for="inputRemarks">備考</label>
+                                <textarea rows="10" cols="30" class="form-control" id="inputRemarks" name="remarks" th:text="${company.remarks}"></textarea>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <button type="submit" class="btn btn-primary">登録</button>
+                            </div>
+                        </div>
+                    </div>
+                </fieldset>
+            </form>
+        </div>
+    </div>
+</div>
+
+</div>
+<!-- end container -->
+<script
+        src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+<script src="../js/bootstrap.min.js"></script>
+</body>
+</html>

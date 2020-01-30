@@ -59,5 +59,11 @@ public interface CompanyMapper {
      */
     void insertCompaniesCompanyMembers(int companiesId, int companyMembersId);
 
+    /**
+     * 企業をupdateする.
+     * @param company
+     */
+    void updateCompany(Company company);
+
 
 }

@@ -70,4 +70,8 @@
         insert into companies_company_members (companies_id, company_members_id) values (#{companiesId}, #{companyMembersId});
     </insert>
 
+    <update id="updateCompany">
+        update companies set name=#{name},kana=#{kana},remarks=#{remarks} where id=#{id};
+    </update>
+
 </mapper>

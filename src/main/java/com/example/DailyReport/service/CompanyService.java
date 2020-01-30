@@ -102,6 +102,21 @@ public class CompanyService {
         int companyId = companyRegisterForm.getCompanyId();
         int companyMemberId = companyMember.getId();//自動裁判で取ってくる
         companyMapper.insertCompaniesCompanyMembers(companyId,companyMemberId);
+    }
+
+
+    /**
+     * 企業情報を編集する.
+     * @param companyRegisterForm
+     */
+    public void updateCompany(CompanyRegisterForm companyRegisterForm){
+
+        Company company = new Company();
+        company.setId(companyRegisterForm.getId());
+        company.setName(companyRegisterForm.getCompanyName());
+        company.setKana(companyRegisterForm.getCompanyKana());
+        company.setRemarks(companyRegisterForm.getRemarks());
+        companyMapper.updateCompany(company);
 
     }
 

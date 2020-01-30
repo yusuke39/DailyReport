@@ -72,13 +72,11 @@ public class CompanyController {
         String id = httpServletRequest.getParameter("companyId");
         Integer companyId = Integer.parseInt(id);
 
-
         //企業を１件持ってくる
         Company company = companyService.findCompanyByCompanyId(companyId);
 
         //企業に紐づいている担当者を全員取得
         List<Company> companyMemberList =  companyService.findCompanyMemberAndCompanyByCompanyId(companyId);
-
 
         model.addAttribute("company", company);
 
@@ -93,10 +91,45 @@ public class CompanyController {
      * @param companyRegisterForm
      * @return
      */
-    @RequestMapping("company/companyMemberRegister")
+    @RequestMapping("/company/companyMemberRegister")
     public String companyMemberRegister(CompanyMemberRegisterForm companyRegisterForm){
 
         companyService.insertCompanyMember(companyRegisterForm);
+
+        return "redirect:/company/companyList";
+    }
+
+
+    /**
+     * 企業編集画面表示.
+     * @param model
+     * @return
+     */
+    @RequestMapping("/company/companyEdit")
+    public String companyEdit(Model model){
+
+      //パラメーター（companyId)を受け取る
+      String id =  httpServletRequest.getParameter("companyId");
+      int companyId = Integer.parseInt(id);
+
+      //企業を１件検索する
+      Company company = companyService.findCompanyByCompanyId(companyId);
+
+      model.addAttribute("company", company);
+
+        return "admin/company_detail_edit";
+    }
+
+
+    /**
+     * 企業を編集する.
+     * @param companyRegisterForm
+     * @return
+     */
+    @RequestMapping("/company/companyEditEnd")
+    public String companyEditEnd(CompanyRegisterForm companyRegisterForm){
+
+        companyService.updateCompany(companyRegisterForm);
 
         return "redirect:/company/companyList";
     }

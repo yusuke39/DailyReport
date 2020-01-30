@@ -2,6 +2,8 @@ package com.example.DailyReport.form;
 
 public class CompanyRegisterForm {
 
+    /* 企業ID*/
+    private Integer id;
     /* 企業名*/
     private String companyName;
     /* 企業名（カナ）*/
@@ -9,7 +11,8 @@ public class CompanyRegisterForm {
     /* 備考*/
     private String remarks;
 
-    public CompanyRegisterForm(String companyName, String companyKana, String remarks) {
+    public CompanyRegisterForm(Integer id, String companyName, String companyKana, String remarks) {
+        this.id = id;
         this.companyName = companyName;
         this.companyKana = companyKana;
         this.remarks = remarks;
@@ -21,10 +24,19 @@ public class CompanyRegisterForm {
     @Override
     public String toString() {
         return "CompanyRegisterForm{" +
-                "companyName='" + companyName + '\'' +
+                "id=" + id +
+                ", companyName='" + companyName + '\'' +
                 ", companyKana='" + companyKana + '\'' +
                 ", remarks='" + remarks + '\'' +
                 '}';
+    }
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
     }
 
     public String getCompanyName() {
