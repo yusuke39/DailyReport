@@ -9,9 +9,20 @@
         select id,name,kana,email,password,affiliation,remarks from instructors;
     </select>
 
+    <!--講師を講師IDで検索する-->
+    <select id="findInstructorById" resultType="com.example.DailyReport.domain.Instructor">
+        select id,name,kana,email,password,affiliation,remarks from instructors where id=#{instructorId}
+    </select>
+
+    <!-- 講師情報をinsertする-->
     <insert id="insertInstructor">
         insert into instructors(name,kana,email,password,affiliation,remarks) values (#{name},#{kana},#{email},#{password},#{affiliation},#{remarks});
     </insert>
+
+    <!--講師情報をuodateする-->
+    <update id="updateInstructor">
+        update instructors set name=#{name},kana=#{kana}, email=#{email}, affiliation=#{affiliation},remarks=#{remarks} where id=#{id};
+    </update>
 
 
 </mapper>

@@ -3,7 +3,7 @@ package com.example.DailyReport.form;
 public class InstructorRegisterForm {
 
     /* 講師ID*/
-    private String instructorId;
+    private Integer instructorId;
     /* 講師名*/
     private String instructorName;
     /* 講師名（かな）*/
@@ -18,7 +18,7 @@ public class InstructorRegisterForm {
     private String remarks;
 
 
-    public InstructorRegisterForm(String instructorId, String instructorName, String instructorKana, String instructorEmail,
+    public InstructorRegisterForm(Integer instructorId, String instructorName, String instructorKana, String instructorEmail,
                                   String instructorPassword, String affiliation, String remarks) {
         this.instructorId = instructorId;
         this.instructorName = instructorName;
@@ -35,7 +35,7 @@ public class InstructorRegisterForm {
     @Override
     public String toString() {
         return "InstructorRegisterForm{" +
-                "instructorId='" + instructorId + '\'' +
+                "instructorId=" + instructorId +
                 ", instructorName='" + instructorName + '\'' +
                 ", instructorKana='" + instructorKana + '\'' +
                 ", instructorEmail='" + instructorEmail + '\'' +
@@ -45,11 +45,11 @@ public class InstructorRegisterForm {
                 '}';
     }
 
-    public String getInstructorId() {
+    public Integer getInstructorId() {
         return instructorId;
     }
 
-    public void setInstructorId(String instructorId) {
+    public void setInstructorId(Integer instructorId) {
         this.instructorId = instructorId;
     }
 

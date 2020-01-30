@@ -64,7 +64,7 @@
 						<tr th:each="instructor : ${instructorList}">
 							<td th:text="${instructor.name}">講師一郎</td>
 							<td th:text="${instructor.email}">ichiro@gmail.com</td>
-							<td><form action="instructor_detail.html" method="post"><button type="submit">編集</button></form></td>
+							<td><form th:action="@{/instructor/instructorEdit} + '?' + 'instructorId' + '=' + ${instructor.id}" method="post"><button type="submit">編集</button></form></td>
 						</tr>
 					</tbody>
 				</table>

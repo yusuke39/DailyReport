@@ -27,6 +27,14 @@ public class InstructorService {
     }
 
 
+    public Instructor findInstructorById(int instructorId){
+
+        Instructor instructor = instructorMapper.findInstructorById(instructorId);
+
+        return instructor;
+    }
+
+
     /**
      * 講師を新規登録する.
      * @param instructorRegisterForm
@@ -44,7 +52,22 @@ public class InstructorService {
         instructor.setAffiliation(instructorRegisterForm.getAffiliation());
         instructor.setRemarks(instructorRegisterForm.getRemarks());
         instructorMapper.insertInstructor(instructor);
+    }
 
+
+    /**
+     * 講師情報を編集する.
+     * @param instructorRegisterForm
+     */
+    public void updateInstructor(InstructorRegisterForm instructorRegisterForm){
+
+        Instructor instructor = new Instructor();
+        instructor.setName(instructorRegisterForm.getInstructorName());
+        instructor.setKana(instructorRegisterForm.getInstructorKana());
+        instructor.setEmail(instructorRegisterForm.getInstructorEmail());
+        instructor.setAffiliation(instructorRegisterForm.getAffiliation());
+        instructor.setRemarks(instructorRegisterForm.getRemarks());
+        instructorMapper.updateInstructor(instructor);
 
     }
 }
