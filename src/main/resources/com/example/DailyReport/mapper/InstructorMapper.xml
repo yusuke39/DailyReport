@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+
+<mapper namespace="com.example.DailyReport.mapper.InstructorMapper">
+
+    <!-- 講師を全権検索する-->
+    <select id="findAllInstructor" resultType="com.example.DailyReport.domain.Instructor">
+        select id,name,kana,email,password,affiliation,remarks from instructors;
+    </select>
+
+    <insert id="insertInstructor">
+        insert into instructors(name,kana,email,password,affiliation,remarks) values (#{name},#{kana},#{email},#{password},#{affiliation},#{remarks});
+    </insert>
+
+
+</mapper>

@@ -1,9 +1,5 @@
 package com.example.DailyReport.domain;
 
-import sun.util.resources.LocaleData;
-
-import java.util.List;
-
 public class Instructor {
 
     /* 講師ID*/

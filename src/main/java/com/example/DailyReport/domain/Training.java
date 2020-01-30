@@ -1,7 +1,9 @@
 package com.example.DailyReport.domain;
 
-import sun.util.resources.LocaleData;
 
+
+import java.time.LocalDate;
+import java.util.Date;
 import java.util.List;
 
 public class Training {
@@ -9,9 +11,9 @@ public class Training {
     /* インストラクターID*/
     private Integer id;
     /* 開始日*/
-    private LocaleData startDate;
+    private LocalDate startDate;
     /* 終了日*/
-    private LocaleData endDate;
+    private LocalDate endDate;
     /* 研修名*/
     private String name;
     /* 講師ID*/
@@ -34,7 +36,7 @@ public class Training {
     private List<WeeklyReport> weeklyReportList;
 
 
-    public Training(Integer id, LocaleData startDate, LocaleData endDate, String name, Integer instructorId, Integer subInstructorId1,
+    public Training(Integer id, LocalDate startDate, LocalDate endDate, String name, Integer instructorId, Integer subInstructorId1,
                     Integer subInstructorId2, Integer subInstructorId3, Instructor subInstructor1, Instructor subInstructor2,
                     Instructor subInstructor3, List<Student> studentList, List<WeeklyReport> weeklyReportList) {
         this.id = id;
@@ -82,19 +84,19 @@ public class Training {
         this.id = id;
     }
 
-    public LocaleData getStartDate() {
+    public LocalDate getStartDate() {
         return startDate;
     }
 
-    public void setStartDate(LocaleData startDate) {
+    public void setStartDate(LocalDate startDate) {
         this.startDate = startDate;
     }
 
-    public LocaleData getEndDate() {
+    public LocalDate getEndDate() {
         return endDate;
     }
 
-    public void setEndDate(LocaleData endDate) {
+    public void setEndDate(LocalDate endDate) {
         this.endDate = endDate;
     }
 
