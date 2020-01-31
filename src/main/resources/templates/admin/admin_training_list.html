@@ -83,7 +83,7 @@
 							<td th:text="${training.instructor.name}">鈴木一郎</td>
 							<td><form action="admin_view_daily_report.html" method="post"><button type="submit">日報</button></form></td>
 							<td><form action="admin_view_weekly_report.html" method="post"><button type="submit">週報</button></form></td>
-							<td><form action="admin_training_detail.html" method="post"><button type="submit">編集</button></form></td>
+							<td><a th:action="@{/training/adminTrainingDetailEdit}" method="post">編集</a></td>
 							<td><form action="admin_training_import_students.html" method="post"><button type="submit">受講者登録</button></form></td>
 						</tr>
 					</tbody>

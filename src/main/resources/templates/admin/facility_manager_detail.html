@@ -123,6 +123,7 @@
 										<label class="control-label" style="color: red" for="inputError">
 										企業を選択してください</label>
 										<select class="form-control" id="selectCompany" onchange="addCompany();">
+											<option value="0">選択してください</option>
 											<span th:each="company : ${companyList}">
 												<option th:value="${company.id}" th:text="${company.name}">株式会社AAA</option>
 											</span>

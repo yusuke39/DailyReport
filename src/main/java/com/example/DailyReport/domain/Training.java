@@ -3,7 +3,6 @@ package com.example.DailyReport.domain;
 
 
 import java.time.LocalDate;
-import java.util.Date;
 import java.util.List;
 
 public class Training {
@@ -37,10 +36,9 @@ public class Training {
     /* 週報リスト*/
     private List<WeeklyReport> weeklyReportList;
 
-
-    public Training(Integer id, LocalDate startDate, LocalDate endDate, String name, Integer instructorId, Instructor instructor, Integer subInstructorId1,
-                    Integer subInstructorId2, Integer subInstructorId3, Instructor subInstructor1, Instructor subInstructor2, Instructor subInstructor3,
-                    List<Student> studentList, List<WeeklyReport> weeklyReportList) {
+    public Training(Integer id, LocalDate startDate, LocalDate endDate, String name, Integer instructorId, Instructor instructor,
+                    Integer subInstructorId1, Integer subInstructorId2, Integer subInstructorId3, Instructor subInstructor1,
+                    Instructor subInstructor2, Instructor subInstructor3, List<Student> studentList, List<WeeklyReport> weeklyReportList) {
         this.id = id;
         this.startDate = startDate;
         this.endDate = endDate;

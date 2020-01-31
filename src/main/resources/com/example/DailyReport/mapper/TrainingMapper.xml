@@ -13,7 +13,8 @@
         from trainings t
         left outer join instructors i on i.id = t.instructor_id
         left outer join training_student ts on ts.training_id = t.id
-        left outer join students s on s.id = ts.student_id;
+        left outer join students s on s.id = ts.student_id
+        order by t.start_date;
     </select>
 
     <resultMap id="TrainingResultMap" type="com.example.DailyReport.domain.Training">
@@ -43,6 +44,10 @@
             <result property="companyId" column="s_companyId"/>
         </collection>
     </resultMap>
+
+    <select id="findAllInstructor" resultType="com.example.DailyReport.domain.Instructor">
+        select id,name,kana,email,password,affiliation,remarks from instructors;
+    </select>
 
 
     <insert id="insertTraining">

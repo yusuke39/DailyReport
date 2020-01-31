@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 @Controller
+@RequestMapping("/company")
 public class CompanyController {
 
     @Autowired
@@ -26,7 +27,7 @@ public class CompanyController {
      * 企業と関連する企業担当者を全件表示する.
      * @return
      */
-    @RequestMapping("/company/companyList")
+    @RequestMapping("/companyList")
     public String companyList(Model model) {
 
         List<Company> companiesAndCompanyMemberList = companyService.findCompanyAndCompanyMember();
@@ -42,7 +43,7 @@ public class CompanyController {
      * 企業新規登録画面を表示
      * @return
      */
-    @RequestMapping("/company/companyDetailRegister")
+    @RequestMapping("/companyDetailRegister")
     public String companyDetailRegister(){
         return"admin/company_detail";
     }
@@ -53,12 +54,12 @@ public class CompanyController {
      * @param companyRegisterForm
      * @return
      */
-    @RequestMapping("/company/companyRegister")
+    @RequestMapping("/companyRegister")
     public String companyRegister(CompanyRegisterForm companyRegisterForm){
 
         companyService.insertCompany(companyRegisterForm);
 
-        return "redirect:/company/companyList";
+        return "redirect:/companyList";
     }
 
 
@@ -66,7 +67,7 @@ public class CompanyController {
      * 企業担当者登録画面表示.
      * @return
      */
-    @RequestMapping("/company/companyMemberDetailRegister")
+    @RequestMapping("/companyMemberDetailRegister")
     public String companyMemberDetailRegister(Model model){
 
         String id = httpServletRequest.getParameter("companyId");
@@ -91,12 +92,12 @@ public class CompanyController {
      * @param companyRegisterForm
      * @return
      */
-    @RequestMapping("/company/companyMemberRegister")
+    @RequestMapping("/companyMemberRegister")
     public String companyMemberRegister(CompanyMemberRegisterForm companyRegisterForm){
 
         companyService.insertCompanyMember(companyRegisterForm);
 
-        return "redirect:/company/companyList";
+        return "redirect:/companyList";
     }
 
 
@@ -105,7 +106,7 @@ public class CompanyController {
      * @param model
      * @return
      */
-    @RequestMapping("/company/companyEdit")
+    @RequestMapping("/companyEdit")
     public String companyEdit(Model model){
 
       //パラメーター（companyId)を受け取る
@@ -126,12 +127,12 @@ public class CompanyController {
      * @param companyRegisterForm
      * @return
      */
-    @RequestMapping("/company/companyEditEnd")
+    @RequestMapping("/companyEditEnd")
     public String companyEditEnd(CompanyRegisterForm companyRegisterForm){
 
         companyService.updateCompany(companyRegisterForm);
 
-        return "redirect:/company/companyList";
+        return "redirect:/companyList";
     }
 
 

@@ -17,7 +17,7 @@ import java.util.List;
 
 
 @Controller
-@RequestMapping("")
+@RequestMapping("/admin")
 public class AdminController {
 
     @Autowired
@@ -36,7 +36,7 @@ public class AdminController {
      *
      * @return
      */
-    @RequestMapping("/admin/login")
+    @RequestMapping("/login")
     public String login() {
 
         return "admin/admin_login";
@@ -50,7 +50,7 @@ public class AdminController {
      * @param model
      * @return
      */
-    @RequestMapping("/admin/checkAdmin")
+    @RequestMapping("/checkAdmin")
     public String checkAdmin(LoginAdmin loginAdmin, Model model) {
         List<Admin> admin = adminService.findAdmin(loginAdmin);
 
@@ -71,7 +71,7 @@ public class AdminController {
      *
      * @return
      */
-    @RequestMapping("/admin/operationManager")
+    @RequestMapping("/operationManager")
     public String operationManager(Model model) {
 
         List<Admin> adminList = adminService.findAllAdminsAndCompanies();
@@ -87,7 +87,7 @@ public class AdminController {
      *
      * @return
      */
-    @RequestMapping("/admin/registerAdmin")
+    @RequestMapping("/registerAdmin")
     public String registerAdmin(Model model) {
 
         List<Company> companyList = adminService.findAllCompanies();
@@ -104,7 +104,7 @@ public class AdminController {
      * @param registerAdminForm
      * @return
      */
-    @RequestMapping("/admin/registerAdminDetail")
+    @RequestMapping("/registerAdminDetail")
     public String registerAdminDetail(RegisterAdminForm registerAdminForm, Model model) {
 
 //        if(!(registerAdminForm.getPassword() == registerAdminForm.getConfirmPassword())){
@@ -114,7 +114,7 @@ public class AdminController {
 
         adminService.registerAdminAndRelationCompanies(registerAdminForm);
 
-        return "redirect:/admin/operationManager";
+        return "redirect:/operationManager";
     }
 
 
@@ -124,7 +124,7 @@ public class AdminController {
      * @param model
      * @return
      */
-    @RequestMapping("/admin/editAdmin")
+    @RequestMapping("/editAdmin")
     public String editAdmin(Model model) {
 
         //リクエストパラメーターの値を受け取る
@@ -150,12 +150,12 @@ public class AdminController {
      * @param adminEditForm
      * @return
      */
-    @RequestMapping("/admin/editAdminDetail")
+    @RequestMapping("/editAdminDetail")
     public String editAdminDetail(AdminEditForm adminEditForm) {
 
         adminService.editAdminAndRelationCompanies(adminEditForm);
 
-        return "redirect:/admin/operationManager";
+        return "redirect:/operationManager";
     }
 
 

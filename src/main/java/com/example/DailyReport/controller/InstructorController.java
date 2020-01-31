@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 @Controller
+@RequestMapping("/instructor")
 public class InstructorController {
 
     @Autowired
@@ -26,7 +27,7 @@ public class InstructorController {
      * @param model
      * @return
      */
-    @RequestMapping("/instructor/instructorList")
+    @RequestMapping("/instructorList")
     public String instructorList(Model model){
 
         List<Instructor> instructorList = instructorService.findAllInstroctur();
@@ -41,7 +42,7 @@ public class InstructorController {
      * 講師新規登録画面を表示する.
      * @return
      */
-    @RequestMapping("/instructor/instructorRegister")
+    @RequestMapping("/instructorRegister")
     public String instructorRegister(){
 
         return "admin/instructor_detail";
@@ -53,7 +54,7 @@ public class InstructorController {
      * @param instructorRegisterForm
      * @return
      */
-    @RequestMapping("/instructor/instructorRegisterEnd")
+    @RequestMapping("/instructorRegisterEnd")
     public String instructorRegisterEnd(InstructorRegisterForm instructorRegisterForm){
 
         instructorService.insertInstructor(instructorRegisterForm);
@@ -66,7 +67,7 @@ public class InstructorController {
      * 講師編集画面に遷移する.
      * @return
      */
-    @RequestMapping("/instructor/instructorEdit")
+    @RequestMapping("/instructorEdit")
     public String instructorEdit(Model model){
 
         String id =  httpServletRequest.getParameter("instructorId");
@@ -85,7 +86,7 @@ public class InstructorController {
      * @param instructorRegisterForm
      * @return
      */
-    @RequestMapping("/instructor/instructorEditEnd")
+    @RequestMapping("/instructorEditEnd")
     public String instructorEditEnd(InstructorRegisterForm instructorRegisterForm){
 
         instructorService.updateInstructor(instructorRegisterForm);
