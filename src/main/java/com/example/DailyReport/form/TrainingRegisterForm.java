@@ -5,6 +5,7 @@ import java.util.Date;
 
 public class TrainingRegisterForm {
 
+    private Integer trainingId;
     /* 研修名*/
     private String trainingName;
     /* 研修開始日*/
@@ -21,8 +22,9 @@ public class TrainingRegisterForm {
     private Integer subInstructorId3;
 
 
-    public TrainingRegisterForm(String trainingName, String startDate, String endDate, Integer instructorId, Integer subInstructorId1,
-                                Integer subInstructorId2, Integer subInstructorId3) {
+    public TrainingRegisterForm(Integer trainingId, String trainingName, String startDate, String endDate, Integer instructorId,
+                                Integer subInstructorId1, Integer subInstructorId2, Integer subInstructorId3) {
+        this.trainingId = trainingId;
         this.trainingName = trainingName;
         this.startDate = startDate;
         this.endDate = endDate;
@@ -38,7 +40,8 @@ public class TrainingRegisterForm {
     @Override
     public String toString() {
         return "TrainingRegisterForm{" +
-                "trainingName='" + trainingName + '\'' +
+                "trainingId=" + trainingId +
+                ", trainingName='" + trainingName + '\'' +
                 ", startDate='" + startDate + '\'' +
                 ", endDate='" + endDate + '\'' +
                 ", instructorId=" + instructorId +
@@ -46,6 +49,14 @@ public class TrainingRegisterForm {
                 ", subInstructorId2=" + subInstructorId2 +
                 ", subInstructorId3=" + subInstructorId3 +
                 '}';
+    }
+
+    public Integer getTrainingId() {
+        return trainingId;
+    }
+
+    public void setTrainingId(Integer trainingId) {
+        this.trainingId = trainingId;
     }
 
     public String getTrainingName() {

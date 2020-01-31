@@ -22,11 +22,19 @@ public interface TrainingMapper {
      */
     List<Instructor> findAllInstructor();
 
+    Training findTrainingById(int trainingId);
+
 
     /**
      * 研修をinsertする.
      */
     void insertTraining(Training training);
+
+    /**
+     * 研修をupdateする.
+     * @param training
+     */
+    void updateTraining(Training training);
 
 
 

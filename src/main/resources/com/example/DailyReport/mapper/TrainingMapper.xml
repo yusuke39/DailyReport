@@ -4,7 +4,7 @@
 
 <mapper namespace="com.example.DailyReport.mapper.TrainingMapper">
 
-
+    <!-- 研修、講師、受講生テーブル結合-->
     <select id="findAllTraining" resultMap="TrainingResultMap">
         select t.id t_id ,t.start_date t_startDate, t.end_date t_endDate ,t.name t_name ,t.instructor_id t_instructorId ,
         t.sub_instructor_id1 t_subInstructorId1, t.sub_instructor_id2 t_subInstructorId2, t.sub_instructor_id3 t_subInstructorId3,
@@ -15,6 +15,19 @@
         left outer join training_student ts on ts.training_id = t.id
         left outer join students s on s.id = ts.student_id
         order by t.start_date;
+    </select>
+
+    <!-- 研修、講師、受講生テーブル結合して、研修IDで検索-->
+    <select id="findTrainingById" resultMap="TrainingResultMap">
+        select t.id t_id ,t.start_date t_startDate, t.end_date t_endDate ,t.name t_name ,t.instructor_id t_instructorId ,
+        t.sub_instructor_id1 t_subInstructorId1, t.sub_instructor_id2 t_subInstructorId2, t.sub_instructor_id3 t_subInstructorId3,
+        i.id i_id,i.name i_name, i.kana i_kana, i.email i_email, i.password i_password, i.affiliation i_affiliation, i.remarks i_remarks
+        ,s.id s_id,s.name s_name, s.kana s_kana, s.email s_email, s.password s_password, s.company_id s_companyId
+        from trainings t
+        left outer join instructors i on i.id = t.instructor_id
+        left outer join training_student ts on ts.training_id = t.id
+        left outer join students s on s.id = ts.student_id
+        where t.id = #{trainingId};
     </select>
 
     <resultMap id="TrainingResultMap" type="com.example.DailyReport.domain.Training">
@@ -45,14 +58,22 @@
         </collection>
     </resultMap>
 
+
+    <!-- 講師を全権検索する-->
     <select id="findAllInstructor" resultType="com.example.DailyReport.domain.Instructor">
         select id,name,kana,email,password,affiliation,remarks from instructors;
     </select>
 
-
+    <!-- 研修をinsert-->
     <insert id="insertTraining">
         insert into trainings(start_date,end_date,name,instructor_id,sub_instructor_id1,sub_instructor_id2,sub_instructor_id3)
         values (#{startDate},#{endDate},#{name},#{instructorId},#{subInstructorId1},#{subInstructorId2},#{subInstructorId3});
     </insert>
+
+    <!-- 研修をupdate-->
+    <update id="updateTraining">
+        update trainings set start_date=#{startDate} ,end_date=#{endDate},name=#{name},instructor_id=#{instructorId},sub_instructor_id1=#{subInstructorId1},
+        sub_instructor_id2=#{subInstructorId2},sub_instructor_id3=#{subInstructorId3} where id = #{id};
+    </update>
 
 </mapper>

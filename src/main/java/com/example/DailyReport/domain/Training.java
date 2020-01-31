@@ -17,14 +17,14 @@ public class Training {
     private String name;
     /* 講師ID*/
     private Integer instructorId;
-    /* 講師ドメイン*/
-    private Instructor instructor;
     /* サブ講師ID1*/
     private Integer subInstructorId1;
     /* サブ講師ID2*/
     private Integer subInstructorId2;
     /* サブ講師ID3*/
     private Integer subInstructorId3;
+    /* 講師ドメイン*/
+    private Instructor instructor;
     /* 講師*/
     private Instructor subInstructor1;
     /* 講師*/

@@ -41,7 +41,22 @@ public class TrainingService {
     }
 
 
+    /**
+     * 研修を1件検索する.
+     * @param trainingId
+     * @return
+     */
+    public Training findTrainingById(int trainingId){
 
+        Training training = trainingMapper.findTrainingById(trainingId);
+
+        return training;
+    }
+
+    /**
+     * 研修を追加する.
+     * @param trainingRegisterForm
+     */
     public void insertTraining(TrainingRegisterForm trainingRegisterForm){
 
        LocalDate startDate =  LocalDate.parse(trainingRegisterForm.getStartDate(), DateTimeFormatter.ofPattern("yyyy-MM-dd"));
@@ -56,6 +71,28 @@ public class TrainingService {
         training.setSubInstructorId2(trainingRegisterForm.getSubInstructorId2());
         training.setSubInstructorId3(trainingRegisterForm.getSubInstructorId3());
         trainingMapper.insertTraining(training);
+    }
+
+    /**
+     * 研修の編集.
+     * @param trainingRegisterForm
+     */
+    public void updateTraining(TrainingRegisterForm trainingRegisterForm){
+
+        LocalDate startDate =  LocalDate.parse(trainingRegisterForm.getStartDate(), DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+        LocalDate endDate = LocalDate.parse(trainingRegisterForm.getEndDate(), DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+
+        Training training = new Training();
+        training.setId(trainingRegisterForm.getTrainingId());
+        training.setStartDate(startDate);
+        training.setEndDate(endDate);
+        training.setName(trainingRegisterForm.getTrainingName());
+        training.setInstructorId(trainingRegisterForm.getInstructorId());
+        training.setSubInstructorId1(trainingRegisterForm.getSubInstructorId1());
+        training.setSubInstructorId2(trainingRegisterForm.getSubInstructorId2());
+        training.setSubInstructorId3(trainingRegisterForm.getSubInstructorId3());
+        trainingMapper.updateTraining(training);
+
     }
 
 }
