@@ -64,6 +64,7 @@
         select id,name,kana,email,password,affiliation,remarks from instructors;
     </select>
 
+
     <!-- 研修をinsert-->
     <insert id="insertTraining">
         insert into trainings(start_date,end_date,name,instructor_id,sub_instructor_id1,sub_instructor_id2,sub_instructor_id3)

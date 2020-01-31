@@ -22,6 +22,11 @@ public interface TrainingMapper {
      */
     List<Instructor> findAllInstructor();
 
+    /**
+     * 研修を研修IDで検索する.
+     * @param trainingId
+     * @return
+     */
     Training findTrainingById(int trainingId);
 
 

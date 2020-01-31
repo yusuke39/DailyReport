@@ -73,6 +73,7 @@ public class TrainingService {
         trainingMapper.insertTraining(training);
     }
 
+
     /**
      * 研修の編集.
      * @param trainingRegisterForm

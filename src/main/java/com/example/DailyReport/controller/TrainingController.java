@@ -3,6 +3,7 @@ package com.example.DailyReport.controller;
 import com.example.DailyReport.domain.Instructor;
 import com.example.DailyReport.domain.Training;
 import com.example.DailyReport.form.TrainingRegisterForm;
+import com.example.DailyReport.service.InstructorService;
 import com.example.DailyReport.service.TrainingService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -22,6 +23,9 @@ public class TrainingController {
     @Autowired
     private HttpServletRequest httpServletRequest;
 
+    @Autowired
+    private InstructorService instructorService;
+
     /**
      * 研修の一覧表示.,
      * @param model
@@ -31,8 +35,6 @@ public class TrainingController {
     public String adminTrainingList(Model model){
 
         List<Training> trainingList = trainingService.findAllTrainings();
-
-        System.out.println(trainingList);
 
         model.addAttribute("trainingList",trainingList);
 
@@ -81,28 +83,71 @@ public class TrainingController {
         String id = httpServletRequest.getParameter("trainingId");
         Integer trainingId = Integer.parseInt(id);
 
-        String id1 = httpServletRequest.getParameter("subInstructorId1");
-        Integer subInstructorId1 = Integer.parseInt(id1);
 
-          String id2 = httpServletRequest.getParameter("subInstructorId2");
-//        Integer subInstructorId2 = Integer.parseInt(id2);
+//        if(httpServletRequest.getParameter("subInstructorId1") != "" &&
+//                httpServletRequest.getParameter("subInstructorId2") != "" &&
+//                httpServletRequest.getParameter("subInstructorId3") != ""){
+//            //サブ講師ID1を取得
+//            String id1 = httpServletRequest.getParameter("subInstructorId1");
+//            Integer subInstructorId1 = Integer.parseInt(id1);
+//            //サブ講師ID2を取得
+//            String id2 = httpServletRequest.getParameter("subInstructorId2");
+//            Integer subInstructorId2 = Integer.parseInt(id2);
+//            //サブ講師ID3を取得
+//            String id3 = httpServletRequest.getParameter("subInstructorId3");
+//            Integer subInstructorId3 = Integer.parseInt(id3);
 //
-          String id3 = httpServletRequest.getParameter("subInstructorId3");
-//        Integer subInstructorId3 = Integer.parseInt(id3);
+//            //研修IDを使って、研修、講師を検索
+//            Instructor subInstructor1 = instructorService.findInstructorById(subInstructorId1);
+//            Instructor subInstructor2 = instructorService.findInstructorById(subInstructorId2);
+//            Instructor subInstructor3 = instructorService.findInstructorById(subInstructorId3);
+//            model.addAttribute("subInstructor1",subInstructor1);
+//            model.addAttribute("subInstructor2",subInstructor2);
+//            model.addAttribute("subInstructor3",subInstructor3);
+////        }
 
-        System.out.println("kkkkkk:" + id1);
-        System.out.println("ffffff:" + id2);
-        System.out.println("gggggg:" + id3);
 
-        //研修IDを使って、研修、講師を検索
+//        //もし、１のパラメーターが空出ないなら、modelに入れない
+//        //空の場合は
+//        if(httpServletRequest.getParameter("subInstructorId1") != ""){
+//            //サブ講師ID1を取得
+//            String id1 = httpServletRequest.getParameter("subInstructorId1");
+//            Integer subInstructorId1 = Integer.parseInt(id1);
+//            Instructor subInstructor1 = instructorService.findInstructorById(subInstructorId1);
+//            model.addAttribute("subInstructor1",subInstructor1);
+//        } else {
+//            model.addAttribute("empty","選択して下さい");
+//        }
+//
+//        if(httpServletRequest.getParameter("subInstructorId2") != ""){
+//            //サブ講師ID1を取得
+//            String id2 = httpServletRequest.getParameter("subInstructorId2");
+//            Integer subInstructorId2 = Integer.parseInt(id2);
+//            Instructor subInstructor2 = instructorService.findInstructorById(subInstructorId2);
+//            model.addAttribute("subInstructor1",subInstructor2);
+//        } else {
+//            model.addAttribute("empty","選択して下さい");
+//        }
+//
+//        if(httpServletRequest.getParameter("subInstructorId3") != ""){
+//            //サブ講師ID1を取得
+//            String id3 = httpServletRequest.getParameter("subInstructorId3");
+//            Integer subInstructorId3 = Integer.parseInt(id3);
+//            Instructor subInstructor3 = instructorService.findInstructorById(subInstructorId3);
+//            model.addAttribute("subInstructor1",subInstructor3);
+//        } else {
+//            model.addAttribute("empty","選択して下さい");
+//        }
+
+
+        //研修を１件取得
         Training training = trainingService.findTrainingById(trainingId);
+        model.addAttribute("training", training);
 
         //講師を全権取得（selectタグで選択させるため）
         List<Instructor> instructorList = trainingService.findAllInstructor();
-
         model.addAttribute("instructorList",instructorList);
 
-        model.addAttribute("training", training);
 
         return "/admin/admin_training_detail_edit";
     }
