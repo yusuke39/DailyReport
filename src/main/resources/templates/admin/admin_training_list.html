@@ -57,9 +57,7 @@
 		<div class="row">
 			<div
 				class="table-responsive col-lg-offset-1 col-lg-10 col-md-offset-1 col-md-10 col-sm-10 col-xs-12">
-				<form method="post" action="admin_training_detail.html">
-				<button type="submit" class="btn btn-primary">新規登録</button>
-				</form>
+				<a type="submit" class="btn btn-primary" th:href="@{/training/adminTrainingDetail}">新規登録</a>
 			</div>
 		</div>
 		<!-- table -->
@@ -79,10 +77,10 @@
 						</tr>
 					</thead>
 					<tbody>
-						<tr>
-							<td>2016/04/01 ～ 2016/06/30</td>
-							<td>〇〇企業様向け Java新人研修</td>
-							<td>鈴木一郎</td>
+						<tr th:each="training : ${trainingList}">
+							<td th:text="${#temporals.format(training.startDate, 'yyyy/MM/dd')} + '〜' + ${#temporals.format(training.endDate, 'yyyy/MM/dd')}">2016/04/01 ～ 2016/06/30</td>
+							<td th:text="${training.name}">〇〇企業様向け Java新人研修</td>
+							<td th:text="${training.instructor.name}">鈴木一郎</td>
 							<td><form action="admin_view_daily_report.html" method="post"><button type="submit">日報</button></form></td>
 							<td><form action="admin_view_weekly_report.html" method="post"><button type="submit">週報</button></form></td>
 							<td><form action="admin_training_detail.html" method="post"><button type="submit">編集</button></form></td>

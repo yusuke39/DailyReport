@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+
+<mapper namespace="com.example.DailyReport.mapper.TrainingMapper">
+
+
+    <select id="findAllTraining" resultMap="TrainingResultMap">
+        select t.id t_id ,t.start_date t_startDate, t.end_date t_endDate ,t.name t_name ,t.instructor_id t_instructorId ,
+        t.sub_instructor_id1 t_subInstructorId1, t.sub_instructor_id2 t_subInstructorId2, t.sub_instructor_id3 t_subInstructorId3,
+        i.id i_id,i.name i_name, i.kana i_kana, i.email i_email, i.password i_password, i.affiliation i_affiliation, i.remarks i_remarks
+        ,s.id s_id,s.name s_name, s.kana s_kana, s.email s_email, s.password s_password, s.company_id s_companyId
+        from trainings t
+        left outer join instructors i on i.id = t.instructor_id
+        left outer join training_student ts on ts.training_id = t.id
+        left outer join students s on s.id = ts.student_id;
+    </select>
+
+    <resultMap id="TrainingResultMap" type="com.example.DailyReport.domain.Training">
+        <id property="id" column="t_id"/>
+        <result property="startDate" column="t_startDate"/>
+        <result property="endDate" column="t_endDate"/>
+        <result property="name" column="t_name"/>
+        <result property="instructorId" column="t_instructorId" />
+        <result property="subInstructorId1" column="t_subInstructorId1"/>
+        <result property="subInstructorId2" column="t_subInstructorId2"/>
+        <result property="subInstructorId3" column="t_subInstructorId3"/>
+        <association property="instructor" javaType="com.example.DailyReport.domain.Instructor">
+            <result property="id" column="i_id"/>
+            <result property="name" column="i_name"/>
+            <result property="kana" column="i_kana"/>
+            <result property="email" column="i_email"/>
+            <result property="password" column="i_password"/>
+            <result property="affiliation" column="i_affiliation"/>
+            <result property="remarks" column="i_remarks"/>
+        </association>
+        <collection property="studentList" ofType="com.example.DailyReport.domain.Student">
+            <result property="id" column="s_id"/>
+            <result property="name" column="s_name"/>
+            <result property="kana" column="s_kana"/>
+            <result property="email" column="s_email"/>
+            <result property="password" column="s_password"/>
+            <result property="companyId" column="s_companyId"/>
+        </collection>
+    </resultMap>
+
+
+    <insert id="insertTraining">
+        insert into trainings(start_date,end_date,name,instructor_id,sub_instructor_id1,sub_instructor_id2,sub_instructor_id3)
+        values (#{startDate},#{endDate},#{name},#{instructorId},#{subInstructorId1},#{subInstructorId2},#{subInstructorId3});
+    </insert>
+
+</mapper>

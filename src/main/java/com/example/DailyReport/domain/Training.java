@@ -18,6 +18,8 @@ public class Training {
     private String name;
     /* 講師ID*/
     private Integer instructorId;
+    /* 講師ドメイン*/
+    private Instructor instructor;
     /* サブ講師ID1*/
     private Integer subInstructorId1;
     /* サブ講師ID2*/
@@ -36,14 +38,15 @@ public class Training {
     private List<WeeklyReport> weeklyReportList;
 
 
-    public Training(Integer id, LocalDate startDate, LocalDate endDate, String name, Integer instructorId, Integer subInstructorId1,
-                    Integer subInstructorId2, Integer subInstructorId3, Instructor subInstructor1, Instructor subInstructor2,
-                    Instructor subInstructor3, List<Student> studentList, List<WeeklyReport> weeklyReportList) {
+    public Training(Integer id, LocalDate startDate, LocalDate endDate, String name, Integer instructorId, Instructor instructor, Integer subInstructorId1,
+                    Integer subInstructorId2, Integer subInstructorId3, Instructor subInstructor1, Instructor subInstructor2, Instructor subInstructor3,
+                    List<Student> studentList, List<WeeklyReport> weeklyReportList) {
         this.id = id;
         this.startDate = startDate;
         this.endDate = endDate;
         this.name = name;
         this.instructorId = instructorId;
+        this.instructor = instructor;
         this.subInstructorId1 = subInstructorId1;
         this.subInstructorId2 = subInstructorId2;
         this.subInstructorId3 = subInstructorId3;
@@ -65,6 +68,7 @@ public class Training {
                 ", endDate=" + endDate +
                 ", name='" + name + '\'' +
                 ", instructorId=" + instructorId +
+                ", instructor=" + instructor +
                 ", subInstructorId1=" + subInstructorId1 +
                 ", subInstructorId2=" + subInstructorId2 +
                 ", subInstructorId3=" + subInstructorId3 +
@@ -114,6 +118,14 @@ public class Training {
 
     public void setInstructorId(Integer instructorId) {
         this.instructorId = instructorId;
+    }
+
+    public Instructor getInstructor() {
+        return instructor;
+    }
+
+    public void setInstructor(Instructor instructor) {
+        this.instructor = instructor;
     }
 
     public Integer getSubInstructorId1() {
