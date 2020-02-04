@@ -88,9 +88,16 @@
         values (#{admins_id},#{companies_id});
     </insert>
 
+    <!-- 管理者情報をインサートする-->
     <update id="updateAdmin">
         update admins set name=#{name},kana=#{kana},email=#{email},can_show_all_company=#{canShowAllCompany} where id=#{id};
     </update>
+
+    <!-- 受講生を登録する-->
+    <insert id="insertStudents">
+        insert into students (name,kana,email,password,company_id)
+        values (#{name},#{kana},#{email},#{password},#{companyId});
+    </insert>
 
 
 </mapper>

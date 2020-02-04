@@ -2,9 +2,8 @@ package com.example.DailyReport.controller;
 
 import com.example.DailyReport.domain.Admin;
 import com.example.DailyReport.domain.Company;
-import com.example.DailyReport.form.AdminEditForm;
-import com.example.DailyReport.form.LoginAdmin;
-import com.example.DailyReport.form.RegisterAdminForm;
+import com.example.DailyReport.domain.Student;
+import com.example.DailyReport.form.*;
 import com.example.DailyReport.mapper.AdminMapper;
 import com.example.DailyReport.service.AdminService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +12,13 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+import java.io.*;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.StandardOpenOption;
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -28,6 +34,9 @@ public class AdminController {
 
     @Autowired
     private HttpServletRequest httpServletRequest;
+
+    @Autowired
+    private HttpSession session;
 
 
 
@@ -157,6 +166,87 @@ public class AdminController {
 
         return "redirect:/operationManager";
     }
+
+
+    /**
+     * CSVファイルをインポートする
+     * @param csvFileForm
+     * @param model
+     * @return
+     */
+    @RequestMapping("/csvOutput")
+    public String csvOutput(CsvFileForm csvFileForm, Model model) {
+
+        String fileName = csvFileForm.getFile().getOriginalFilename();
+
+        //受け取ったファイルをそのままサーバーに配置(/Users/hiranoyuusuke/IdeaProjects/DailyReport/ファイル名　→直下に置く）
+        Path paths = Paths.get("/Users/hiranoyuusuke/IdeaProjects/DailyReport/" + fileName);
+
+        try(OutputStream outputStream = Files.newOutputStream(paths, StandardOpenOption.CREATE)) {
+            byte[] bytes = csvFileForm.getFile().getBytes();
+            outputStream.write(bytes);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        //Users/hiranoyuusuke/IdeaProjects/DailyReport/ファイル名においたファイルを読み込みインサートする
+        BufferedReader bufferedReader = null;
+
+        try{
+            //CSVファイルの中身を読み込み
+            FileInputStream fileInputStream = new FileInputStream("/Users/hiranoyuusuke/IdeaProjects/DailyReport/" + fileName);
+            //バイトストリームをテキスト形式に変換
+            InputStreamReader inputStreamReader = new InputStreamReader(fileInputStream);
+            //テキスト形式のファイル読み込み
+            bufferedReader = new BufferedReader(inputStreamReader);
+
+            String currentContents;
+            List<Student> studentList = new ArrayList<>();
+            int row = 0;
+            String[] arrayColumnName = null;
+
+
+            while ((currentContents = bufferedReader.readLine()) != null) {
+                String[] arrayColumnData = currentContents.split(",");
+                Student student = new Student();
+                student.setName(arrayColumnData[0]);
+                student.setKana(arrayColumnData[1]);
+                student.setEmail(arrayColumnData[2]);
+                student.setPassword(arrayColumnData[3]);
+                studentList.add(student);
+                session.setAttribute("studentList", studentList);
+                row++;
+
+            }
+
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+
+        //CSVファイルを消す
+        File filedelete = new File("/Users/hiranoyuusuke/IdeaProjects/DailyReport/" + fileName);
+        filedelete.delete();
+
+        return "redirect:/student/registerStudent";
+    }
+
+    /**
+     * 受講生登録機能
+     * @return
+     */
+    @RequestMapping("/studentsRegister")
+    public String studentsRegister(){
+
+        Object studentList = session.getAttribute("studentList");
+
+        adminService.insertStudent((List<Student>)studentList);
+
+        return "redirect:/admin/operationManager";
+    }
+
 
 
 }

@@ -76,7 +76,7 @@
 				class="col-lg-offset-1 col-lg-10 col-md-offset-1 col-md-10 col-sm-10 col-xs-12">
 				<!-- 背景をグレーに、埋め込んだようなコンポーネント -->
 				<div class="well">
-					<form method="post" th:action="@{/student/csvOutput}" enctype="multipart/form-data">
+					<form method="post" th:action="@{/admin/csvOutput}" enctype="multipart/form-data">
 						<fieldset>
 							<legend>受講者情報インポート</legend>
 							<div class="form-group">
@@ -108,10 +108,17 @@
 			</div>
 		</div>
 
-		<form>
+		<form th:action="@{/admin/studentsRegister}">
 			<div class="form-group">
 				<div class="row">
 					<div class="col-lg-offset-1 col-lg-10 col-md-offset-1 col-md-10 col-sm-10 col-sm-12">
+<!--						<span th:each="student : ${session.studentList}">-->
+<!--							<input type="text" th:value="${student.name}" name="studentName">-->
+<!--							<input type="text" th:value="${student.kana}" name="studentKana">-->
+<!--							<input type="text" th:value="${student.email}" name="studentEmail">-->
+<!--							<input type="text" th:value="111" name="StudentPassword">-->
+<!--							<input type="text" th:value="1" name="companyId">-->
+						</span>
 						<button type="submit" class="btn btn-primary">以下の内容で登録する</button>
 					</div>
 				</div>
@@ -125,6 +132,7 @@
 					<thead>
 						<tr>
 							<th>受講者名</th>
+							<th>受講者名(かな)</th>
 							<th>メールアドレス</th>
 							<th>所属</th>
 						</tr>
@@ -132,6 +140,7 @@
 					<tbody>
 						<tr th:each="student : ${session.studentList}">
 							<td th:text="${student.name}">受講者一郎</td>
+							<td th:text="${student.kana}">かな</td>
 							<td th:text="${student.email}">ichiro@jukou.com</td>
 							<td th:text="${student.email}">株式会社〇〇</td>
 						</tr>

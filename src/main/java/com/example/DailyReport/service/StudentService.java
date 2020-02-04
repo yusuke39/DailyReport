@@ -14,6 +14,12 @@ public class StudentService {
     @Autowired
     private StudentMapper studentMapper;
 
+
+    /**
+     * 受講生ログイン機能.
+     * @param studentLoginForm
+     * @return
+     */
     public List<Student> findStudentByEmailAndPassword(StudentLoginForm studentLoginForm){
 
         List<Student> studentList = studentMapper.findStudentByEmailAndPassword(studentLoginForm.getStudentEmail(), studentLoginForm.getStudentPassword());
@@ -24,5 +30,8 @@ public class StudentService {
 
         return studentList;
     }
+
+
+
 
 }

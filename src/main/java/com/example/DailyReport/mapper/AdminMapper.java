@@ -3,6 +3,7 @@ package com.example.DailyReport.mapper;
 import com.example.DailyReport.domain.Admin;
 import com.example.DailyReport.domain.AdminsCompanies;
 import com.example.DailyReport.domain.Company;
+import com.example.DailyReport.domain.Student;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;
@@ -84,4 +85,9 @@ public interface AdminMapper {
      */
     void updateAdmin(Admin admin);
 
+    /**
+     * 複数の生徒を登録する.
+     * @param student
+     */
+    void insertStudents(Student student);
 }
