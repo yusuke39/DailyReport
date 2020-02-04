@@ -114,7 +114,7 @@ public class AdminController {
 
         adminService.registerAdminAndRelationCompanies(registerAdminForm);
 
-        return "redirect:/operationManager";
+        return "redirect:/admin/operationManager";
     }
 
 
