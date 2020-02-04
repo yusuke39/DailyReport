@@ -19,7 +19,7 @@
         insert into instructors(name,kana,email,password,affiliation,remarks) values (#{name},#{kana},#{email},#{password},#{affiliation},#{remarks});
     </insert>
 
-    <!--講師情報をuodateする-->
+    <!--講師情報をupdateする-->
     <update id="updateInstructor">
         update instructors set name=#{name},kana=#{kana}, email=#{email}, affiliation=#{affiliation},remarks=#{remarks} where id=#{id};
     </update>

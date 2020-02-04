@@ -164,7 +164,7 @@ public class AdminController {
 
         adminService.editAdminAndRelationCompanies(adminEditForm);
 
-        return "redirect:/operationManager";
+        return "redirect:/admin/operationManager";
     }
 
 

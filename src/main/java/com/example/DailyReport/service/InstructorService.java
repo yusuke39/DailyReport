@@ -63,6 +63,7 @@ public class InstructorService {
     public void updateInstructor(InstructorRegisterForm instructorRegisterForm){
 
         Instructor instructor = new Instructor();
+        instructor.setId(instructorRegisterForm.getInstructorId());
         instructor.setName(instructorRegisterForm.getInstructorName());
         instructor.setKana(instructorRegisterForm.getInstructorKana());
         instructor.setEmail(instructorRegisterForm.getInstructorEmail());
