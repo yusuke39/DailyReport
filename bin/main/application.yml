@@ -4,3 +4,6 @@ spring:
     url: jdbc:postgresql://localhost:5432/dailyreport
     username: postgres
     password: postgres
+
+#mybatis:
+#  mapper-locations: classpath*:/com/example/DailyReport/mapper

@@ -68,7 +68,8 @@ public class AdminController {
             return "admin/admin_login";
         }
 
-        int adminId = admin.get(0).getId();
+        String adminName = admin.get(0).getName();
+        session.setAttribute("adminId",adminName);
 
 
         return "admin/admin_training_list";
