@@ -5,8 +5,11 @@ import com.example.DailyReport.domain.Company;
 import com.example.DailyReport.domain.Student;
 import com.example.DailyReport.form.*;
 import com.example.DailyReport.mapper.AdminMapper;
+import com.example.DailyReport.security.LoginUser;
+import com.example.DailyReport.security.UserDetailsServiceImpl;
 import com.example.DailyReport.service.AdminService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -51,7 +54,7 @@ public class AdminController {
         return "admin/admin_login";
     }
 
-    
+
 
     /**
      * 運営管理者一覧表示.
@@ -59,7 +62,7 @@ public class AdminController {
      * @return
      */
     @RequestMapping("/operationManager")
-    public String operationManager(Model model) {
+    public String operationManager(Model model, @AuthenticationPrincipal LoginUser loginUser) {
 
         List<Admin> adminList = adminService.findAllAdminsAndCompanies();
 
