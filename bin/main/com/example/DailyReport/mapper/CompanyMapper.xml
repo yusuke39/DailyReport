@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+
+<mapper namespace="com.example.DailyReport.mapper.CompanyMapper">
+
+    <!-- 企業担当者と企業一覧の全件検索 -->
+    <select id="findAllCompanyMemberAndCompanies" resultMap="CompanyResult">
+        select c.id c_id, c.name c_name, c.kana c_kana, c.remarks c_remarks, ccm.companies_id ccm_companies_id,
+        ccm.company_members_id ccm_company_members_id, cm.id cm_id, cm.name cm_name, cm.kana cm_kana, cm.email cm_email, cm.password cm_password
+        from companies c
+        left outer join companies_company_members ccm on ccm.companies_id = c.id
+        left outer join company_members cm on cm.id = ccm.company_members_id;
+    </select>
+
+
+<!--    //////////使うかもだから取っておく/////////////-->
+<!--    &lt;!&ndash; 企業担当者IDで検索をかける&ndash;&gt;-->
+<!--    <select id="findCompanyMemberAndCompanyByMemberId" resultMap="CompanyResult">-->
+<!--        select c.id c_id, c.name c_name, c.kana c_kana, c.remarks c_remarks, ccm.companies_id ccm_companies_id,-->
+<!--        ccm.company_members_id ccm_company_members_id, cm.id cm_id, cm.name cm_name, cm.kana cm_kana, cm.email cm_email, cm.password cm_password-->
+<!--        from companies c-->
+<!--        left outer join companies_company_members ccm on ccm.companies_id = c.id-->
+<!--        left outer join company_members cm on cm.id = ccm.company_members_id-->
+<!--        where ccm.company_members_id=#{companyMembersId};-->
+<!--    </select>-->
+
+    <!-- 企業IDで検索をかける-->
+    <select id="findCompanyMemberAndCompanyByCompanyId" resultMap="CompanyResult">
+        select c.id c_id, c.name c_name, c.kana c_kana, c.remarks c_remarks, ccm.companies_id ccm_companies_id,
+        ccm.company_members_id ccm_company_members_id, cm.id cm_id, cm.name cm_name, cm.kana cm_kana, cm.email cm_email, cm.password cm_password
+        from companies c
+        left outer join companies_company_members ccm on ccm.companies_id = c.id
+        left outer join company_members cm on cm.id = ccm.company_members_id
+        where ccm.companies_id=#{companiesId};
+    </select>
+
+
+    <resultMap id="CompanyResult" type="com.example.DailyReport.domain.Company">
+        <id property="id" column="c_id"/>
+        <result property="name" column="c_name"/>
+        <result property="kana" column="c_kana"/>
+        <result property="remarks" column="c_remarks"/>
+        <collection property="companyMembersList" ofType="com.example.DailyReport.domain.CompanyMember">
+            <result property="id" column="cm_id"/>
+            <result property="name" column="cm_name"/>
+            <result property="kana" column="cm_kana"/>
+            <result property="email" column="cm_email"/>
+            <result property="password" column="cm_password"/>
+        </collection>
+    </resultMap>
+
+    <select id="findCompanyByCompanyId" resultType="com.example.DailyReport.domain.Company">
+        select id,name,kana,remarks from companies where id = #{companyId}
+    </select>
+
+
+    <!-- 企業情報をinsertする-->
+    <insert id="insertCompany">
+        insert into companies (name, kana, remarks) values (#{name}, #{kana}, #{remarks});
+    </insert>
+
+    <!-- 企業担当者をinsertする-->
+    <insert id="insertCompanyMember"  parameterType="com.example.DailyReport.domain.CompanyMember" useGeneratedKeys="true" keyProperty="id">
+        insert into company_members (name, kana, email, password) values (#{name}, #{kana}, #{email}, #{password});
+    </insert>
+
+
+    <insert id="insertCompaniesCompanyMembers">
+        insert into companies_company_members (companies_id, company_members_id) values (#{companiesId}, #{companyMembersId});
+    </insert>
+
+    <update id="updateCompany">
+        update companies set name=#{name},kana=#{kana},remarks=#{remarks} where id=#{id};
+    </update>
+
+</mapper>

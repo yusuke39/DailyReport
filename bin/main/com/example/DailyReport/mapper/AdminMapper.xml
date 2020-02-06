@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+
+<mapper namespace="com.example.DailyReport.mapper.AdminMapper">
+
+    <!--adminテーブルから１件IDを使って検索する-->
+    <select id="findAdminById" resultType="com.example.DailyReport.domain.Admin">
+        select id,name,kana,email,password from admins where id = #{id};
+    </select>
+
+
+    <!--adminテーブルから１件検索する-->
+    <select id="findAdmin" resultType="com.example.DailyReport.domain.Admin">
+        select id,name,kana,email,password from admins where email = #{email};
+    </select>
+
+
+    <!-- admins_companiesから１件検索する-->
+    <select id="findAdminsCompaniesById" resultType="com.example.DailyReport.domain.AdminsCompanies">
+        select admins_id,companies_id from admins_companies where admins_id=#{adminId};
+    </select>
+
+
+    <!-- admins_companiesから１件削除する-->
+    <delete id="deleteAdminCompaniesByAdminsId" parameterType="int">
+        delete from admins_companies where admins_id=#{adminId};
+    </delete>
+
+    <delete id="deleteAdminCompaniesByCompaniesId">
+        delete from admins_companies where companies_id _id=#{companiesId};
+    </delete>
+
+
+    <!-- 企業情報をすべて取得-->
+    <select id="findAllCompanies" resultType="com.example.DailyReport.domain.Company">
+        select id,name,kana,remarks from companies;
+    </select>
+
+
+    <!-- admins,companies,admins_companiesのテーブルを結合して、紐づいている企業と、管理者を抽出する-->
+    <select id="findAllAdminsAndCompanies" resultMap="AdminResult">
+        select a.id a_id ,a.name a_name ,a.kana a_kana, a.email a_email, a.password a_password ,a.can_show_all_company a_canShowAllCompanies,
+        ac.admins_id ac_adminsId ,ac.companies_id ac_companiesId ,c.id c_id ,c.name c_name ,c.kana c_kana ,c.remarks c_remarks
+        from admins a
+        left outer join admins_companies ac on ac.admins_id = a.id
+        left outer join companies c on ac.companies_id = c.id
+        order by a.id;
+    </select>
+
+    <select id="findAdminsAndCompaniesByAdminId" resultMap="AdminResult">
+        select a.id a_id ,a.name a_name ,a.kana a_kana, a.email a_email, a.password a_password ,a.can_show_all_company a_canShowAllCompanies,
+        ac.admins_id ac_adminsId ,ac.companies_id ac_companiesId ,c.id c_id ,c.name c_name ,c.kana c_kana ,c.remarks c_remarks
+        from admins a
+        left outer join admins_companies ac on ac.admins_id = a.id
+        left outer join companies c on ac.companies_id = c.id
+        where ac.admins_id=#{adminId}
+        order by a.id;
+    </select>
+
+    <resultMap id="AdminResult" type="com.example.DailyReport.domain.Admin">
+        <id property="id" column="a_id"/>
+        <result column="a_name" property="name"/>
+        <result column="a_kana" property="kana"/>
+        <result column="a_email" property="email"/>
+        <result column="a_password" property="password"/>
+        <result column="a_canShowAllCompanies" property="canShowAllCompany"/>
+        <collection property="companyList" ofType="com.example.DailyReport.domain.Company" >
+            <result column="c_id" property="id"/>
+            <result column="c_name" property="name"/>
+            <result column="c_kana" property="kana"/>
+            <result column="c_remarks" property="remarks"/>
+        </collection>
+    </resultMap>
+
+
+
+    <!-- 管理者情報を登録する-->
+    <insert id="insertAdmin" parameterType="com.example.DailyReport.domain.Admin" useGeneratedKeys="true" keyProperty="id">
+        insert into admins (name,kana,email,password,can_show_all_company)
+        values (#{name},#{kana},#{email},#{password},#{canShowAllCompany});
+    </insert>
+
+
+    <!-- 管理者IDと企業IDをインサートする-->
+    <insert id="insertAdminsIdAndCompaniesId">
+        insert into admins_companies (admins_id,companies_id)
+        values (#{admins_id},#{companies_id});
+    </insert>
+
+    <!-- 管理者情報をインサートする-->
+    <update id="updateAdmin">
+        update admins set name=#{name},kana=#{kana},email=#{email},can_show_all_company=#{canShowAllCompany} where id=#{id};
+    </update>
+
+    <!-- 受講生を登録する-->
+    <insert id="insertStudents">
+        insert into students (name,kana,email,password,company_id)
+        values (#{name},#{kana},#{email},#{password},#{companyId});
+    </insert>
+
+
+</mapper>

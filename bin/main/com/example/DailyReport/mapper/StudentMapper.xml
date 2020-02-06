@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+
+<mapper namespace="com.example.DailyReport.mapper.StudentMapper">
+
+    <!-- 生徒テーブルから１件検索する-->
+    <select id="findStudentByEmailAndPassword" resultType="com.example.DailyReport.domain.Student">
+        select * from students where email=#{email} and password=#{password};
+    </select>
+
+</mapper>

@@ -45,35 +45,19 @@ public class AdminController {
      *
      * @return
      */
-    @RequestMapping("/login")
+    @RequestMapping("/loginPage")
     public String login() {
 
         return "admin/admin_login";
     }
 
 
-    /**
-     * ログインユーザー（管理者）が正しいかemailとパスワードで判断する.
-     *
-     * @param loginAdmin
-     * @param model
-     * @return
-     */
-    @RequestMapping("/checkAdmin")
-    public String checkAdmin(LoginAdmin loginAdmin, Model model) {
-        List<Admin> admin = adminService.findAdmin(loginAdmin);
 
-        if (admin == null) {
-            model.addAttribute("loginError", "メールアドレスかパスワードが正しくありません");
-            return "admin/admin_login";
-        }
-
-        String adminName = admin.get(0).getName();
-        session.setAttribute("adminId",adminName);
-
-
-        return "admin/admin_training_list";
-    }
+//    @RequestMapping("/checkAdmin")
+//    public String checkAdmin() {
+//
+//        return "admin/admin_training_list";
+//   }
 
 
     /**
@@ -247,7 +231,5 @@ public class AdminController {
 
         return "redirect:/admin/operationManager";
     }
-
-
 
 }
