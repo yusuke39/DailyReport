@@ -51,14 +51,7 @@ public class AdminController {
         return "admin/admin_login";
     }
 
-
-
-//    @RequestMapping("/checkAdmin")
-//    public String checkAdmin() {
-//
-//        return "admin/admin_training_list";
-//   }
-
+    
 
     /**
      * 運営管理者一覧表示.
