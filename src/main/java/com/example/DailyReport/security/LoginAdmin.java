@@ -8,12 +8,12 @@ import org.springframework.security.core.userdetails.User;
 import java.util.Collection;
 
 
-public class LoginUser extends User {
+public class LoginAdmin extends User {
 
 
     private final com.example.DailyReport.domain.Admin Admin;
 
-    public LoginUser(Admin admin, Collection<GrantedAuthority> authorityList) {
+    public LoginAdmin(Admin admin, Collection<GrantedAuthority> authorityList) {
         super(admin.getEmail(), admin.getPassword(), authorityList);
         this.Admin = admin;
     }

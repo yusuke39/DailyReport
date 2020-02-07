@@ -44,7 +44,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception{
         http.authorizeRequests()
-                .antMatchers("/admin/loginPage").permitAll()
+                .antMatchers("/admin/loginPage","/student/**").permitAll()
                 .anyRequest().authenticated();
 
         http.formLogin()
@@ -66,7 +66,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     protected static class AuthenticationConfiguration
             extends GlobalAuthenticationConfigurerAdapter {
         @Autowired
-        UserDetailsServiceImpl userDetailsService;
+        AdminDetailsServiceImpl userDetailsService;
 
         @Override
         public void init(AuthenticationManagerBuilder auth) throws Exception {

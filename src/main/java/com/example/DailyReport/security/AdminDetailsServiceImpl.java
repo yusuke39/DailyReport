@@ -14,14 +14,14 @@ import java.util.Collection;
 import java.util.List;
 
 @Component
-public class UserDetailsServiceImpl implements UserDetailsService {
+public class AdminDetailsServiceImpl implements UserDetailsService {
 
     @Autowired
     private AdminMapper adminMapper;
 
 
     @Override
-    public LoginUser loadUserByUsername(String email) throws UsernameNotFoundException {
+    public LoginAdmin loadUserByUsername(String email) throws UsernameNotFoundException {
         if(adminMapper.findAdmin(email).size() == 0){
             throw new UsernameNotFoundException("メールアドレスかパスワードが不正です");
         }
@@ -31,7 +31,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 
         Collection<GrantedAuthority> authorityList = new ArrayList<>();
         authorityList.add(new SimpleGrantedAuthority("ADMIN"));
-        return new LoginUser(admin,authorityList);
+        return new LoginAdmin(admin,authorityList);
 
     }
 }

@@ -5,7 +5,7 @@ import com.example.DailyReport.domain.Company;
 import com.example.DailyReport.domain.Student;
 import com.example.DailyReport.form.*;
 import com.example.DailyReport.mapper.AdminMapper;
-import com.example.DailyReport.security.LoginUser;
+import com.example.DailyReport.security.LoginAdmin;
 import com.example.DailyReport.service.AdminService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -61,7 +61,7 @@ public class AdminController {
      * @return
      */
     @RequestMapping("/operationManager")
-    public String operationManager(Model model, @AuthenticationPrincipal LoginUser loginUser) {
+    public String operationManager(Model model, @AuthenticationPrincipal LoginAdmin loginUser) {
 
         List<Admin> adminList = adminService.findAllAdminsAndCompanies();
 
@@ -147,6 +147,16 @@ public class AdminController {
         return "redirect:/admin/operationManager";
     }
 
+
+    /**
+     * 受講者情報インポート画面表示.
+     * @return
+     */
+    @RequestMapping("/registerStudent")
+    public String registerStudent(){
+
+        return "admin/admin_training_import_students";
+    }
 
     /**
      * CSVファイルをインポートする

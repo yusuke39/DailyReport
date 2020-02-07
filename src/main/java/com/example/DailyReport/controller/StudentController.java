@@ -1,9 +1,11 @@
 package com.example.DailyReport.controller;
 
 import com.example.DailyReport.domain.Student;
+import com.example.DailyReport.domain.Training;
 import com.example.DailyReport.form.StudentLoginForm;
 import com.example.DailyReport.service.StudentFile;
 import com.example.DailyReport.service.StudentService;
+import com.example.DailyReport.service.TrainingService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -20,46 +22,59 @@ public class StudentController {
     private StudentService studentService;
 
     @Autowired
-    private StudentFile studentFile;
-
-    @Autowired
-    private HttpSession session;
+    private TrainingService trainingService;
 
 
     /**
      * 受講生用のログインフォーム表示.
      * @return
      */
-    @RequestMapping("/loginForm")
-    public String studentLoginFrom(){
+    @RequestMapping("/loginPage")
+    public String studentLoginPage(){
         return"student/student_login";
     }
 
-    /**
-     * 受講生用のログインフォーム
-     * @return
-     */
-    @RequestMapping("/login")
-    public String login(StudentLoginForm studentLoginForm, Model model){
+    @RequestMapping("/studentTrainingList")
+    public String studentTrainingList(Model model){
 
+        //TrainingServiceの研修を全権取得するメソッドを使って、研修と講師を全権取得する
+        List<Training> trainingList = trainingService.findAllTrainings();
 
-        List<Student> studentList = studentService.findStudentByEmailAndPassword(studentLoginForm);
-
-        if(studentList == null){
-            model.addAttribute("nullStudent", "メールアドレスかパスワードが一致しません");
-        }
+        model.addAttribute("trainingList",trainingList);
 
         return"student/student_training_list";
     }
 
+
     /**
-     * 受講者情報インポート画面表示.
+     * ログイン機能（セキュリティ使うまでの仮）
+     * @param studentLoginForm
+     * @param model
      * @return
      */
-    @RequestMapping("/registerStudent")
-    public String registerStudent(){
+    @RequestMapping("/login")
+    public String studentLogin(StudentLoginForm studentLoginForm,Model model){
 
-        return "admin/admin_training_import_students";
+      Student student = studentService.findStudentByEmailAndPassword(studentLoginForm);
+
+      if(student == null){
+          model.addAttribute("不正なメールアドレスかパスワードです");
+          return studentLoginPage();
+      }
+
+      return "student/student_training_list";
+
     }
+
+
+    /**
+     * 生徒の日報登録、閲覧画面を表示する.
+     * @return
+     */
+    @RequestMapping("/studentDairyReport")
+    public String studentDairyReport(){
+        return "student/student_view_daily_report";
+    }
+
 
 }

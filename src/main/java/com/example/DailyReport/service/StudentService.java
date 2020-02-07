@@ -20,7 +20,7 @@ public class StudentService {
      * @param studentLoginForm
      * @return
      */
-    public List<Student> findStudentByEmailAndPassword(StudentLoginForm studentLoginForm){
+    public Student findStudentByEmailAndPassword(StudentLoginForm studentLoginForm){
 
         List<Student> studentList = studentMapper.findStudentByEmailAndPassword(studentLoginForm.getStudentEmail(), studentLoginForm.getStudentPassword());
 
@@ -28,7 +28,9 @@ public class StudentService {
             return null;
         }
 
-        return studentList;
+        Student student = studentList.get(0);
+
+        return student;
     }
 
 

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="ja">
+<html lang="ja" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -13,38 +13,7 @@
 </head>
 <body>
 	<div class="container">
-		<nav class="navbar navbar-default">
-			<div class="container-fluid">
-				<!-- Brand and toggle get grouped for better mobile display -->
-				<div class="navbar-header">
-					<button type="button" class="navbar-toggle collapsed"
-						data-toggle="collapse" data-target="#bs-example-navbar-collapse-1"
-						aria-expanded="false">
-						<span class="sr-only">Toggle navigation</span> <span
-							class="icon-bar"></span> <span class="icon-bar"></span> <span
-							class="icon-bar"></span>
-					</button>
-					<a class="navbar-brand" href="admin_login.html"> <!-- 企業ロゴ -->
-						<img alt="main log" src="../img/header_logo.png">
-					</a>
-				</div>
-
-				<!-- Collect the nav links, forms, and other content for toggling -->
-				<div class="collapse navbar-collapse"
-					id="bs-example-navbar-collapse-1">
-					<ul class="nav navbar-nav">
-						<li class="active"><a href="student_training_list.html">研修コース</a></li>
-					</ul>
-					<p class="navbar-text navbar-right">
-						<a href="admin_login.html" class="navbar-link">パスワード変更</a> <a
-							href="student_login.html" class="navbar-link">ログアウト</a>
-					</p>
-				</div>
-				<!-- /.navbar-collapse -->
-			</div>
-			<!-- /.container-fluid -->
-		</nav>
-
+		<div th:replace="studentHeader::studentHeader"></div>
 		<!-- table -->
 		<div class="row">
 			<div
@@ -59,11 +28,11 @@
 						</tr>
 					</thead>
 					<tbody>
-						<tr>
-							<td>2016/04/01 ～ 2016/06/30</td>
-							<td>〇〇企業様向け Java新人研修</td>
-							<td>鈴木一郎</td>
-							<td><form action="student_view_daily_report.html" method="post"><button type="submit">日報(閲覧/登録)</button></form></td>
+						<tr th:each="training : ${trainingList}">
+							<td th:text="${#temporals.format(training.startDate, 'yyyy/MM/dd')} + '〜' + ${#temporals.format(training.endDate, 'yyyy/MM/dd')}">2016/04/01 ～ 2016/06/30</td>
+							<td th:text="${training.name}">〇〇企業様向け Java新人研修</td>
+							<td th:text="${training.instructor.name}">鈴木一郎</td>
+							<td><a th:href="@{/student/studentDairyReport}" method="post"><button type="submit">日報(閲覧/登録)</button></a></td>
 						</tr>
 
 					</tbody>
