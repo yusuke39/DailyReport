@@ -86,6 +86,11 @@ public class StudentController {
     }
 
 
+    /**
+     * 日報登録ページ表示.
+     * @param model
+     * @return
+     */
     @RequestMapping("/studentDairyReportRegister")
     public String studentDairyReportRegister(Model model){
 
