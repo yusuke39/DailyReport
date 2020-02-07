@@ -15,4 +15,12 @@ public interface StudentMapper {
     public List<Student> findStudentByEmailAndPassword(String email, String password);
 
 
+    /**
+     * 受講生IDを使って、研修と講師と企業を検索する.
+     * @param studentId
+     * @return
+     */
+    public List<Student> findAllTrainingRelationStudentByStudentId(int studentId);
+
+
 }

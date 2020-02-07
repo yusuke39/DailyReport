@@ -28,13 +28,12 @@
 						</tr>
 					</thead>
 					<tbody>
-						<tr th:each="training : ${trainingList}">
+						<tr th:each="training : ${student.trainingList}">
 							<td th:text="${#temporals.format(training.startDate, 'yyyy/MM/dd')} + '〜' + ${#temporals.format(training.endDate, 'yyyy/MM/dd')}">2016/04/01 ～ 2016/06/30</td>
 							<td th:text="${training.name}">〇〇企業様向け Java新人研修</td>
 							<td th:text="${training.instructor.name}">鈴木一郎</td>
 							<td><a th:href="@{/student/studentDairyReport}" method="post"><button type="submit">日報(閲覧/登録)</button></a></td>
 						</tr>
-
 					</tbody>
 				</table>
 			</div>

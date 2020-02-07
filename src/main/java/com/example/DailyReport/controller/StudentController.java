@@ -22,7 +22,7 @@ public class StudentController {
     private StudentService studentService;
 
     @Autowired
-    private TrainingService trainingService;
+    private HttpSession session;
 
 
     /**
@@ -34,13 +34,20 @@ public class StudentController {
         return"student/student_login";
     }
 
+
+    /**
+     * 受講生に紐づいている研修を全て表示する.
+     * @param model
+     * @return
+     */
     @RequestMapping("/studentTrainingList")
     public String studentTrainingList(Model model){
 
-        //TrainingServiceの研修を全権取得するメソッドを使って、研修と講師を全権取得する
-        List<Training> trainingList = trainingService.findAllTrainings();
+        Student student = (Student)session.getAttribute("student");
 
-        model.addAttribute("trainingList",trainingList);
+        List<Student> studentList = studentService.findAllTrainingRelationStudentByStudentId(student.getId());
+
+        model.addAttribute("student",studentList.get(0));
 
         return"student/student_training_list";
     }
@@ -57,12 +64,14 @@ public class StudentController {
 
       Student student = studentService.findStudentByEmailAndPassword(studentLoginForm);
 
+      session.setAttribute("student", student);
+
       if(student == null){
           model.addAttribute("不正なメールアドレスかパスワードです");
           return studentLoginPage();
       }
 
-      return "student/student_training_list";
+      return "redirect:studentTrainingList";
 
     }
 

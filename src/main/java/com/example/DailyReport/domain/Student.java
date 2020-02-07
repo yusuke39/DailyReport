@@ -21,9 +21,12 @@ public class Student {
     private List<Training> trainingList;
     /* 企業*/
     private Company company;
+    /* 講師*/
+    private Instructor instructor;
 
 
-    public Student(Integer id, String name, String kana, String email, String password, Integer companyId, List<Training> trainingList, Company company) {
+    public Student(Integer id, String name, String kana, String email, String password, Integer companyId,
+                   List<Training> trainingList, Company company, Instructor instructor) {
         this.id = id;
         this.name = name;
         this.kana = kana;
@@ -32,6 +35,7 @@ public class Student {
         this.companyId = companyId;
         this.trainingList = trainingList;
         this.company = company;
+        this.instructor = instructor;
     }
 
     public Student() {
@@ -48,6 +52,7 @@ public class Student {
                 ", companyId=" + companyId +
                 ", trainingList=" + trainingList +
                 ", company=" + company +
+                ", instructor=" + instructor +
                 '}';
     }
 
@@ -113,5 +118,13 @@ public class Student {
 
     public void setCompany(Company company) {
         this.company = company;
+    }
+
+    public Instructor getInstructor() {
+        return instructor;
+    }
+
+    public void setInstructor(Instructor instructor) {
+        this.instructor = instructor;
     }
 }
