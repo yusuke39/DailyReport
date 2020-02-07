@@ -59,4 +59,11 @@
         </collection>
     </resultMap>
 
+
+    <!--日報の内容をインサートする-->
+    <select id="insertDairyReport" resultType="com.example.DailyReport.domain.DailyReport">
+        insert into daily_reports(date,training_id,student_id,content,intelligibility,detail_intelligibillity,about_instructor,question)
+        values(#{date},#{trainingId},#{studentId},#{content},#{intelligibility},#{detailIntelligibility},#{aboutInstructor},#{question});
+    </select>
+
 </mapper>

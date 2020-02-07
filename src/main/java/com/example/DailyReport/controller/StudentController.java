@@ -1,17 +1,21 @@
 package com.example.DailyReport.controller;
 
 import com.example.DailyReport.domain.Student;
-import com.example.DailyReport.domain.Training;
+import com.example.DailyReport.form.DailyRegisterForm;
 import com.example.DailyReport.form.StudentLoginForm;
-import com.example.DailyReport.service.StudentFile;
 import com.example.DailyReport.service.StudentService;
-import com.example.DailyReport.service.TrainingService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import sun.tools.asm.LocalVariable;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.util.Date;
 import java.util.List;
 
 @Controller
@@ -23,6 +27,9 @@ public class StudentController {
 
     @Autowired
     private HttpSession session;
+
+    @Autowired
+    private HttpServletRequest httpServletRequest;
 
 
     /**
@@ -45,7 +52,8 @@ public class StudentController {
 
         Student student = (Student)session.getAttribute("student");
 
-        model.addAttribute("studentId", student.getId());
+        session.setAttribute("studentId", student.getId());
+        session.getAttribute("studentId");
 
         List<Student> studentList = studentService.findAllTrainingRelationStudentByStudentId(13);
 
@@ -79,11 +87,36 @@ public class StudentController {
 
 
     @RequestMapping("/studentDairyReportRegister")
-    public String studentDairyReportRegister(){
+    public String studentDairyReportRegister(Model model){
+
+        //受講生のIDをクエリから取得
+        String id = httpServletRequest.getParameter("studentId");
+        int studentId = Integer.parseInt(id);
+        model.addAttribute("studentId",studentId);
+        //研修のIDをクエリから取得
+        String t_id = httpServletRequest.getParameter("trainingId");
+        int trainingId = Integer.parseInt(t_id);
+        model.addAttribute("trainingId",trainingId);
+        //本日の日付を取得
+        LocalDate localDate = LocalDate.now();
+        model.addAttribute(localDate);
 
         return "student/student_register_daily_report";
     }
 
+
+    /**
+     *
+     * @param dailyregisterForm
+     * @return
+     */
+    @RequestMapping("/studentDairyReportInsert")
+    public String studentDairyReportInsert(DailyRegisterForm dailyregisterForm) throws ParseException {
+
+        studentService.insertDairyReport(dailyregisterForm);
+
+        return "redirect:/student/studentTrainingList";
+    }
 
     /**
      * 生徒の日報登録、閲覧画面を表示する.

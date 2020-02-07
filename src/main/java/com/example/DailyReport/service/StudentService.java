@@ -1,11 +1,15 @@
 package com.example.DailyReport.service;
 
+import com.example.DailyReport.domain.DailyReport;
 import com.example.DailyReport.domain.Student;
+import com.example.DailyReport.form.DailyRegisterForm;
 import com.example.DailyReport.form.StudentLoginForm;
 import com.example.DailyReport.mapper.StudentMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
+import java.util.Date;
 import java.util.List;
 
 @Service
@@ -44,6 +48,29 @@ public class StudentService {
         List<Student> studentList = studentMapper.findAllTrainingRelationStudentByStudentId(studentId);
 
         return studentList;
+    }
+
+
+    /**
+     * 日報登録をする.
+     * @param dailyRegisterForm
+     */
+    public void insertDairyReport(DailyRegisterForm dailyRegisterForm){
+
+        LocalDate localDate = LocalDate.now();
+
+        DailyReport dailyReport = new DailyReport();
+        dailyReport.setDate(localDate);
+        dailyReport.setTrainingId(dailyRegisterForm.getTrainingId());
+        dailyReport.setStudentId(dailyRegisterForm.getStudentId());
+        dailyReport.setContent(dailyRegisterForm.getContent());
+        dailyReport.setIntelligibility(dailyRegisterForm.getIntelligibility());
+        dailyReport.setDetailIntelligibility(dailyRegisterForm.getDetailIntelligibility());
+        dailyReport.setAboutInstructor(dailyRegisterForm.getAboutInstructor());
+        dailyReport.setQuestion(dailyRegisterForm.getQuestion());
+
+
+        studentMapper.insertDairyReport(dailyReport);
     }
 
 

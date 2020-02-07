@@ -1,6 +1,8 @@
 package com.example.DailyReport.mapper;
 
+import com.example.DailyReport.domain.DailyReport;
 import com.example.DailyReport.domain.Student;
+import com.example.DailyReport.form.DailyRegisterForm;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;
@@ -21,6 +23,13 @@ public interface StudentMapper {
      * @return
      */
     public List<Student> findAllTrainingRelationStudentByStudentId(int studentId);
+
+
+    /**
+     * 日報を登録する
+     * @param dailyReport
+     */
+    public void insertDairyReport(DailyReport dailyReport);
 
 
 }
