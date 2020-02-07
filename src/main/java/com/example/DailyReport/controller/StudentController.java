@@ -45,7 +45,9 @@ public class StudentController {
 
         Student student = (Student)session.getAttribute("student");
 
-        List<Student> studentList = studentService.findAllTrainingRelationStudentByStudentId(student.getId());
+        model.addAttribute("studentId", student.getId());
+
+        List<Student> studentList = studentService.findAllTrainingRelationStudentByStudentId(13);
 
         model.addAttribute("student",studentList.get(0));
 
@@ -76,12 +78,20 @@ public class StudentController {
     }
 
 
+    @RequestMapping("/studentDairyReportRegister")
+    public String studentDairyReportRegister(){
+
+        return "student/student_register_daily_report";
+    }
+
+
     /**
      * 生徒の日報登録、閲覧画面を表示する.
      * @return
      */
-    @RequestMapping("/studentDairyReport")
+    @RequestMapping("/studentDairyReportBrowsing")
     public String studentDairyReport(){
+
         return "student/student_view_daily_report";
     }
 

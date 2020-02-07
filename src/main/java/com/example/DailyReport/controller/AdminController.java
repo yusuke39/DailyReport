@@ -195,8 +195,8 @@ public class AdminController {
             int row = 0;
             String[] arrayColumnName = null;
 
-
             while ((currentContents = bufferedReader.readLine()) != null) {
+                System.out.println("配列"+currentContents);
                 String[] arrayColumnData = currentContents.split(",");
                 Student student = new Student();
                 student.setName(arrayColumnData[0]);
@@ -204,6 +204,7 @@ public class AdminController {
                 student.setEmail(arrayColumnData[2]);
                 student.setPassword(arrayColumnData[3]);
                 studentList.add(student);
+                System.out.println("aaaa"+studentList);
                 session.setAttribute("studentList", studentList);
                 row++;
 
@@ -220,7 +221,7 @@ public class AdminController {
         File filedelete = new File("/Users/hiranoyuusuke/IdeaProjects/DailyReport/" + fileName);
         filedelete.delete();
 
-        return "redirect:/student/registerStudent";
+        return "redirect:/admin/registerStudent";
     }
 
     /**
