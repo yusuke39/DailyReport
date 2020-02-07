@@ -50,6 +50,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http.formLogin()
                 .loginProcessingUrl("/login")//ログイン処理をするURL
                 .loginPage("/admin/loginPage")//ログイン画面のURL
+                .failureUrl("/admin/loginPage?error")//ログイン失敗時
                 .defaultSuccessUrl("/admin/operationManager",true)//認証成功時のURL
                 .usernameParameter("email")//ユーザーのパラメーター名
                 .passwordParameter("password")

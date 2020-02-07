@@ -22,12 +22,12 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 
     @Override
     public LoginUser loadUserByUsername(String email) throws UsernameNotFoundException {
-        List<Admin> adminListe = adminMapper.findAdmin(email);
-        Admin admin = adminListe.get(0);
-
-        if(admin == null){
-            throw new UsernameNotFoundException("メールアドレスが不正です");
+        if(adminMapper.findAdmin(email).size() == 0){
+            throw new UsernameNotFoundException("メールアドレスかパスワードが不正です");
         }
+
+        List<Admin> adminList =  adminMapper.findAdmin(email);
+        Admin admin = adminList.get(0);
 
         Collection<GrantedAuthority> authorityList = new ArrayList<>();
         authorityList.add(new SimpleGrantedAuthority("ADMIN"));
