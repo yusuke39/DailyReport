@@ -99,7 +99,7 @@ public class StudentController {
         model.addAttribute("trainingId",trainingId);
         //本日の日付を取得
         LocalDate localDate = LocalDate.now();
-        model.addAttribute(localDate);
+        model.addAttribute("localDate",localDate);
 
         return "student/student_register_daily_report";
     }
@@ -124,6 +124,8 @@ public class StudentController {
      */
     @RequestMapping("/studentDairyReportBrowsing")
     public String studentDairyReport(){
+
+
 
         return "student/student_view_daily_report";
     }
