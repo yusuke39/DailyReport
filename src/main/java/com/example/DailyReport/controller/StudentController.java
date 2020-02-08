@@ -135,7 +135,7 @@ public class StudentController {
 
         List<String> daysList =  studentService.BrowsingDairyReport(trainingId);
 
-        model.addAttribute(daysList);
+        model.addAttribute("daysList",daysList);
 
         return "student/student_view_daily_report";
     }

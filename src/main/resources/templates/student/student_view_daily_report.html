@@ -36,36 +36,9 @@
 							<div class="form-group">
 								<div class="col-sm-12">
 									<select class="form-control">
-										<option selected="selected">2016/07/01</option>
-										<option>2016/07/02</option>
-										<option>2016/07/03</option>
-										<option>2016/07/04</option>
-										<option>2016/07/05</option>
-										<option>2016/07/06</option>
-										<option>2016/07/07</option>
-										<option>2016/07/08</option>
-										<option>2016/07/09</option>
-										<option>2016/07/10</option>
-										<option>2016/07/01</option>
-										<option>2016/07/02</option>
-										<option>2016/07/03</option>
-										<option>2016/07/04</option>
-										<option>2016/07/05</option>
-										<option>2016/07/06</option>
-										<option>2016/07/07</option>
-										<option>2016/07/08</option>
-										<option>2016/07/09</option>
-										<option>2016/07/10</option>
-										<option>2016/07/01</option>
-										<option>2016/07/02</option>
-										<option>2016/07/03</option>
-										<option>2016/07/04</option>
-										<option>2016/07/05</option>
-										<option>2016/07/06</option>
-										<option>2016/07/07</option>
-										<option>2016/07/08</option>
-										<option>2016/07/09</option>
-										<option>2016/07/10</option>
+										<span th:each="day : ${daysList}">
+											<option th:text="${day}">2016/07/02</option>
+										</span>
 									</select>
 								</div>
 							</div>

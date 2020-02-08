@@ -108,11 +108,10 @@ public class StudentService {
         Calendar calendar = Calendar.getInstance();
         calendar.set(startYear,startMonth,startDay);
         List<String> dayList = new ArrayList<>();
-        for(int i = 0; i < diffDays; i ++){
+        for(int i = 0; i <= diffDays; i ++){
             dayList.add(calendar.get(Calendar.YEAR) + "/" + calendar.get(Calendar.MONTH) + "/" + calendar.get(Calendar.DATE));
             calendar.add(Calendar.DATE, 1);
         }
-
 
        return dayList;
     }
