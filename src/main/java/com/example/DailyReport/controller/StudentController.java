@@ -123,14 +123,19 @@ public class StudentController {
         return "redirect:/student/studentTrainingList";
     }
 
+
     /**
      * 生徒の日報登録、閲覧画面を表示する.
      * @return
      */
     @RequestMapping("/studentDairyReportBrowsing")
-    public String studentDairyReport(){
+    public String studentDairyReport(Model model){
 
+        int trainingId = Integer.parseInt(httpServletRequest.getParameter("trainingId"));
 
+        List<String> daysList =  studentService.BrowsingDairyReport(trainingId);
+
+        model.addAttribute(daysList);
 
         return "student/student_view_daily_report";
     }
