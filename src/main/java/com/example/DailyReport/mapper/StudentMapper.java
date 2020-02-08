@@ -2,7 +2,6 @@ package com.example.DailyReport.mapper;
 
 import com.example.DailyReport.domain.DailyReport;
 import com.example.DailyReport.domain.Student;
-import com.example.DailyReport.form.DailyRegisterForm;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;

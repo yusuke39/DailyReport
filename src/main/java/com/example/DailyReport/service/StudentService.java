@@ -6,17 +6,13 @@ import com.example.DailyReport.domain.Training;
 import com.example.DailyReport.form.DailyRegisterForm;
 import com.example.DailyReport.form.StudentLoginForm;
 import com.example.DailyReport.mapper.StudentMapper;
-import org.apache.el.stream.Stream;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.text.SimpleDateFormat;
 import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Date;
 import java.util.List;
 
 @Service
