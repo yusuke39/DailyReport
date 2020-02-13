@@ -13,6 +13,7 @@ import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 @Service
@@ -110,5 +111,21 @@ public class StudentService {
         }
 
        return dayList;
+    }
+
+
+    /**
+     * 日報を検索する.
+     * @param trainingId
+     * @param studentId
+     * @param date
+     * @return
+     */
+    public DailyReport searchDairyReport(int trainingId, int studentId, Date date){
+
+        //日付,studentId,trainingIdで日報を検索する
+        DailyReport dailyReport =  studentMapper.findDairyReportByStudentIdAndTrainingIdAndDate(trainingId,studentId,date);
+
+        return  dailyReport;
     }
 }

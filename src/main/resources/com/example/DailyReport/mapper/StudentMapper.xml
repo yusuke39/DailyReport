@@ -66,4 +66,10 @@
         values(#{date},#{trainingId},#{studentId},#{content},#{intelligibility},#{detailIntelligibility},#{aboutInstructor},#{question});
     </select>
 
+    <!-- 日報を検索する-->
+    <select id="findDairyReportByStudentIdAndTrainingIdAndDate" resultType="com.example.DailyReport.domain.DailyReport">
+        select id,date,training_id,student_id,content,intelligibility,detail_intelligibillity,about_instructor,question
+        from daily_reports where training_id = #{trainingId} and student_id = #{studentId} and date = #{date};
+    </select>
+
 </mapper>

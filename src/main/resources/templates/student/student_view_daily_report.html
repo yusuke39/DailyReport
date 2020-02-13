@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="ja" xmlns:th="http://www.w3.org/1999/xhtml">
+<html lang="ja" xmlns:th="http://www.w3.org/1999/xhtml" xmlns:v-on="http://www.w3.org/1999/xhtml">
 <head>
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -11,7 +11,7 @@
       <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
 </head>
-<body onload="responsibleCompanies();">
+<body>
 	<div class="container">
 		<div th:replace="studentHeader::studentHeader"></div>
 		<!-- print button -->
@@ -24,7 +24,7 @@
 			</div>
 		</div>
 		<!-- register form -->
-		<div class="row">
+		<div class="row"  id="app">
 			<!-- search form -->
 			<div class="col-lg-4 col-md-4 col-sm-4 col-xs-5">
 				<div class="panel panel-default">
@@ -32,17 +32,17 @@
 						<div class="panel-title">日付</div>
 					</div>
 					<div class="panel-body">
-						<form method="post" action="#" class="form-horizontal">
+							<input type="hidden" th:value="${trainingId}" class="trainingId" v-model="trainingId" name="trainingId">
+							<input type="hidden" th:value="${studentId}" class="studentId" v-model="studentId" name="studentId">
 							<div class="form-group">
 								<div class="col-sm-12">
-									<select class="form-control">
+									<select class="form-control" v-model="selected" v-on:change="preview">
 										<span th:each="day : ${daysList}">
 											<option th:text="${day}">2016/07/02</option>
 										</span>
 									</select>
 								</div>
 							</div>
-						</form>
 					</div>
 				</div>
 			</div>
@@ -50,18 +50,13 @@
 				<div class="well">
 					<form method="post" action="register_daily_report.html">
 						<fieldset>
-							<legend>○月○日の鈴木一郎さんの日報</legend>
+							<legend>{{ date }}の鈴木一郎さんの日報</legend>
 							<div class="form-group">
 								<div class="row">
 									<div class="col-sm-12">
 										<label for="inputTodaysContent">学んだ内容:</label>
 										<pre>
-										オブジェクト指向入門
-										クラスとオブジェクト
-										継承
-										インターフェース
-										ポリモーフィズム
-										カプセル化
+											<div>{{ content }}</div>
 										</pre>
 									</div>
 								</div>
@@ -71,7 +66,7 @@
 									<div class="col-sm-12">
 										<label for="inputEmail">理解度</label>
 										<pre>
-										概ね理解できた
+概ね理解できた
 										</pre>
 									</div>
 								</div>
@@ -81,7 +76,9 @@
 									<div class="col-sm-12">
 										<label for="inputTodaysIntelligibilityDetail">理解度(詳細):</label><br />
 										<pre>
-										ポリモーフィズムの概念(同じ操作で違う振る舞いというもの)がとても難しく感じました。
+ポリモーフィズムの概念(同じ操作で違う振る舞いというもの)がとても難しく感じました。
+
+
 										</pre>
 									</div>
 								</div>
@@ -91,7 +88,7 @@
 									<div class="col-sm-12">
 										<label for="inputEmail">講師の対応の丁寧さ</label>
 										<pre>
-										とても丁寧だった
+とても丁寧だった
 										</pre>
 									</div>
 								</div>
@@ -101,8 +98,7 @@
 									<div class="col-sm-12">
 										<label for="inputTodaysQuestion">本日の研修内容についてのご質問:</label><br />
 										<pre>
-										ポリモーフィズムがわかりませんでした。
-										もう一度説明をお願いしたいです。
+											{{ question }}
 										</pre>
 									</div>
 								</div>
@@ -116,8 +112,10 @@
 
 	</div>
 	<!-- end container -->
-	<script
-		src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
 	<script src="../js/bootstrap.min.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.18.0/axios.js"></script>
+	<script src="../js/search.js" rel="text/javascript"></script>
 </body>
 </html>

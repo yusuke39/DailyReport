@@ -1,5 +1,6 @@
 package com.example.DailyReport.controller;
 
+import com.example.DailyReport.domain.DailyReport;
 import com.example.DailyReport.domain.Student;
 import com.example.DailyReport.form.DailyRegisterForm;
 import com.example.DailyReport.form.StudentLoginForm;
@@ -8,11 +9,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import java.lang.reflect.Array;
 import java.text.ParseException;
 import java.time.LocalDate;
+import java.util.Arrays;
 import java.util.List;
 
 @Controller
@@ -108,7 +112,7 @@ public class StudentController {
 
 
     /**
-     *
+     *日報登録する.
      * @param dailyregisterForm
      * @return
      */
@@ -122,13 +126,17 @@ public class StudentController {
 
 
     /**
-     * 生徒の日報登録、閲覧画面を表示する.
+     * 生徒の日報閲覧画面を表示する.
      * @return
      */
     @RequestMapping("/studentDairyReportBrowsing")
     public String studentDairyReport(Model model){
 
         int trainingId = Integer.parseInt(httpServletRequest.getParameter("trainingId"));
+        model.addAttribute("trainingId", trainingId);
+
+        int studentId = Integer.parseInt(httpServletRequest.getParameter("studentId"));
+        model.addAttribute("studentId", studentId);
 
         List<String> daysList =  studentService.BrowsingDairyReport(trainingId);
 
@@ -136,6 +144,5 @@ public class StudentController {
 
         return "student/student_view_daily_report";
     }
-
 
 }

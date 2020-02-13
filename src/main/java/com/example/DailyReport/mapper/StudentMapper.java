@@ -4,6 +4,7 @@ import com.example.DailyReport.domain.DailyReport;
 import com.example.DailyReport.domain.Student;
 import org.apache.ibatis.annotations.Mapper;
 
+import java.util.Date;
 import java.util.List;
 
 @Mapper
@@ -29,6 +30,9 @@ public interface StudentMapper {
      * @param dailyReport
      */
     public void insertDairyReport(DailyReport dailyReport);
+
+
+    public DailyReport findDairyReportByStudentIdAndTrainingIdAndDate(int trainingId, int studentId, Date date);
 
 
 }
