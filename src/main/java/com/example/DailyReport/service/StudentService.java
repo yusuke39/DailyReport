@@ -1,5 +1,6 @@
 package com.example.DailyReport.service;
 
+import com.example.DailyReport.Intelligibility;
 import com.example.DailyReport.domain.DailyReport;
 import com.example.DailyReport.domain.Student;
 import com.example.DailyReport.domain.Training;
@@ -125,6 +126,41 @@ public class StudentService {
 
         //日付,studentId,trainingIdで日報を検索する
         DailyReport dailyReport =  studentMapper.findDairyReportByStudentIdAndTrainingIdAndDate(trainingId,studentId,date);
+
+
+        //配列を用意して、enumで定義した値をリストに詰め直してます。
+        List<String> intelligibilityNumberList = new ArrayList<>();
+        for(Intelligibility.IntelligibilityEnum intelligibility : Intelligibility.IntelligibilityEnum.values()){
+            intelligibilityNumberList.add(intelligibility.getIntelligibility());
+        }
+        //dailyReportドメインから理解度の数字を取り出し変数へ。
+        int intelligibilityNumber =  dailyReport.getIntelligibility();
+
+        //理解度の数字によって、dairyReportのドメインに該当の文章を詰める
+        switch (intelligibilityNumber){
+            //1 = 良く理解できた
+            case 1:
+                dailyReport.setIntelligibilityEnumString(intelligibilityNumberList.get(0));
+                break;
+            //2 = 概ね理解できた
+            case 2:
+                dailyReport.setIntelligibilityEnumString(intelligibilityNumberList.get(1));
+                break;
+            //3 = 普通
+            case 3:
+                dailyReport.setIntelligibilityEnumString(intelligibilityNumberList.get(2));
+                break;
+            //4 = 少し難しかった
+            case 4:
+                dailyReport.setIntelligibilityEnumString(intelligibilityNumberList.get(3));
+                break;
+            //5 = とても難しかった
+            case 5:
+                dailyReport.setIntelligibilityEnumString(intelligibilityNumberList.get(4));
+                break;
+            default:
+                break;
+        }
 
         return  dailyReport;
     }

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="ja">
+<html lang="ja" xmlns:th="http://www.w3.org/1999/xhtml" xmlns:v-on="http://www.w3.org/1999/xhtml">
 <head>
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -11,40 +11,9 @@
       <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
 </head>
-<body onload="responsibleCompanies();">
+<body>
 	<div class="container">
-		<nav class="navbar navbar-default">
-			<div class="container-fluid">
-				<!-- Brand and toggle get grouped for better mobile display -->
-				<div class="navbar-header">
-					<button type="button" class="navbar-toggle collapsed"
-						data-toggle="collapse" data-target="#bs-example-navbar-collapse-1"
-						aria-expanded="false">
-						<span class="sr-only">Toggle navigation</span> <span
-							class="icon-bar"></span> <span class="icon-bar"></span> <span
-							class="icon-bar"></span>
-					</button>
-					<a class="navbar-brand" href="admin_login.html"> <!-- 企業ロゴ -->
-						<img alt="main log" src="../img/header_logo.png">
-					</a>
-				</div>
-
-				<!-- Collect the nav links, forms, and other content for toggling -->
-				<div class="collapse navbar-collapse"
-					id="bs-example-navbar-collapse-1">
-					<ul class="nav navbar-nav">
-						<li class="active"><a href="student_training_list.html">研修コース</a></li>
-					</ul>
-					<p class="navbar-text navbar-right">
-						<a href="admin_login.html" class="navbar-link">パスワード変更</a> <a
-							href="student_login.html" class="navbar-link">ログアウト</a>
-					</p>
-				</div>
-				<!-- /.navbar-collapse -->
-			</div>
-			<!-- /.container-fluid -->
-		</nav>
-
+		<div th:replace="studentHeader::studentHeader"></div>
 		<!-- print button -->
 		<div class="row">
 			<div class="form-group">
@@ -55,7 +24,7 @@
 			</div>
 		</div>
 		<!-- register form -->
-		<div class="row">
+		<div class="row"  id="app">
 			<!-- search form -->
 			<div class="col-lg-4 col-md-4 col-sm-4 col-xs-5">
 				<div class="panel panel-default">
@@ -63,44 +32,17 @@
 						<div class="panel-title">日付</div>
 					</div>
 					<div class="panel-body">
-						<form method="post" action="#" class="form-horizontal">
+							<input type="hidden" th:value="${trainingId}" class="trainingId" v-model="trainingId" name="trainingId">
+							<input type="hidden" th:value="${studentId}" class="studentId" v-model="studentId" name="studentId">
 							<div class="form-group">
 								<div class="col-sm-12">
-									<select class="form-control">
-										<option selected="selected">2016/07/01</option>
-										<option>2016/07/02</option>
-										<option>2016/07/03</option>
-										<option>2016/07/04</option>
-										<option>2016/07/05</option>
-										<option>2016/07/06</option>
-										<option>2016/07/07</option>
-										<option>2016/07/08</option>
-										<option>2016/07/09</option>
-										<option>2016/07/10</option>
-										<option>2016/07/01</option>
-										<option>2016/07/02</option>
-										<option>2016/07/03</option>
-										<option>2016/07/04</option>
-										<option>2016/07/05</option>
-										<option>2016/07/06</option>
-										<option>2016/07/07</option>
-										<option>2016/07/08</option>
-										<option>2016/07/09</option>
-										<option>2016/07/10</option>
-										<option>2016/07/01</option>
-										<option>2016/07/02</option>
-										<option>2016/07/03</option>
-										<option>2016/07/04</option>
-										<option>2016/07/05</option>
-										<option>2016/07/06</option>
-										<option>2016/07/07</option>
-										<option>2016/07/08</option>
-										<option>2016/07/09</option>
-										<option>2016/07/10</option>
+									<select class="form-control" v-model="selected" v-on:change="preview">
+										<span th:each="day : ${daysList}">
+											<option th:text="${day}">2016/07/02</option>
+										</span>
 									</select>
 								</div>
 							</div>
-						</form>
 					</div>
 				</div>
 			</div>
@@ -108,18 +50,13 @@
 				<div class="well">
 					<form method="post" action="register_daily_report.html">
 						<fieldset>
-							<legend>○月○日の鈴木一郎さんの日報</legend>
+							<legend>{{ date }}の鈴木一郎さんの日報</legend>
 							<div class="form-group">
 								<div class="row">
 									<div class="col-sm-12">
 										<label for="inputTodaysContent">学んだ内容:</label>
 										<pre>
-オブジェクト指向入門
-クラスとオブジェクト
-継承
-インターフェース
-ポリモーフィズム
-カプセル化
+											<div>{{ content }}</div>
 										</pre>
 									</div>
 								</div>
@@ -161,9 +98,7 @@
 									<div class="col-sm-12">
 										<label for="inputTodaysQuestion">本日の研修内容についてのご質問:</label><br />
 										<pre>
-ポリモーフィズムがわかりませんでした。
-
-もう一度説明をお願いしたいです。
+											{{ question }}
 										</pre>
 									</div>
 								</div>
@@ -177,8 +112,10 @@
 
 	</div>
 	<!-- end container -->
-	<script
-		src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
 	<script src="../js/bootstrap.min.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.18.0/axios.js"></script>
+	<script src="../js/search.js" rel="text/javascript"></script>
 </body>
 </html>

@@ -6,7 +6,70 @@
 
     <!-- 生徒テーブルから１件検索する-->
     <select id="findStudentByEmailAndPassword" resultType="com.example.DailyReport.domain.Student">
-        select * from students where email=#{email} and password=#{password};
+        select id,name,kana,email,password,company_id from students where email=#{email} and password=#{password};
+    </select>
+
+
+    <!--  受講生IDで該当の受講生に関係する研修、講師、企業を検索する-->
+    <select id="findAllTrainingRelationStudentByStudentId" resultMap="StudentResult">
+        select s.id s_id, s.name s_name, s.kana s_kana, s.email s_email, s.password s_password, s.company_id s_companyId,
+        t.id t_id, t.start_date t_startDate, t.end_date t_endDate, t.name t_name, t.instructor_id t_instructorId,
+        t.sub_instructor_id1 t_subInstructorId1,  t.sub_instructor_id2 t_subInstructorId2,  t.sub_instructor_id3 t_subInstructorId3,
+        c.id c_id, c.name c_name, c.kana c_kana, c.remarks c_remarks,
+        i.id i_id, i.name i_name, i.kana i_kana, i.email i_email, i.password i_password, i.affiliation i_affiliation, i.remarks i_
+        from students s
+        left outer join training_student ts on ts.student_id = s.id
+        left outer join trainings t on t.id = ts.training_id
+        left outer join companies c on c.id = s.company_id
+        left outer join instructors i on i.id = t.instructor_id
+        where s.id = #{id};
+    </select>
+
+    <resultMap id="StudentResult" type="com.example.DailyReport.domain.Student">
+        <id column="s_id" property="id"></id>
+        <result column="s_name" property="name"/>
+        <result column="s_kana" property="kana"/>
+        <result column="s_email" property="email"/>
+        <result column="s_password" property="password"/>
+        <result column="s_companyId" property="companyId"/>
+        <association property="company" javaType="com.example.DailyReport.domain.Company">
+            <result column="c_id" property="id"/>
+            <result column="c_name" property="name"/>
+            <result column="c_kana" property="kana"/>
+            <result column="c_remarks" property="remarks"/>
+        </association>
+        <collection property="trainingList" ofType="com.example.DailyReport.domain.Training">
+            <result column="t_id" property="id"/>
+            <result column="t_startDate" property="startDate"/>
+            <result column="t_endDate" property="endDate"/>
+            <result column="t_name" property="name"/>
+            <result column="t_instructorId" property="instructorId"/>
+            <result column="t_subInstructorId1" property="subInstructorId1"/>
+            <result column="t_subInstructorId2" property="subInstructorId2"/>
+            <result column="t_subInstructorId3" property="subInstructorId3"/>
+            <association property="instructor" javaType="com.example.DailyReport.domain.Instructor">
+                <result column="i_id" property="id"/>
+                <result column="i_name" property="name"/>
+                <result column="i_kana" property="kana"/>
+                <result column="i_email" property="email"/>
+                <result column="i_password" property="password"/>
+                <result column="i_affiliation" property="affiliation"/>
+                <result column="i_remarks" property="remarks"/>
+            </association>
+        </collection>
+    </resultMap>
+
+
+    <!--日報の内容をインサートする-->
+    <select id="insertDairyReport" resultType="com.example.DailyReport.domain.DailyReport">
+        insert into daily_reports(date,training_id,student_id,content,intelligibility,detail_intelligibillity,about_instructor,question)
+        values(#{date},#{trainingId},#{studentId},#{content},#{intelligibility},#{detailIntelligibility},#{aboutInstructor},#{question});
+    </select>
+
+    <!-- 日報を検索する-->
+    <select id="findDairyReportByStudentIdAndTrainingIdAndDate" resultType="com.example.DailyReport.domain.DailyReport">
+        select id,date,training_id,student_id,content,intelligibility,detail_intelligibillity,about_instructor,question
+        from daily_reports where training_id = #{trainingId} and student_id = #{studentId} and date = #{date};
     </select>
 
 </mapper>
