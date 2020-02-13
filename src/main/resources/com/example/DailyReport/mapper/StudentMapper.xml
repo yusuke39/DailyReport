@@ -68,7 +68,7 @@
 
     <!-- 日報を検索する-->
     <select id="findDairyReportByStudentIdAndTrainingIdAndDate" resultType="com.example.DailyReport.domain.DailyReport">
-        select id,date,training_id,student_id,content,intelligibility,detail_intelligibillity,about_instructor,question
+        select id,date,training_id trainingId,student_id studentId,content,intelligibility,detail_intelligibillity detailIntelligibility,about_instructor aboutInstructor,question
         from daily_reports where training_id = #{trainingId} and student_id = #{studentId} and date = #{date};
     </select>
 

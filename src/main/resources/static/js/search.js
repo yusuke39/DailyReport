@@ -11,7 +11,8 @@ new Vue({
           detailIntelligibility: '',
           aboutInstructor: '',
           question: '',
-          intelligibilityEnumString: ''
+          intelligibilityEnumString: '',
+          aboutInstructorEnumString: ''
     },
     methods: {
         preview: function(event){
@@ -33,7 +34,8 @@ new Vue({
                 this.detailIntelligibility = data[0].detailIntelligibility,
                 this.aboutInstructor = data[0].aboutInstructor,
                 this.question = data[0].question,
-                this.intelligibilityEnumString = data[0].intelligibilityEnumString
+                this.intelligibilityEnumString = data[0].intelligibilityEnumString,
+                this.aboutInstructorEnumString = data[0].aboutInstructorEnumString
             }.bind(this))
             .fail(function(jqXHR,textStatus,errorThrown){
                 console.log("失敗しました");

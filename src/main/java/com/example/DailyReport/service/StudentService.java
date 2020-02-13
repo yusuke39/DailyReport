@@ -1,5 +1,6 @@
 package com.example.DailyReport.service;
 
+import com.example.DailyReport.AboutInstructor;
 import com.example.DailyReport.Intelligibility;
 import com.example.DailyReport.domain.DailyReport;
 import com.example.DailyReport.domain.Student;
@@ -128,7 +129,7 @@ public class StudentService {
         DailyReport dailyReport =  studentMapper.findDairyReportByStudentIdAndTrainingIdAndDate(trainingId,studentId,date);
 
 
-        //配列を用意して、enumで定義した値をリストに詰め直してます。
+        //配列を用意して、enumで定義した値をリストに詰め直してます。(理解度用Ver)
         List<String> intelligibilityNumberList = new ArrayList<>();
         for(Intelligibility.IntelligibilityEnum intelligibility : Intelligibility.IntelligibilityEnum.values()){
             intelligibilityNumberList.add(intelligibility.getIntelligibility());
@@ -161,6 +162,40 @@ public class StudentService {
             default:
                 break;
         }
+
+        //配列を用意して、enumで定義した値をリストに詰め直してます。(講師への評価Ver)
+        List<String> aboutInstructorList = new ArrayList<>();
+        for(AboutInstructor.AboutInstructorEnum aboutInstructor : AboutInstructor.AboutInstructorEnum.values()){
+            aboutInstructorList.add(aboutInstructor.getAboutInstructor());
+        }
+
+        int aboutInstructorNumber =  dailyReport.getAboutInstructor();
+        //講師への評価の数字によって、dairyReportのドメインに該当の文章を詰める
+        switch (aboutInstructorNumber){
+            //1 = とても丁寧だった
+            case 1:
+                dailyReport.setAboutInstructorEnumString(aboutInstructorList.get(0));
+                break;
+            //2 = 概ね丁寧だった
+            case 2:
+                dailyReport.setAboutInstructorEnumString(aboutInstructorList.get(1));
+                break;
+            //3 = 普通
+            case 3:
+                dailyReport.setAboutInstructorEnumString(aboutInstructorList.get(2));
+                break;
+            //4 = やや丁寧ではなかった
+            case 4:
+                dailyReport.setAboutInstructorEnumString(aboutInstructorList.get(3));
+                break;
+            //5 = 全く丁寧ではなかった
+            case 5:
+                dailyReport.setAboutInstructorEnumString(aboutInstructorList.get(4));
+                break;
+            default:
+                break;
+        }
+
 
         return  dailyReport;
     }

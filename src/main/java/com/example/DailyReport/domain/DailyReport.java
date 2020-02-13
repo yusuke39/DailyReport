@@ -26,12 +26,15 @@ public class DailyReport {
     private Training training;
     /* 受講生ドメイン*/
     private Student student;
-    /* enumで設定した文字を格納するためのやつ*/
+    /* enumで設定した理解度の文字を格納するためのやつ*/
     private String intelligibilityEnumString;
+    /* enumで設定した講師への評価の文字を格納するためのやつ*/
+    private String aboutInstructorEnumString;
 
-    public DailyReport(Integer id, LocalDate date, Integer trainingId, Integer studentId, String content, Integer intelligibility,
-                       String detailIntelligibility, Integer aboutInstructor, String question, Training training, Student student,
-                       String intelligibilityEnumString) {
+
+    public DailyReport(Integer id, LocalDate date, Integer trainingId, Integer studentId, String content,
+                       Integer intelligibility, String detailIntelligibility, Integer aboutInstructor,
+                       String question, Training training, Student student, String intelligibilityEnumString, String aboutInstructorEnumString) {
         this.id = id;
         this.date = date;
         this.trainingId = trainingId;
@@ -44,6 +47,7 @@ public class DailyReport {
         this.training = training;
         this.student = student;
         this.intelligibilityEnumString = intelligibilityEnumString;
+        this.aboutInstructorEnumString = aboutInstructorEnumString;
     }
 
     public DailyReport() {
@@ -64,6 +68,7 @@ public class DailyReport {
                 ", training=" + training +
                 ", student=" + student +
                 ", intelligibilityEnumString='" + intelligibilityEnumString + '\'' +
+                ", aboutInstructorEnumString='" + aboutInstructorEnumString + '\'' +
                 '}';
     }
 
@@ -161,5 +166,13 @@ public class DailyReport {
 
     public void setIntelligibilityEnumString(String intelligibilityEnumString) {
         this.intelligibilityEnumString = intelligibilityEnumString;
+    }
+
+    public String getAboutInstructorEnumString() {
+        return aboutInstructorEnumString;
+    }
+
+    public void setAboutInstructorEnumString(String aboutInstructorEnumString) {
+        this.aboutInstructorEnumString = aboutInstructorEnumString;
     }
 }

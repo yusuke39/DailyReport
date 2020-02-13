@@ -39,8 +39,6 @@ public class SearchDairyReportController {
         //日報を検索して返ってきたDailyReportドメインを受け取る
         DailyReport dailyReport = studentService.searchDairyReport(trainingId,studentId,date);
 
-        System.out.println(dailyReport);
-
         List<DailyReport> dailyReportList =  Arrays.asList(dailyReport);
 
         return dailyReportList;
