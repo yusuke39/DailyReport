@@ -4,11 +4,15 @@ import com.example.DailyReport.domain.DailyReport;
 import com.example.DailyReport.domain.Student;
 import com.example.DailyReport.form.DailyRegisterForm;
 import com.example.DailyReport.form.StudentLoginForm;
+import com.example.DailyReport.security.Student.LoginStudent;
 import com.example.DailyReport.service.StudentService;
+import com.sun.org.apache.xpath.internal.operations.Mod;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletRequest;
@@ -33,15 +37,15 @@ public class StudentController {
     private HttpServletRequest httpServletRequest;
 
 
-    /**
-     * 受講生用のログインフォーム表示.
-     * @return
-     */
     @RequestMapping("/loginPage")
-    public String studentLoginPage(){
-        return"student/student_login";
-    }
+    public String loginPage(Model model, @RequestParam(required = false) String error){
 
+        if(error != null){
+            model.addAttribute("aaaaaaaaaaaa");
+        }
+
+        return "student/student_login";
+    }
 
     /**
      * 受講生に紐づいている研修を全て表示する.
@@ -49,14 +53,10 @@ public class StudentController {
      * @return
      */
     @RequestMapping("/studentTrainingList")
-    public String studentTrainingList(Model model){
+    public String studentTrainingList(Model model, @AuthenticationPrincipal LoginStudent loginStudent){
 
-        Student student = (Student)session.getAttribute("student");
 
-        session.setAttribute("studentId", student.getId());
-        session.getAttribute("studentId");
-
-        List<Student> studentList = studentService.findAllTrainingRelationStudentByStudentId(13);
+        List<Student> studentList = studentService.findAllTrainingRelationStudentByStudentId(loginStudent.getStudent().getId());
 
         model.addAttribute("student",studentList.get(0));
 
@@ -64,27 +64,6 @@ public class StudentController {
     }
 
 
-    /**
-     * ログイン機能（セキュリティ使うまでの仮）
-     * @param studentLoginForm
-     * @param model
-     * @return
-     */
-    @RequestMapping("/login")
-    public String studentLogin(StudentLoginForm studentLoginForm,Model model){
-
-      Student student = studentService.findStudentByEmailAndPassword(studentLoginForm);
-
-      session.setAttribute("student", student);
-
-      if(student == null){
-          model.addAttribute("不正なメールアドレスかパスワードです");
-          return studentLoginPage();
-      }
-
-      return "redirect:studentTrainingList";
-
-    }
 
 
     /**

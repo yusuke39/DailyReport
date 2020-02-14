@@ -28,23 +28,23 @@ public class StudentService {
     private TrainingService trainingService;
 
 
-    /**
-     * 受講生ログイン機能.
-     * @param studentLoginForm
-     * @return
-     */
-    public Student findStudentByEmailAndPassword(StudentLoginForm studentLoginForm){
-
-        List<Student> studentList = studentMapper.findStudentByEmailAndPassword(studentLoginForm.getStudentEmail(), studentLoginForm.getStudentPassword());
-
-        if(studentList.size() == 0){
-            return null;
-        }
-
-        Student student = studentList.get(0);
-
-        return student;
-    }
+//    /**
+//     * 受講生ログイン機能.
+//     * @param studentLoginForm
+//     * @return
+//     */
+//    public Student findStudentByEmail(StudentLoginForm studentLoginForm){
+//
+//        List<Student> studentList = studentMapper.findStudentByEmail(studentLoginForm.getStudentEmail());
+//
+//        if(studentList.size() == 0){
+//            return null;
+//        }
+//
+//        Student student = studentList.get(0);
+//
+//        return student;
+//    }
 
 
     /**

@@ -37,6 +37,7 @@
 							<div class="form-group">
 								<div class="col-sm-12">
 									<select class="form-control" v-model="selected" v-on:change="preview">
+											<option selected>日付を選んでくだい</option>
 										<span th:each="day : ${daysList}">
 											<option th:text="${day}">2016/07/02</option>
 										</span>
@@ -50,7 +51,7 @@
 				<div class="well">
 					<form method="post" action="register_daily_report.html">
 						<fieldset>
-							<legend>{{ date }}の鈴木一郎さんの日報</legend>
+							<legend>{{ date }}鈴木一郎さんの日報</legend>
 							<div class="form-group">
 								<div class="row">
 									<div class="col-sm-12">

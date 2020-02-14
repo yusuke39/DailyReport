@@ -1,4 +1,4 @@
-package com.example.DailyReport.security;
+package com.example.DailyReport.security.Admin;
 
 
 import com.example.DailyReport.domain.Admin;

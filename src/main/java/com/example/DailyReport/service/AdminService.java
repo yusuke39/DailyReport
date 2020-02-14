@@ -211,12 +211,15 @@ public class AdminService {
      */
     public void insertStudent(List<Student> studentList){
 
+        BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
+
         for(Student students : studentList){
+            System.out.println(students.getPassword());
             Student student = new Student();
             student.setName(students.getName());
             student.setKana(students.getKana());
             student.setEmail(students.getEmail());
-            student.setPassword(students.getPassword());
+            student.setPassword(bCryptPasswordEncoder.encode(students.getPassword()));
             student.setCompanyId(1);
             adminMapper.insertStudents(student);
         }

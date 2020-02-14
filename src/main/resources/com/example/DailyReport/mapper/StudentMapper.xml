@@ -4,9 +4,10 @@
 
 <mapper namespace="com.example.DailyReport.mapper.StudentMapper">
 
+
     <!-- 生徒テーブルから１件検索する-->
-    <select id="findStudentByEmailAndPassword" resultType="com.example.DailyReport.domain.Student">
-        select id,name,kana,email,password,company_id from students where email=#{email} and password=#{password};
+    <select id="findStudentByEmail" resultType="com.example.DailyReport.domain.Student">
+        select id,name,kana,email,password,company_id from students where email=#{email};
     </select>
 
 

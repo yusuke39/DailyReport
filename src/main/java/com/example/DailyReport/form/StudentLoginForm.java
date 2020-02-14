@@ -2,15 +2,16 @@ package com.example.DailyReport.form;
 
 public class StudentLoginForm {
 
-    private String studentEmail;
-    private String studentPassword;
+    /* 受講生メールアドレス*/
+    private String email;
+    /* 受講生パスワード*/
+    private String password;
 
 
-    public StudentLoginForm(String studentEmail, String studentPassword) {
-        this.studentEmail = studentEmail;
-        this.studentPassword = studentPassword;
+    public StudentLoginForm(String email, String password) {
+        this.email = email;
+        this.password = password;
     }
-
 
     public StudentLoginForm() {
     }
@@ -18,25 +19,25 @@ public class StudentLoginForm {
     @Override
     public String toString() {
         return "StudentLoginForm{" +
-                "studentEmail='" + studentEmail + '\'' +
-                ", studentPassword='" + studentPassword + '\'' +
+                "email='" + email + '\'' +
+                ", password='" + password + '\'' +
                 '}';
     }
 
-    public String getStudentEmail() {
-        return studentEmail;
+    public String getEmail() {
+        return email;
     }
 
-    public void setStudentEmail(String studentEmail) {
-        this.studentEmail = studentEmail;
+    public void setEmail(String email) {
+        this.email = email;
     }
 
-    public String getStudentPassword() {
-        return studentPassword;
+    public String getPassword() {
+        return password;
     }
 
-    public void setStudentPassword(String studentPassword) {
-        this.studentPassword = studentPassword;
+    public void setPassword(String password) {
+        this.password = password;
     }
 }
 

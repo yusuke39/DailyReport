@@ -14,7 +14,7 @@ public interface StudentMapper {
      * 生徒テーブルから１件検索する.
      * @return
      */
-    public List<Student> findStudentByEmailAndPassword(String email, String password);
+    public List<Student> findStudentByEmail(String email);
 
 
     /**

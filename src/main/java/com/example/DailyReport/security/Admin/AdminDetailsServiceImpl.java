@@ -1,7 +1,8 @@
-package com.example.DailyReport.security;
+package com.example.DailyReport.security.Admin;
 
 import com.example.DailyReport.domain.Admin;
 import com.example.DailyReport.mapper.AdminMapper;
+import com.example.DailyReport.security.Admin.LoginAdmin;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -13,7 +14,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
-@Component
+@Component("ADMIN")
 public class AdminDetailsServiceImpl implements UserDetailsService {
 
     @Autowired
@@ -22,6 +23,7 @@ public class AdminDetailsServiceImpl implements UserDetailsService {
 
     @Override
     public LoginAdmin loadUserByUsername(String email) throws UsernameNotFoundException {
+
         if(adminMapper.findAdmin(email).size() == 0){
             throw new UsernameNotFoundException("メールアドレスかパスワードが不正です");
         }

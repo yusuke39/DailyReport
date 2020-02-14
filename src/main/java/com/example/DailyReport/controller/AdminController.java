@@ -5,7 +5,7 @@ import com.example.DailyReport.domain.Company;
 import com.example.DailyReport.domain.Student;
 import com.example.DailyReport.form.*;
 import com.example.DailyReport.mapper.AdminMapper;
-import com.example.DailyReport.security.LoginAdmin;
+import com.example.DailyReport.security.Admin.LoginAdmin;
 import com.example.DailyReport.service.AdminService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
