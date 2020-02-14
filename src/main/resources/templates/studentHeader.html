@@ -38,6 +38,7 @@
                     <li class="active"><a th:href="@{/student/studentTrainingList}">研修コース</a></li>
                 </ul>
                 <p class="navbar-text navbar-right">
+                    こんにちは&nbsp;:&nbsp;<span sec:authentication="principal.student.name"></span>さん
                     <a href="admin_login.html" class="navbar-link">パスワード変更</a> <a
                         href="student_login.html" class="navbar-link">ログアウト</a>
                 </p>

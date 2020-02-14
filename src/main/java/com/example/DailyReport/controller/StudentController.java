@@ -58,6 +58,8 @@ public class StudentController {
 
         List<Student> studentList = studentService.findAllTrainingRelationStudentByStudentId(loginStudent.getStudent().getId());
 
+        model.addAttribute("studentId", loginStudent.getStudent().getId());
+
         model.addAttribute("student",studentList.get(0));
 
         return"student/student_training_list";
@@ -72,12 +74,12 @@ public class StudentController {
      * @return
      */
     @RequestMapping("/studentDairyReportRegister")
-    public String studentDairyReportRegister(Model model){
+    public String studentDairyReportRegister(Model model, @AuthenticationPrincipal LoginStudent loginStudent){
 
         //受講生のIDをクエリから取得
         String id = httpServletRequest.getParameter("studentId");
         int studentId = Integer.parseInt(id);
-        model.addAttribute("studentId",studentId);
+        model.addAttribute("studentId",loginStudent.getStudent().getId());
         //研修のIDをクエリから取得
         String t_id = httpServletRequest.getParameter("trainingId");
         int trainingId = Integer.parseInt(t_id);

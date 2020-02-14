@@ -25,6 +25,11 @@ public class SearchDairyReportController {
     private HttpServletRequest httpServletRequest;
 
 
+    /**
+     * 日報を検索するAPI
+     * @return
+     * @throws ParseException
+     */
     @RequestMapping("/searchDairyReport")
     public List<DailyReport> searchDairyReport() throws ParseException {
 
