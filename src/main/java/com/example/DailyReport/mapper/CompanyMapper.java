@@ -38,6 +38,8 @@ public interface CompanyMapper {
      */
     public Company findCompanyByCompanyId(int companyId);
 
+    public CompanyMember findCompanyMemberByEmail(String email);
+
 
     /**
      * 企業情報をinsertする.

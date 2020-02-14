@@ -50,8 +50,15 @@
         </collection>
     </resultMap>
 
+
+    <!-- 企業をIDで検索する-->
     <select id="findCompanyByCompanyId" resultType="com.example.DailyReport.domain.Company">
         select id,name,kana,remarks from companies where id = #{companyId}
+    </select>
+
+
+    <select id="findCompanyMemberByEmail" resultType="com.example.DailyReport.domain.CompanyMember">
+        select id,name,kana,email,password from company_members where email = #{email};
     </select>
 
 

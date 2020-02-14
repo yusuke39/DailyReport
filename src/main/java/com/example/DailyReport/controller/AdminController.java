@@ -52,7 +52,7 @@ public class AdminController {
     public String loginPage(Model model, @RequestParam(required = false) String error) {
 
         if(error != null){
-            model.addAttribute("パスワードかメールアドレスが不正です");
+            model.addAttribute("loginError","パスワードかメールアドレスが不正です");
         }
 
         return "admin/admin_login";
