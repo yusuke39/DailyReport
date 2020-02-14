@@ -3,6 +3,7 @@ package com.example.DailyReport.security.CompanyMmember;
 import com.example.DailyReport.domain.CompanyMember;
 import com.example.DailyReport.domain.Student;
 import com.example.DailyReport.mapper.CompanyMapper;
+import com.example.DailyReport.mapper.CompanyMemberMapper;
 import com.example.DailyReport.mapper.StudentMapper;
 import com.example.DailyReport.security.Student.LoginStudent;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,13 +23,13 @@ import java.util.List;
 public class CompanyMemberDetailServiceImpl implements UserDetailsService {
 
     @Autowired
-    private CompanyMapper companyMapper;
+    private CompanyMemberMapper companyMemberMapper;
 
 
     @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
 
-        CompanyMember companyMember = companyMapper.findCompanyMemberByEmail(email);
+        CompanyMember companyMember = companyMemberMapper.findCompanyMemberByEmail(email);
 
         Collection<GrantedAuthority> authorityList = new ArrayList<>();
         authorityList.add(new SimpleGrantedAuthority("COMPANYMEMBER"));

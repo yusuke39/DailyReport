@@ -131,6 +131,9 @@ public class SecurityConfig  {
     }
 
 
+    /**
+     * 企業担当者用セキュリティ
+     */
     @Configuration
     @Order(3)
     public static class CompanySecurity extends WebSecurityConfigurerAdapter{
@@ -177,6 +180,5 @@ public class SecurityConfig  {
                     .passwordEncoder(new BCryptPasswordEncoder());
         }
     }
-
 
 }

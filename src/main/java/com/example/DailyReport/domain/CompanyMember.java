@@ -12,13 +12,16 @@ public class CompanyMember {
     private String email;
     /* パスワード*/
     private String password;
+    /* 企業ID*/
+    private Integer company_id;
 
-    public CompanyMember(Integer id, String name, String kana, String email, String password) {
+    public CompanyMember(Integer id, String name, String kana, String email, String password, Integer company_id) {
         this.id = id;
         this.name = name;
         this.kana = kana;
         this.email = email;
         this.password = password;
+        this.company_id = company_id;
     }
 
     public CompanyMember() {
@@ -26,12 +29,13 @@ public class CompanyMember {
 
     @Override
     public String toString() {
-        return "CompanyMembers{" +
+        return "CompanyMember{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
                 ", kana='" + kana + '\'' +
                 ", email='" + email + '\'' +
                 ", password='" + password + '\'' +
+                ", company_id=" + company_id +
                 '}';
     }
 
@@ -73,5 +77,13 @@ public class CompanyMember {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public Integer getCompany_id() {
+        return company_id;
+    }
+
+    public void setCompany_id(Integer company_id) {
+        this.company_id = company_id;
     }
 }

@@ -57,11 +57,6 @@
     </select>
 
 
-    <select id="findCompanyMemberByEmail" resultType="com.example.DailyReport.domain.CompanyMember">
-        select id,name,kana,email,password from company_members where email = #{email};
-    </select>
-
-
     <!-- 企業情報をinsertする-->
     <insert id="insertCompany">
         insert into companies (name, kana, remarks) values (#{name}, #{kana}, #{remarks});
