@@ -12,6 +12,7 @@ import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -48,7 +49,11 @@ public class AdminController {
      * @return
      */
     @RequestMapping("/loginPage")
-    public String login() {
+    public String loginPage(Model model, @RequestParam(required = false) String error) {
+
+        if(error != null){
+            model.addAttribute("パスワードかメールアドレスが不正です");
+        }
 
         return "admin/admin_login";
     }

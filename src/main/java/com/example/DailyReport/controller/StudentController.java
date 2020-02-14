@@ -41,7 +41,7 @@ public class StudentController {
     public String loginPage(Model model, @RequestParam(required = false) String error){
 
         if(error != null){
-            model.addAttribute("aaaaaaaaaaaa");
+            model.addAttribute("パスワードかメールアドレスが不正です");
         }
 
         return "student/student_login";
