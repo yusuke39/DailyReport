@@ -1,5 +1,6 @@
 package com.example.DailyReport.controller;
 
+import com.example.DailyReport.domain.DailyReport;
 import com.example.DailyReport.domain.Student;
 import com.example.DailyReport.domain.Training;
 import com.example.DailyReport.service.CompanyMemberService;
@@ -49,6 +50,17 @@ public class CompanyMemberController {
         model.addAttribute("trainingList",trainingList);
 
         return "company/company_training_list";
+    }
+
+
+    @RequestMapping("/adminViewDailyReport")
+    public String adminViewDailyReport(){
+
+        List<DailyReport> dailyReportList = companyMemberService.findDairyReportAndStudentAndTraining(9, 5);
+
+        System.out.println(dailyReportList);
+
+        return "admin/admin_view_daily_report";
     }
 
 

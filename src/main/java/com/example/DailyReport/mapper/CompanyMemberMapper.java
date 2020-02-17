@@ -1,6 +1,7 @@
 package com.example.DailyReport.mapper;
 
 import com.example.DailyReport.domain.CompanyMember;
+import com.example.DailyReport.domain.DailyReport;
 import com.example.DailyReport.domain.Student;
 import com.example.DailyReport.domain.Training;
 import org.apache.ibatis.annotations.Mapper;
@@ -13,7 +14,7 @@ public interface CompanyMemberMapper {
 
 
     /**
-     * 企業担当者を１件検索する
+     * 企業担当者を１件検索する.
      * @param email
      * @return
      */
@@ -21,10 +22,18 @@ public interface CompanyMemberMapper {
 
 
     /**
-     * 企業（企業担当者）に紐づいている、担当者、受講生、研修、講師を受講生の企業IDにて検索する
+     * 企業（企業担当者）に紐づいている、担当者、受講生、研修、講師を受講生の企業IDにて検索する.
      * @param companyId
      * @return
      */
     public List<Training> findAllTrainingRelationCompanyByCompanyId(int companyId);
+
+
+    /**
+     * 研修IDを使って、日報、受講生、研修を検索する.
+     * @param trainingId
+     * @return
+     */
+    public List<DailyReport> findDairyReportAndStudentAndTraining(int trainingId, int companyId);
 
 }

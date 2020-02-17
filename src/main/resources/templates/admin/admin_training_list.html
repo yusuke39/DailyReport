@@ -57,7 +57,7 @@
 		<div class="row">
 			<div
 				class="table-responsive col-lg-offset-1 col-lg-10 col-md-offset-1 col-md-10 col-sm-10 col-xs-12">
-				<a type="submit" class="btn btn-primary" th:href="@{/training/adminTrainingDetail}">新規登録</a>
+				<a type="submit" class="btn btn-primary" th:href="@{/admin/adminTrainingDetail}">新規登録</a>
 			</div>
 		</div>
 		<!-- table -->
@@ -83,7 +83,7 @@
 							<td th:text="${training.instructor.name}">鈴木一郎</td>
 							<td><form action="admin_view_daily_report.html" method="post"><button type="submit">日報</button></form></td>
 							<td><form action="admin_view_weekly_report.html" method="post"><button type="submit">週報</button></form></td>
-							<td><a th:href="@{/training/adminTrainingDetailEdit(trainingId=${training.id},
+							<td><a th:href="@{/admin/adminTrainingDetailEdit(trainingId=${training.id},
 											subInstructorId1=${training.subInstructorId1},
 											subInstructorId2=${training.subInstructorId2},
 											subInstructorId3=${training.subInstructorId3})}"

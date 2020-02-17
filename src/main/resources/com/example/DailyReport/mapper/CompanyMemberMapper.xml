@@ -69,6 +69,47 @@
         </collection>
     </resultMap>
 
+    <!-- 研修IDを使って、研修と企業に紐づいている受講生と日報を持ってくる-->
+    <select id="findDairyReportAndStudentAndTraining" resultMap="dairyReportResult">
+        select t.id t_id, t.start_date t_start_date, t.end_date t_end_date, t.name t_name, t.instructor_id t_instructorId, t.sub_instructor_id1 t_subInstructorId1,
+        t.sub_instructor_id2 t_subInstructorId2, t.sub_instructor_id3 t_subInstructorId3, dr.id dr_id, dr.date dr_date, dr.training_id dr_trainingId, dr.student_id dr_studentId,
+        dr.content dr_content, dr.intelligibility dr_intelligibility, dr.detail_intelligibillity dr_detailIntelligibillity, dr.about_instructor dr_aboutInstructor,
+        dr.question dr_question, s.id s_id, s.name s_name, s.kana s_kana, s.email s_email, s.password s_password, s.company_id s_companyId
+        from daily_reports dr
+        left outer join trainings t on dr.training_id = t.id
+        left outer join students s on s.id = dr.student_id
+        left outer join companies c on c.id = s.company_id
+        where dr.training_id = #{trainingId}
+        and s.company_id = #{companyId};
+    </select>
 
-
+    <resultMap id="dairyReportResult" type="com.example.DailyReport.domain.DailyReport">
+        <result property="id" column="dr_id"/>
+        <result property="date" column="dr_date"/>
+        <result property="trainingId" column="dr_trainingId"/>
+        <result property="studentId" column="dr_studentid"/>
+        <result property="content" column="dr_content"/>
+        <result property="intelligibility" column="dr_intelligibility"/>
+        <result property="detailIntelligibility" column="dr_detailIntelligibillity"/>
+        <result property="aboutInstructor" column="dr_aboutInstructor"/>
+        <result property="question" column="dr_question"/>
+        <association property="training">
+            <result property="id" column="t_id"/>
+            <result property="startDate" column="t_startDate"/>
+            <result property="endDate" column="t_endDate"/>
+            <result property="name" column="t_name"/>
+            <result property="instructorId" column="t_instructorId"/>
+            <result property="subInstructorId1" column="t_subInstructorId1"/>
+            <result property="subInstructorId2" column="t_subInstructorId2"/>
+            <result property="subInstructorId3" column="t_subInstructorId3"/>
+        </association>
+        <association property="student">
+            <result property="id" column="s_id"/>
+            <result property="name" column="s_name"/>
+            <result property="kana" column="s_kana"/>
+            <result property="email" column="s_email"/>
+            <result property="password" column="s_password"/>
+            <result property="companyId" column="s_companyId"/>
+        </association>
+    </resultMap>
 </mapper>

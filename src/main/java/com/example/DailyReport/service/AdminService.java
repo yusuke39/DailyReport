@@ -5,7 +5,7 @@ import com.example.DailyReport.domain.AdminsCompanies;
 import com.example.DailyReport.domain.Company;
 import com.example.DailyReport.domain.Student;
 import com.example.DailyReport.form.AdminEditForm;
-import com.example.DailyReport.form.LoginAdmin;
+import com.example.DailyReport.form.LoginAdminForm;
 import com.example.DailyReport.form.RegisterAdminForm;
 import com.example.DailyReport.mapper.AdminMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,7 +29,7 @@ public class AdminService {
      * @param loginAdmin
      * @return 検索した１件の管理者情報.
      */
-    public List<Admin> findAdmin(LoginAdmin loginAdmin){
+    public List<Admin> findAdmin(LoginAdminForm loginAdmin){
 
         BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
 

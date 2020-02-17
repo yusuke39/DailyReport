@@ -1,5 +1,6 @@
 package com.example.DailyReport.mapper;
 
+import com.example.DailyReport.domain.Admin;
 import com.example.DailyReport.domain.Company;
 import com.example.DailyReport.domain.CompanyMember;
 import com.example.DailyReport.form.CompanyMemberRegisterForm;
@@ -14,14 +15,14 @@ public interface CompanyMapper {
      * 企業、企業担当者、companies_company_membersを結合して、全件取得する.
      * @return
      */
-    List<Company> findAllCompanyMemberAndCompanies();
+    List<Admin> findAllCompanyMemberAndCompaniesByAdminId(int adminId);
 
 
     /**
-     * 企業担当IDで企業担当と紐づいている企業を１件検索する.
+     * 企業を全権検索する.
      * @return
      */
-    Company findCompanyMemberAndCompanyByMemberId(int companyMemberId);
+    List<Company> findAllCompanies();
 
 
     /**

@@ -1,18 +1,18 @@
 package com.example.DailyReport.form;
 
-public class LoginAdmin {
+public class LoginAdminForm {
 
     /*メールアドレス*/
     private String email;
     /*パスワード*/
     private String password;
 
-    public LoginAdmin(String email, String password) {
+    public LoginAdminForm(String email, String password) {
         this.email = email;
         this.password = password;
     }
 
-    public LoginAdmin() {
+    public LoginAdminForm() {
     }
 
     @Override

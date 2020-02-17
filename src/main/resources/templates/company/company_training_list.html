@@ -33,7 +33,7 @@
 							<td th:text="${#temporals.format(training.startDate, 'yyyy/MM/dd')} + '〜' + ${#temporals.format(training.endDate, 'yyyy/MM/dd')}">2016/04/01 ～ 2016/06/30</td>
 							<td th:text="${training.name}">〇〇企業様向け Java新人研修</td>
 							<td th:text="${training.instructor.name}">鈴木一郎</td>
-							<td><form action="../admin/admin_view_daily_report.html" method="post"><button type="submit">日報閲覧</button></form></td>
+							<td><a th:href="@{/companyMember/adminViewDailyReport(trainingId=${training.id})}"><button type="submit">日報閲覧</button></a></td>
 							<td><form action="../admin/admin_view_weekly_report.html" method="post"><button type="submit">週報閲覧</button></form></td>
 						</tr>
 

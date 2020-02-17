@@ -4,8 +4,23 @@
 
 <mapper namespace="com.example.DailyReport.mapper.CompanyMapper">
 
-    <!-- 企業担当者と企業一覧の全件検索 -->
-    <select id="findAllCompanyMemberAndCompanies" resultMap="CompanyResult">
+    <!-- 企業担当者と企業一覧のログインした管理者の関連する企業を全件検索 -->
+    <select id="findAllCompanyMemberAndCompaniesByAdminId" resultMap="adminCompaniesResult">
+        select
+        a.id a_id, a.name a_name, a.kana a_kana, a.email a_email, a.password a_password, a.can_show_all_company a_canShowAllCompany,
+        c.id c_id, c.name c_name, c.kana c_kana, c.remarks c_remarks, ccm.companies_id ccm_companies_id,
+        ccm.company_members_id ccm_company_members_id, cm.id cm_id, cm.name cm_name, cm.kana cm_kana, cm.email cm_email, cm.password cm_password
+        from admins a
+        left outer join admins_companies ac on ac.admins_id = a.id
+        left outer join companies c on c.id = ac.companies_id
+        left outer join companies_company_members ccm on ccm.companies_id = c.id
+        left outer join company_members cm on cm.id = ccm.company_members_id
+        where a.id = #{adminsId};
+    </select>
+
+
+    <!-- 企業と企業担当者を全権検索する-->
+    <select id="findAllCompanies" resultMap="CompanyResult">
         select c.id c_id, c.name c_name, c.kana c_kana, c.remarks c_remarks, ccm.companies_id ccm_companies_id,
         ccm.company_members_id ccm_company_members_id, cm.id cm_id, cm.name cm_name, cm.kana cm_kana, cm.email cm_email, cm.password cm_password
         from companies c
@@ -14,16 +29,6 @@
     </select>
 
 
-<!--    //////////使うかもだから取っておく/////////////-->
-<!--    &lt;!&ndash; 企業担当者IDで検索をかける&ndash;&gt;-->
-<!--    <select id="findCompanyMemberAndCompanyByMemberId" resultMap="CompanyResult">-->
-<!--        select c.id c_id, c.name c_name, c.kana c_kana, c.remarks c_remarks, ccm.companies_id ccm_companies_id,-->
-<!--        ccm.company_members_id ccm_company_members_id, cm.id cm_id, cm.name cm_name, cm.kana cm_kana, cm.email cm_email, cm.password cm_password-->
-<!--        from companies c-->
-<!--        left outer join companies_company_members ccm on ccm.companies_id = c.id-->
-<!--        left outer join company_members cm on cm.id = ccm.company_members_id-->
-<!--        where ccm.company_members_id=#{companyMembersId};-->
-<!--    </select>-->
 
     <!-- 企業IDで検索をかける-->
     <select id="findCompanyMemberAndCompanyByCompanyId" resultMap="CompanyResult">
@@ -34,6 +39,29 @@
         left outer join company_members cm on cm.id = ccm.company_members_id
         where ccm.companies_id=#{companiesId};
     </select>
+
+
+    <resultMap id="adminCompaniesResult" type="com.example.DailyReport.domain.Admin">
+        <id property="id" column="a_id"/>
+        <result property="name" column="a_name"/>
+        <result property="kana" column="a_kana"/>
+        <result property="email" column="a_email"/>
+        <result property="password" column="a_password"/>
+        <result property="canShowAllCompany" column="a_canShowAllCompany"/>
+        <collection property="companyList" ofType="com.example.DailyReport.domain.Company">
+            <id property="id" column="c_id"/>
+            <result property="name" column="c_name"/>
+            <result property="kana" column="c_kana"/>
+            <result property="remarks" column="c_remarks"/>
+            <collection property="companyMembersList" ofType="com.example.DailyReport.domain.CompanyMember">
+                <result property="id" column="cm_id"/>
+                <result property="name" column="cm_name"/>
+                <result property="kana" column="cm_kana"/>
+                <result property="email" column="cm_email"/>
+                <result property="password" column="cm_password"/>
+            </collection>
+        </collection>
+    </resultMap>
 
 
     <resultMap id="CompanyResult" type="com.example.DailyReport.domain.Company">

@@ -1,10 +1,13 @@
 package com.example.DailyReport.controller;
 
+import com.example.DailyReport.domain.Admin;
 import com.example.DailyReport.domain.Company;
 import com.example.DailyReport.form.CompanyMemberRegisterForm;
 import com.example.DailyReport.form.CompanyRegisterForm;
+import com.example.DailyReport.security.Admin.LoginAdmin;
 import com.example.DailyReport.service.CompanyService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -14,7 +17,7 @@ import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 @Controller
-@RequestMapping("/company")
+@RequestMapping("/admin")
 public class CompanyController {
 
     @Autowired
@@ -30,12 +33,17 @@ public class CompanyController {
      * @return
      */
     @RequestMapping("/companyList")
-    public String companyList(Model model) {
+    public String companyList(Model model, @AuthenticationPrincipal LoginAdmin loginAdmin) {
 
-        List<Company> companiesAndCompanyMemberList = companyService.findCompanyAndCompanyMember();
+        List<Admin> adminAndCompaniesList = companyService.findCompanyAndCompanyMember(loginAdmin.getAdmin().getId());
 
+        //もし、全ての企業が見れる権限があれえば、会社を全権表示させる
+        if(adminAndCompaniesList.get(0).isCanShowAllCompany() == true){
+            List<Company> companyList = companyService.findAllCompanies();
+            model.addAttribute("companyList", companyList);
+        }
 
-        model.addAttribute("companiesAndCompanyMemberList" ,companiesAndCompanyMemberList);
+        model.addAttribute("adminAndCompaniesList" ,adminAndCompaniesList);
 
         return "admin/company_list";
     }
@@ -61,7 +69,7 @@ public class CompanyController {
 
         companyService.insertCompany(companyRegisterForm);
 
-        return "redirect:/companyList";
+        return "redirect:/admin/companyList";
     }
 
 
@@ -99,7 +107,7 @@ public class CompanyController {
 
         companyService.insertCompanyMember(companyRegisterForm);
 
-        return "redirect:/companyList";
+        return "redirect:/admin/companyList";
     }
 
 
@@ -134,8 +142,10 @@ public class CompanyController {
 
         companyService.updateCompany(companyRegisterForm);
 
-        return "redirect:/companyList";
+        return "redirect:/admin/companyList";
     }
+
+
 
 
 }

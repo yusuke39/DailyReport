@@ -47,7 +47,7 @@
 		<div class="row">
 			<div
 				class="table-responsive col-lg-offset-1 col-lg-10 col-md-offset-1 col-md-10 col-sm-10 col-xs-12">
-				<form method="post" th:action="@{/company/companyDetailRegister}">
+				<form method="post" th:action="@{/admin/companyDetailRegister}">
 				<button type="submit" class="btn btn-primary">新規登録</button>
 				</form>
 			</div>
@@ -67,18 +67,35 @@
 					<span class="result"></span>
 					</thead>
 					<tbody>
-						<tr th:each="company : ${companiesAndCompanyMemberList}">
+						<tr th:each="company : ${companyList}">
 							<td th:text="${company.name}">株式会社AAA</td>
 							<td th:if="${company.companyMembersList.size() >= 1}">
+							<span th:each="companyMember : ${company.companyMembersList}">
+								<div th:text="${companyMember.name} + '(' + ${companyMember.email} + ')'"><br></div>
+							</span>
+							</td>
+							<td th:if="${company.companyMembersList.size() == 0}">
+								担当者が設定されていません
+							</td>
+							<td><a th:href="@{/admin/companyEdit} + '?' + 'companyId' + '=' + ${company.id}" style="color:black"><button type="submit">企業編集</button></a></td>
+							<td><a th:href="@{/admin/companyMemberDetailRegister} + '?' + 'companyId' + '=' + ${company.id}" style="color:black"><button type="submit">担当者登録</button></a></td>
+							</span>
+							</span>
+						</tr>
+						<tr th:each="list : ${adminAndCompaniesList}">
+							<span th:each="company : ${list.companyList}">
+								<td th:text="${company.name}">株式会社AAA</td>
+								<td th:if="${company.companyMembersList.size() >= 1}">
 								<span th:each="companyMember : ${company.companyMembersList}">
 									<div th:text="${companyMember.name} + '(' + ${companyMember.email} + ')'"><br></div>
 								</span>
-							</td>
-							<td th:if="${company.companyMembersList.size() == 0}">
-
-							</td>
-							<td><a th:href="@{/company/companyEdit} + '?' + 'companyId' + '=' + ${company.id}" style="color:black"><button type="submit">企業編集</button></a></td>
-							<td><a th:href="@{/company/companyMemberDetailRegister} + '?' + 'companyId' + '=' + ${company.id}" style="color:black"><button type="submit">担当者登録</button></a></td>
+								</td>
+								<td th:if="${company.companyMembersList.size() == 0}">
+								担当者が設定されていません
+								</td>
+								<td><a th:href="@{/admin/companyEdit} + '?' + 'companyId' + '=' + ${company.id}" style="color:black"><button type="submit">企業編集</button></a></td>
+								<td><a th:href="@{/admin/companyMemberDetailRegister} + '?' + 'companyId' + '=' + ${company.id}" style="color:black"><button type="submit">担当者登録</button></a></td>
+							</span>
 						</tr>
 					</tbody>
 				</table>

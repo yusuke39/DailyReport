@@ -1,5 +1,6 @@
 package com.example.DailyReport.service;
 
+import com.example.DailyReport.domain.Admin;
 import com.example.DailyReport.domain.Company;
 import com.example.DailyReport.domain.CompanyMember;
 import com.example.DailyReport.form.CompanyMemberRegisterForm;
@@ -22,22 +23,22 @@ public class CompanyService {
      * 企業一覧と企業担当者を全件検索する.
      * @return
      */
-    public List<Company> findCompanyAndCompanyMember(){
+    public List<Admin> findCompanyAndCompanyMember(int adminId){
 
-        List<Company> companiesAndCompanyMemberList = companyMapper.findAllCompanyMemberAndCompanies();
-
+        List<Admin> companiesAndCompanyMemberList = companyMapper.findAllCompanyMemberAndCompaniesByAdminId(adminId);
         return companiesAndCompanyMemberList;
     }
 
 
+    /**
+     * 会社を全権検索する.
+     * @return
+     */
+    public List<Company> findAllCompanies(){
+        List<Company> companyList = companyMapper.findAllCompanies();
+        return companyList;
+    }
 
-//    public Company findCompanyMemberAndCompanyByMemberId(int companyMemberId){
-//
-//        //ログインしている担当者に紐づいている企業を検索する
-//        Company company = companyMapper.findCompanyMemberAndCompanyByMemberId(companyMemberId);
-//
-//        return company;
-//    }
 
 
     /**

@@ -13,7 +13,7 @@ import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 @Controller
-@RequestMapping("/instructor")
+@RequestMapping("/admin")
 public class InstructorController {
 
     @Autowired
@@ -59,7 +59,7 @@ public class InstructorController {
 
         instructorService.insertInstructor(instructorRegisterForm);
 
-        return "redirect:/instructor/instructorList";
+        return "redirect:/admin/instructorList";
     }
 
 
@@ -91,6 +91,6 @@ public class InstructorController {
 
         instructorService.updateInstructor(instructorRegisterForm);
 
-        return "redirect:/instructor/instructorList";
+        return "redirect:/admin/instructorList";
     }
 }

@@ -36,10 +36,10 @@
             <div class="collapse navbar-collapse"
                  id="bs-example-navbar-collapse-1">
                 <ul class="nav navbar-nav">
-                    <li class="headerList"><a th:href="@{/training/adminTrainingList}">研修コース</a></li>
+                    <li class="headerList"><a th:href="@{/admin/adminTrainingList}">研修コース</a></li>
                     <li class="headerList"><a th:href="@{/admin/operationManager}">運営管理者</a></li>
-                    <li class="headerList"><a th:href="@{/company/companyList}">企業(企業担当者)</a></li>
-                    <li class="headerList"><a th:href="@{/instructor/instructorList}">講師</a></li>
+                    <li class="headerList"><a th:href="@{/admin/companyList}">企業(企業担当者)</a></li>
+                    <li class="headerList"><a th:href="@{/admin/instructorList}">講師</a></li>
                 </ul>
                 <p class="navbar-text navbar-right">
                     こんにちは&nbsp;:&nbsp;<span sec:authentication="principal.admin.name"></span>さん

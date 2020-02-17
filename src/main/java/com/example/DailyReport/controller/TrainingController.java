@@ -14,7 +14,7 @@ import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 @Controller
-@RequestMapping("/training")
+@RequestMapping("/admin")
 public class TrainingController {
 
     @Autowired
@@ -67,7 +67,7 @@ public class TrainingController {
 
         trainingService.insertTraining(trainingRegisterForm);
 
-        return "redirect:/training/adminTrainingList";
+        return "redirect:/admin/adminTrainingList";
     }
 
 
@@ -163,7 +163,7 @@ public class TrainingController {
 
         trainingService.updateTraining(trainingRegisterForm);
 
-        return "redirect:/training/adminTrainingList";
+        return "redirect:/admin/adminTrainingList";
     }
 
 
