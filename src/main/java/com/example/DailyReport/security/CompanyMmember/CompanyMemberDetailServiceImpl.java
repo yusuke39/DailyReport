@@ -19,7 +19,7 @@ import java.util.Collection;
 import java.util.List;
 
 
-@Component("COMPANYMEMBER")
+@Component("COMPANY_MEMBER")
 public class CompanyMemberDetailServiceImpl implements UserDetailsService {
 
     @Autowired
@@ -32,7 +32,7 @@ public class CompanyMemberDetailServiceImpl implements UserDetailsService {
         CompanyMember companyMember = companyMemberMapper.findCompanyMemberByEmail(email);
 
         Collection<GrantedAuthority> authorityList = new ArrayList<>();
-        authorityList.add(new SimpleGrantedAuthority("COMPANYMEMBER"));
+        authorityList.add(new SimpleGrantedAuthority("COMPANY_MEMBER"));
         return new LoginCompanyMember(companyMember,authorityList);
     }
 

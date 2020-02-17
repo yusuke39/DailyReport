@@ -5,7 +5,7 @@
 <mapper namespace="com.example.DailyReport.mapper.StudentMapper">
 
 
-    <!-- 生徒テーブルから１件検索する-->
+    <!-- 受講生テーブルから１件検索する-->
     <select id="findStudentByEmail" resultType="com.example.DailyReport.domain.Student">
         select id,name,kana,email,password,company_id from students where email=#{email};
     </select>

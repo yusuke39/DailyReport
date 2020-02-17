@@ -1,6 +1,6 @@
 package com.example.DailyReport.service;
 
-import com.example.DailyReport.domain.Student;
+
 import com.example.DailyReport.domain.Training;
 import com.example.DailyReport.mapper.CompanyMemberMapper;
 import org.springframework.beans.factory.annotation.Autowired;

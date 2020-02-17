@@ -87,7 +87,6 @@ public class SecurityConfig  {
     @Order(2)
     public static class StudentSecurity extends WebSecurityConfigurerAdapter{
 
-
         @Autowired
         @Qualifier("STUDENT")
         StudentDetailServiceImpl studentDetailService;
@@ -107,8 +106,7 @@ public class SecurityConfig  {
                     .anyRequest()
                     .authenticated()
                     .and();
-            http
-                    .formLogin()
+            http.formLogin()
                     .loginProcessingUrl("/student/login")//ログイン処理をするURL
                     .loginPage("/student/loginPage")//ログイン画面のURL
                     .failureUrl("/student/loginPage?error")//ログイン失敗時
@@ -116,11 +114,9 @@ public class SecurityConfig  {
                     .usernameParameter("email")//ユーザーのパラメーター名
                     .passwordParameter("password")
                     .and();
-            http
-                    .logout()
+            http.logout()
                     .logoutRequestMatcher(new AntPathRequestMatcher("/student/logout"))
-                    .logoutSuccessUrl("/student/loginPage")
-                    .and().csrf().disable();
+                    .logoutSuccessUrl("/student/loginPage");
         }
 
         @Autowired
@@ -131,54 +127,50 @@ public class SecurityConfig  {
     }
 
 
-    /**
-     * 企業担当者用セキュリティ
-     */
-    @Configuration
-    @Order(3)
-    public static class CompanySecurity extends WebSecurityConfigurerAdapter{
-
-
-        @Autowired
-        @Qualifier("COMPANYMEMBER")
-        CompanyMemberDetailServiceImpl companyMemberDetailService;
-
-        @Override
-        public void configure(WebSecurity web) throws Exception{
-            web.ignoring().antMatchers("/css/**", "/js/**", "/images/**");
-        }
-
-        @Override
-        protected void configure(HttpSecurity http) throws Exception{
-            http.antMatcher("/companyMember/**")
-                    .authorizeRequests()
-                    .antMatchers("/companyMember/loginPage").permitAll()
-                    .antMatchers("/companyMember/**")
-                    .hasAuthority("COMPANYMEMBER")
-                    .anyRequest()
-                    .authenticated()
-                    .and();
-            http
-                    .formLogin()
-                    .loginProcessingUrl("/companyMember/login")//ログイン処理をするURL
-                    .loginPage("/companyMember/loginPage")//ログイン画面のURL
-                    .failureUrl("/companyMember/loginPage?error")//ログイン失敗時
-                    .defaultSuccessUrl("/companyMember/companyTrainingList",true)//認証成功時のURL
-                    .usernameParameter("email")//ユーザーのパラメーター名
-                    .passwordParameter("password")
-                    .and();
-            http
-                    .logout()
-                    .logoutRequestMatcher(new AntPathRequestMatcher("/companyMember/logout"))
-                    .logoutSuccessUrl("/companyMember/loginPage")
-                    .and().csrf().disable();
-        }
-
-        @Autowired
-        public void configureGlobal(AuthenticationManagerBuilder ath) throws Exception{
-            ath.userDetailsService(this.companyMemberDetailService)
-                    .passwordEncoder(new BCryptPasswordEncoder());
-        }
-    }
-
+//    /**
+//     * 企業担当者用セキュリティ
+//     */
+//    @Configuration
+//    @Order(3)
+//    public static class CompanySecurity extends WebSecurityConfigurerAdapter{
+//
+//
+//        @Autowired
+//        @Qualifier("COMPANY_MEMBER")
+//        CompanyMemberDetailServiceImpl companyMemberDetailService;
+//
+//        @Override
+//        public void configure(WebSecurity web) throws Exception{
+//            web.ignoring().antMatchers("/css/**", "/js/**", "/images/**");
+//        }
+//
+//        @Override
+//        protected void configure(HttpSecurity http) throws Exception{
+//            http.antMatcher("/companyMember/**")
+//                    .authorizeRequests()
+//                    .antMatchers("/companyMember/loginPage").permitAll()
+//                    .antMatchers("/companyMember/**")
+//                    .hasAuthority("COMPANY_MEMBER")
+//                    .anyRequest()
+//                    .authenticated()
+//                    .and();
+//            http.formLogin()
+//                    .loginProcessingUrl("/companyMember/login")//ログイン処理をするURL
+//                    .loginPage("/companyMember/loginPage")//ログイン画面のURL
+//                    .failureUrl("/companyMember/loginPage?error")//ログイン失敗時
+//                    .defaultSuccessUrl("/companyMember/companyTrainingList",true)//認証成功時のURL
+//                    .usernameParameter("email")//ユーザーのパラメーター名
+//                    .passwordParameter("password")
+//                    .and();
+//            http.logout()
+//                    .logoutRequestMatcher(new AntPathRequestMatcher("/companyMember/logout"))
+//                    .logoutSuccessUrl("/companyMember/loginPage");
+//        }
+//
+//        @Autowired
+//        public void configureGlobal(AuthenticationManagerBuilder ath) throws Exception{
+//            ath.userDetailsService(this.companyMemberDetailService)
+//                    .passwordEncoder(new BCryptPasswordEncoder());
+//        }
+//    }
 }

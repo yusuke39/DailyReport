@@ -6,6 +6,7 @@ import org.springframework.security.core.userdetails.User;
 import java.util.Collection;
 
 public class LoginCompanyMember extends User {
+
     private final com.example.DailyReport.domain.CompanyMember CompanyMember;
 
     public LoginCompanyMember(com.example.DailyReport.domain.CompanyMember companyMember, Collection<GrantedAuthority> authorityList) {
