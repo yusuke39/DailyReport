@@ -102,14 +102,14 @@
             <result property="subInstructorId1" column="t_subInstructorId1"/>
             <result property="subInstructorId2" column="t_subInstructorId2"/>
             <result property="subInstructorId3" column="t_subInstructorId3"/>
-        </association>
-        <association property="student">
-            <result property="id" column="s_id"/>
-            <result property="name" column="s_name"/>
-            <result property="kana" column="s_kana"/>
-            <result property="email" column="s_email"/>
-            <result property="password" column="s_password"/>
-            <result property="companyId" column="s_companyId"/>
+            <collection property="studentList" ofType="com.example.DailyReport.domain.Student">
+                <result property="id" column="s_id"/>
+                <result property="name" column="s_name"/>
+                <result property="kana" column="s_kana"/>
+                <result property="email" column="s_email"/>
+                <result property="password" column="s_password"/>
+                <result property="companyId" column="s_companyId"/>
+            </collection>
         </association>
     </resultMap>
 </mapper>

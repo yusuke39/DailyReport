@@ -54,11 +54,13 @@ public class CompanyMemberController {
 
 
     @RequestMapping("/adminViewDailyReport")
-    public String adminViewDailyReport(){
+    public String adminViewDailyReport(Model model){
 
         List<DailyReport> dailyReportList = companyMemberService.findDairyReportAndStudentAndTraining(9, 5);
 
         System.out.println(dailyReportList);
+
+        model.addAttribute("dailyReportList", dailyReportList);
 
         return "admin/admin_view_daily_report";
     }
