@@ -34,6 +34,6 @@ public interface CompanyMemberMapper {
      * @param trainingId
      * @return
      */
-    public List<DailyReport> findDairyReportAndStudentAndTraining(int trainingId, int companyId);
+    public List<Training> findDairyReportAndStudentAndTraining(int trainingId, int companyId);
 
 }

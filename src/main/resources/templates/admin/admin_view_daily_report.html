@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="ja">
+<html lang="ja" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -70,37 +70,12 @@
 						<form method="post" action="#" class="form-horizontal">
 							<div class="form-group">
 								<div class="col-sm-12">
-									<select class="form-control">
-										<option selected="selected">2016/07/01</option>
-										<option>2016/07/02</option>
-										<option>2016/07/03</option>
-										<option>2016/07/04</option>
-										<option>2016/07/05</option>
-										<option>2016/07/06</option>
-										<option>2016/07/07</option>
-										<option>2016/07/08</option>
-										<option>2016/07/09</option>
-										<option>2016/07/10</option>
-										<option>2016/07/01</option>
-										<option>2016/07/02</option>
-										<option>2016/07/03</option>
-										<option>2016/07/04</option>
-										<option>2016/07/05</option>
-										<option>2016/07/06</option>
-										<option>2016/07/07</option>
-										<option>2016/07/08</option>
-										<option>2016/07/09</option>
-										<option>2016/07/10</option>
-										<option>2016/07/01</option>
-										<option>2016/07/02</option>
-										<option>2016/07/03</option>
-										<option>2016/07/04</option>
-										<option>2016/07/05</option>
-										<option>2016/07/06</option>
-										<option>2016/07/07</option>
-										<option>2016/07/08</option>
-										<option>2016/07/09</option>
-										<option>2016/07/10</option>
+<!--									v-on:change="preview"-->
+									<select class="form-control" v-model="selected">
+										<option selected>日付を選んでくだい</option>
+										<span th:each="day : ${daysList}">
+											<option th:text="${day}">2016/07/02</option>
+										</span>
 									</select>
 								</div>
 							</div>
@@ -116,25 +91,10 @@
 							<div class="form-group">
 								<div class="col-sm-12">
 									<select class="form-control">
-										<option selected="selected">山田太郎</option>
-										<option>山田次郎</option>
-										<option>山田三郎</option>
-										<option>山田四朗</option>
-										<option>山田次郎</option>
-										<option>山田三郎</option>
-										<option>山田四朗</option>
-										<option>山田次郎</option>
-										<option>山田三郎</option>
-										<option>山田四朗</option>
-										<option>山田次郎</option>
-										<option>山田三郎</option>
-										<option>山田四朗</option>
-										<option>山田次郎</option>
-										<option>山田三郎</option>
-										<option>山田四朗</option>
-										<option>山田次郎</option>
-										<option>山田三郎</option>
-										<option>山田四朗</option>
+										<option selected="selected">受講生を選択して下さい</option>
+										<span th:each="student : ${studentList}">
+											<option th:text="${student.name}">山田次郎</option>
+										</span>
 									</select>
 								</div>
 							</div>

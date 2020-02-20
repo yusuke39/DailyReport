@@ -34,11 +34,11 @@ public class CompanyMemberService {
      * @param trainingId
      * @return
      */
-    public List<DailyReport> findDairyReportAndStudentAndTraining(int trainingId, int companyId){
+    public List<Training> findDairyReportAndStudentAndTraining(int trainingId, int companyId){
 
-        List<DailyReport> dailyReportList = companyMemberMapper.findDairyReportAndStudentAndTraining(trainingId, companyId);
+        List<Training> trainingList = companyMemberMapper.findDairyReportAndStudentAndTraining(trainingId, companyId);
 
-        return dailyReportList;
+        return trainingList;
     }
 
 

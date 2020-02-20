@@ -4,6 +4,7 @@ import com.example.DailyReport.domain.DailyReport;
 import com.example.DailyReport.domain.Student;
 import com.example.DailyReport.domain.Training;
 import com.example.DailyReport.service.CompanyMemberService;
+import com.example.DailyReport.service.ReuseMethod;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -19,6 +20,9 @@ public class CompanyMemberController {
 
     @Autowired
     private CompanyMemberService companyMemberService;
+
+    @Autowired
+    private ReuseMethod reuseMethod;
 
 
     /**
@@ -53,14 +57,26 @@ public class CompanyMemberController {
     }
 
 
+    /**
+     * 日報閲覧の為に
+     * @param model
+     * @return
+     */
     @RequestMapping("/adminViewDailyReport")
     public String adminViewDailyReport(Model model){
 
-        List<DailyReport> dailyReportList = companyMemberService.findDairyReportAndStudentAndTraining(9, 5);
+        //研修IDと企業IDで該当の研修、受講生、日報を持ってくる
+        List<Training> trainingList = companyMemberService.findDairyReportAndStudentAndTraining(9, 5);
 
-        System.out.println(dailyReportList);
+        //ReuseMethod.javaのメソッドを使って、日付を計算する
+        List<String> daysList = reuseMethod.calculationDay(trainingList.get(0));
+        model.addAttribute("daysList",daysList);
 
-        model.addAttribute("dailyReportList", dailyReportList);
+        //受講生の一覧をドロップダウンで表示させる
+        List<Student> studentList = trainingList.get(0).getStudentList();
+        model.addAttribute("studentList",studentList);
+
+        model.addAttribute("dailyReportList", trainingList);
 
         return "admin/admin_view_daily_report";
     }

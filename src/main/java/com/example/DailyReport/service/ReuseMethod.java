@@ -1,12 +1,6 @@
 package com.example.DailyReport.service;
 
 import com.example.DailyReport.domain.Training;
-import org.apache.ibatis.annotations.Mapper;
-import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
